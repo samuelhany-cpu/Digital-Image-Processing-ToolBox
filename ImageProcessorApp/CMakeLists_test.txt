@@ -1,0 +1,16 @@
+cmake_minimum_required(VERSION 3.16)
+project(QtTest)
+
+set(CMAKE_CXX_STANDARD 14)
+
+# Find Qt6
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets)
+
+# Enable MOC
+set(CMAKE_AUTOMOC ON)
+
+# Create executable
+add_executable(qt_test qt_test.cpp)
+
+# Link Qt6
+target_link_libraries(qt_test Qt6::Core Qt6::Widgets)

@@ -6,7 +6,7 @@ using namespace cv;
 
 int Lab2() noexcept {
 	Mat img = imread("C:/Users/Samuel/Pictures/Cars.jpeg", 0);
-	cout << "Pixel Intensities = \n" << img << endl;
+	cout << "Pixel Intensities = /n" << img << endl;
 	cout << "img rows = " << img.rows << endl;
 	cout << "img cols = " << img.cols << endl;
 	cout << "Total no. of pixels = " << img.total() << endl;

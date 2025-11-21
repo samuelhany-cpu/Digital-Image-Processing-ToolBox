@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\build_simplified\simplified_main_autogen\mocs_compilation_Debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\simplified_main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\build_simplified\simplified_main_autogen\mocs_compilation_Release.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\build_simplified\simplified_main_autogen\mocs_compilation_MinSizeRel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\build_simplified\simplified_main_autogen\mocs_compilation_RelWithDebInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\build_simplified\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{7BF0FFD8-8DD0-337F-BE5B-CA5A500A9003}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

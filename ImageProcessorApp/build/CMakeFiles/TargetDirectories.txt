@@ -1,0 +1,4 @@
+C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/ImageProcessorApp.dir
+C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/INSTALL.dir
+C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/ZERO_CHECK.dir

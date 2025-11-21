@@ -1,0 +1,3 @@
+C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build_minimal/CMakeFiles/minimal_test.dir
+C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build_minimal/CMakeFiles/ALL_BUILD.dir
+C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build_minimal/CMakeFiles/ZERO_CHECK.dir
