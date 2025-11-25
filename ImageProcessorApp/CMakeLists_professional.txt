@@ -1,0 +1,217 @@
+cmake_minimum_required(VERSION 3.16)
+project(ImageProcessorApp VERSION 1.0 LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Windows-specific OpenCV configuration
+if(WIN32)
+    set(OpenCV_DIR "F:/OpenCV/opencv/build")
+    set(OpenCV_INCLUDE_DIRS "${OpenCV_DIR}/include")
+    set(OpenCV_LIB_DIR "${OpenCV_DIR}/x64/vc16/lib")
+    
+    # Find OpenCV libraries
+    file(GLOB OpenCV_LIBS "${OpenCV_LIB_DIR}/opencv_world*.lib")
+    
+    if(NOT OpenCV_LIBS)
+        message(FATAL_ERROR "OpenCV libraries not found in ${OpenCV_LIB_DIR}")
+    endif()
+    
+    message(STATUS "OpenCV libraries: ${OpenCV_LIBS}")
+    
+    set(OpenCV_FOUND TRUE)
+else()
+    find_package(OpenCV REQUIRED)
+endif()
+
+# Find Qt6
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets)
+
+# Enable automatic MOC, UIC, and RCC
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+# Source files organized by directory
+set(UI_SOURCES
+    src/ui/MainWindow.cpp
+)
+
+set(UI_HEADERS
+    src/ui/MainWindow.h
+)
+
+set(DIALOGS_SOURCES
+    src/dialogs/TransformDialog.cpp
+)
+
+set(DIALOGS_HEADERS
+    src/dialogs/TransformDialog.h
+)
+
+set(WIDGETS_SOURCES
+    src/widgets/ImageCanvas.cpp
+    src/widgets/HistogramWidget.cpp
+)
+
+set(WIDGETS_HEADERS
+    src/widgets/ImageCanvas.h
+    src/widgets/HistogramWidget.h
+)
+
+set(FILTERS_SOURCES
+    src/filters/ImageFilters.cpp
+)
+
+set(FILTERS_HEADERS
+    src/filters/ImageFilters.h
+)
+
+set(PROCESSING_SOURCES
+    src/processing/ImageProcessingLib.cpp
+    src/processing/TransformationsLib.cpp
+)
+
+set(PROCESSING_HEADERS
+    src/processing/ImageProcessingLib.h
+    src/processing/TransformationsLib.h
+)
+
+set(UTILS_SOURCES
+    src/utils/ImageUtils.cpp
+)
+
+set(UTILS_HEADERS
+    src/utils/ImageUtils.h
+)
+
+set(CORE_HEADERS
+    src/core/ImageProcessor.h
+)
+
+# Main application source
+set(MAIN_SOURCE
+    src/main.cpp
+)
+
+# Resources
+set(RESOURCES
+    resources/resources.qrc
+)
+
+# Combine all sources
+set(ALL_SOURCES
+    ${MAIN_SOURCE}
+    ${UI_SOURCES}
+    ${DIALOGS_SOURCES}
+    ${WIDGETS_SOURCES}
+    ${FILTERS_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${UTILS_SOURCES}
+)
+
+set(ALL_HEADERS
+    ${UI_HEADERS}
+    ${DIALOGS_HEADERS}
+    ${WIDGETS_HEADERS}
+    ${FILTERS_HEADERS}
+    ${PROCESSING_HEADERS}
+    ${UTILS_HEADERS}
+    ${CORE_HEADERS}
+)
+
+# Create executable
+add_executable(${PROJECT_NAME}
+    ${ALL_SOURCES}
+    ${ALL_HEADERS}
+    ${RESOURCES}
+)
+
+# Include directories
+target_include_directories(${PROJECT_NAME} PRIVATE
+    ${OpenCV_INCLUDE_DIRS}
+    src
+    src/ui
+    src/dialogs
+    src/widgets
+    src/filters
+    src/processing
+    src/utils
+    src/core
+)
+
+# Link libraries
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    Qt6::Core
+    Qt6::Widgets
+    ${OpenCV_LIBS}
+)
+
+# Windows specific settings
+if(WIN32)
+    # Set application icon
+    target_sources(${PROJECT_NAME} PRIVATE resources/icons/mexo_toolbox_logo.ico)
+    
+    # Copy Qt6 DLLs
+    set(QT_BIN_DIR "C:/Qt/6.7.3/msvc2019_64/bin")
+    set(QT_PLUGINS_DIR "C:/Qt/6.7.3/msvc2019_64/plugins")
+    
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${QT_BIN_DIR}/Qt6Core.dll"
+        "${QT_BIN_DIR}/Qt6Gui.dll"
+        "${QT_BIN_DIR}/Qt6Widgets.dll"
+        "${QT_BIN_DIR}/Qt6Network.dll"
+        "${QT_BIN_DIR}/Qt6OpenGL.dll"
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>
+        COMMENT "Copying Qt6 DLLs"
+    )
+    
+    # Copy Qt6 platform plugins
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory
+        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/platforms"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${QT_PLUGINS_DIR}/platforms/qwindows.dll"
+        "${QT_PLUGINS_DIR}/platforms/qminimal.dll"
+        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/platforms/"
+        COMMENT "Copying Qt6 platform plugins"
+    )
+    
+    # Copy Qt6 styles plugins
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory
+        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/styles"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${QT_PLUGINS_DIR}/styles/qwindowsvistastyle.dll"
+        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/styles/"
+        COMMENT "Copying Qt6 style plugins"
+    )
+    
+    # Copy OpenCV DLLs
+    file(GLOB OpenCV_DLLS "${OpenCV_DIR}/x64/vc16/bin/*.dll")
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${OpenCV_DLLS}
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>
+        COMMENT "Copying OpenCV DLLs"
+    )
+    
+    # Set Windows subsystem
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        WIN32_EXECUTABLE ON
+    )
+endif()
+
+# Installation
+install(TARGETS ${PROJECT_NAME}
+    RUNTIME DESTINATION bin
+)
+
+message(STATUS "===========================================")
+message(STATUS "Project: ${PROJECT_NAME}")
+message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "C++ Standard: ${CMAKE_CXX_STANDARD}")
+message(STATUS "Qt6 version: ${Qt6_VERSION}")
+message(STATUS "OpenCV directory: ${OpenCV_DIR}")
+message(STATUS "===========================================")

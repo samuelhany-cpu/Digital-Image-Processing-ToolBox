@@ -159,7 +159,7 @@ public:
             equalizeHist(currentImage, processedImage);
         }
         
-        cout << "? Histogram equalization applied!" << endl;
+        cout << "Histogram equalization applied!" << endl;
         showProcessedImageOption();
     }
     
@@ -175,7 +175,7 @@ public:
         
         if (currentImage.channels() == 3) {
             cvtColor(currentImage, processedImage, COLOR_BGR2GRAY);
-            cout << "? Converted to grayscale!" << endl;
+            cout << "Converted to grayscale!" << endl;
         } else {
             processedImage = currentImage.clone();
             cout << "?? Image is already grayscale!" << endl;
@@ -195,7 +195,7 @@ public:
         
         GaussianBlur(currentImage, processedImage, Size(15, 15), 0);
         
-        cout << "? Gaussian blur applied!" << endl;
+        cout << "Gaussian blur applied!" << endl;
         showProcessedImageOption();
     }
     
@@ -217,7 +217,7 @@ public:
         
         Canny(gray, processedImage, 100, 200);
         
-        cout << "? Edge detection applied!" << endl;
+        cout << "Edge detection applied!" << endl;
         showProcessedImageOption();
     }
     
@@ -225,7 +225,7 @@ public:
     bool loadImage(const string& path) {
         originalImage = imread(path);
         if (originalImage.empty()) {
-            cout << "? Failed to load image: " << path << endl;
+            cout << "Failed to load image: " << path << endl;
             return false;
         }
         
@@ -248,9 +248,9 @@ public:
         cin >> outputPath;
         
         if (imwrite(outputPath, processedImage)) {
-            cout << "? Image saved successfully: " << outputPath << endl;
+            cout << "Image saved successfully: " << outputPath << endl;
         } else {
-            cout << "? Failed to save image!" << endl;
+            cout << "Failed to save image!" << endl;
         }
     }
     

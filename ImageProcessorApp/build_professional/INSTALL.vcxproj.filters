@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\build_professional\CMakeFiles\1b8c390441ba006f1c86d7d48b8c8802\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{354C047F-CC41-3926-B1B5-C1198D8521D7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

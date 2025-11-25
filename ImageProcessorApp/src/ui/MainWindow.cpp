@@ -2,10 +2,6 @@
 #include "ImageCanvas.h"
 #include "TransformDialog.h"
 #include "HistogramWidget.h"
-#include "filters/ImageFilters.h"
-#include "processing/ImageProcessingLib.h"
-#include "processing/TransformationsLib.h"
-#include "utils/ImageUtils.h"
 #include <QApplication>
 #include <QSplitter>
 #include <QScrollArea>
@@ -893,7 +889,21 @@ void MainWindow::applyHistogramEqualization() {
         return;
     }
     
-    ImageProcessingLib::applyHistogramEqualization(currentImage, processedImage);
+    cv::Mat gray;
+    if (currentImage.channels() == 3) {
+        // Convert to YCrCb for color images
+        cv::Mat ycrcb;
+        cv::cvtColor(currentImage, ycrcb, cv::COLOR_BGR2YCrCb);
+        
+        std::vector<cv::Mat> channels;
+        cv::split(ycrcb, channels);
+        cv::equalizeHist(channels[0], channels[0]);
+        cv::merge(channels, ycrcb);
+        
+        cv::cvtColor(ycrcb, processedImage, cv::COLOR_YCrCb2BGR);
+    } else {
+        cv::equalizeHist(currentImage, processedImage);
+    }
     
     recentlyProcessed = true;
     updateDisplay();
@@ -906,7 +916,15 @@ void MainWindow::applyOtsuThresholding() {
         return;
     }
     
-    ImageProcessingLib::applyOtsuThresholding(currentImage, processedImage);
+    cv::Mat gray;
+    if (currentImage.channels() == 3) {
+        cv::cvtColor(currentImage, gray, cv::COLOR_BGR2GRAY);
+    } else {
+        gray = currentImage.clone();
+    }
+    
+    cv::threshold(gray, processedImage, 0, 255, 
+                 cv::THRESH_BINARY | cv::THRESH_OTSU);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -920,7 +938,11 @@ void MainWindow::convertToGrayscale() {
         return;
     }
     
-    ImageProcessingLib::convertToGrayscale(currentImage, processedImage);
+    if (currentImage.channels() == 3) {
+        cv::cvtColor(currentImage, processedImage, cv::COLOR_BGR2GRAY);
+    } else {
+        processedImage = currentImage.clone();
+    }
     
     recentlyProcessed = true;
     updateDisplay();
@@ -933,7 +955,14 @@ void MainWindow::applyBinaryThreshold() {
         return;
     }
     
-    ImageProcessingLib::applyBinaryThreshold(currentImage, processedImage, 128);
+    cv::Mat gray;
+    if (currentImage.channels() == 3) {
+        cv::cvtColor(currentImage, gray, cv::COLOR_BGR2GRAY);
+    } else {
+        gray = currentImage.clone();
+    }
+    
+    cv::threshold(gray, processedImage, 128, 255, cv::THRESH_BINARY);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -946,7 +975,7 @@ void MainWindow::applyGaussianBlur() {
         return;
     }
     
-    ImageProcessingLib::applyGaussianBlur(currentImage, processedImage, 5);
+    cv::GaussianBlur(currentImage, processedImage, cv::Size(5, 5), 0);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -959,7 +988,14 @@ void MainWindow::applyEdgeDetection() {
         return;
     }
     
-    ImageProcessingLib::applyEdgeDetection(currentImage, processedImage, 100, 200);
+    cv::Mat gray;
+    if (currentImage.channels() == 3) {
+        cv::cvtColor(currentImage, gray, cv::COLOR_BGR2GRAY);
+    } else {
+        gray = currentImage.clone();
+    }
+    
+    cv::Canny(gray, processedImage, 100, 200);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -972,7 +1008,7 @@ void MainWindow::invertColors() {
         return;
     }
     
-    ImageProcessingLib::invertColors(currentImage, processedImage);
+    processedImage = 255 - currentImage;
     
     recentlyProcessed = true;
     updateDisplay();
@@ -988,7 +1024,15 @@ void MainWindow::applyTraditionalFilter() {
     
     updateStatus("Applying traditional filter...", "info", 50);
     
-    ImageFilters::applyTraditionalFilter(currentImage, processedImage, 5);
+    // Traditional averaging filter (5x5 kernel with equal weights)
+    cv::Mat kernel = (cv::Mat_<float>(5, 5) << 
+        1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1) / 25.0f;
+    
+    cv::filter2D(currentImage, processedImage, -1, kernel);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1010,7 +1054,18 @@ void MainWindow::applyPyramidalFilter() {
     
     updateStatus("Applying pyramidal filter...", "info", 50);
     
-    ImageFilters::applyPyramidalFilter(currentImage, processedImage);
+    // Pyramidal filter with weights increasing toward center
+    cv::Mat kernel = (cv::Mat_<float>(5, 5) << 
+        1, 2, 3, 2, 1,
+        2, 3, 4, 3, 2,
+        3, 4, 6, 4, 3,
+        2, 3, 4, 3, 2,
+        1, 2, 3, 2, 1);
+    
+    // Normalize kernel
+    kernel = kernel / cv::sum(kernel)[0];
+    
+    cv::filter2D(currentImage, processedImage, -1, kernel);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1032,7 +1087,25 @@ void MainWindow::applyCircularFilter() {
     
     updateStatus("Applying circular filter...", "info", 50);
     
-    ImageFilters::applyCircularFilter(currentImage, processedImage, 2.0f);
+    // Circular filter - only pixels within radius get weighted
+    cv::Mat kernel = cv::Mat::zeros(5, 5, CV_32F);
+    cv::Point center(2, 2);
+    float radius = 2.0f;
+    
+    // Calculate circular mask
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            float dist = std::sqrt(std::pow(i - center.y, 2) + std::pow(j - center.x, 2));
+            if (dist <= radius) {
+                kernel.at<float>(i, j) = 1.0f;
+            }
+        }
+    }
+    
+    // Normalize kernel
+    kernel = kernel / cv::sum(kernel)[0];
+    
+    cv::filter2D(currentImage, processedImage, -1, kernel);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1054,7 +1127,24 @@ void MainWindow::applyConeFilter() {
     
     updateStatus("Applying cone filter...", "info", 50);
     
-    ImageFilters::applyConeFilter(currentImage, processedImage);
+    // Cone filter - weights decrease linearly from center
+    cv::Mat kernel = cv::Mat::zeros(5, 5, CV_32F);
+    cv::Point center(2, 2);
+    float maxDist = std::sqrt(2 * 2 * 2); // Maximum distance in 5x5 kernel
+    
+    // Calculate cone-shaped weights
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            float dist = std::sqrt(std::pow(i - center.y, 2) + std::pow(j - center.x, 2));
+            // Linear decrease from center
+            kernel.at<float>(i, j) = std::max(0.0f, maxDist - dist);
+        }
+    }
+    
+    // Normalize kernel
+    kernel = kernel / cv::sum(kernel)[0];
+    
+    cv::filter2D(currentImage, processedImage, -1, kernel);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1076,7 +1166,17 @@ void MainWindow::applyLaplacianFilter() {
     
     updateStatus("Applying Laplacian filter...", "info", 50);
     
-    ImageFilters::applyLaplacianFilter(currentImage, processedImage);
+    // Laplacian filter kernel (3x3)
+    cv::Mat kernel_L = (cv::Mat_<float>(3, 3) << 
+        1, 1, 1,
+        1, -8, 1,
+        1, 1, 1);
+    
+    cv::Mat dst_Lap;
+    cv::filter2D(currentImage, dst_Lap, CV_8UC1, kernel_L);
+    
+    // Normalize for better visualization
+    cv::normalize(dst_Lap, processedImage, 0, 255, cv::NORM_MINMAX, CV_8U);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1098,7 +1198,35 @@ void MainWindow::applySobelFilter() {
     
     updateStatus("Applying Sobel filter...", "info", 50);
     
-    ImageFilters::applySobelFilter(currentImage, processedImage);
+    // Sobel filter kernels
+    cv::Mat kernel_TH = (cv::Mat_<int>(3, 3) << 
+        -1, -2, -1,
+        0, 0, 0,
+        1, 2, 1);
+    
+    cv::Mat kernel_TV = (cv::Mat_<int>(3, 3) << 
+        -1, 0, 1,
+        -2, 0, 2,
+        -1, 0, 1);
+    
+    cv::Mat kernel_Td = (cv::Mat_<int>(3, 3) << 
+        2, 1, 0,
+        1, 0, -1,
+        0, -1, -2);
+    
+    cv::Mat dstS_H, dstS_V, dstS_D, dstS_HV, dstS_S;
+    
+    // Apply filters
+    cv::filter2D(currentImage, dstS_H, CV_8UC1, kernel_TH);
+    cv::filter2D(currentImage, dstS_V, CV_8UC1, kernel_TV);
+    cv::filter2D(currentImage, dstS_D, CV_8UC1, kernel_Td);
+    
+    // Combine horizontal and vertical
+    cv::addWeighted(dstS_H, 1, dstS_V, 1, 0, dstS_HV);
+    cv::addWeighted(dstS_HV, 1, dstS_D, 1, 0, dstS_S);
+    
+    // Normalize for better visualization
+    cv::normalize(dstS_S, processedImage, 0, 255, cv::NORM_MINMAX, CV_8U);
     
     recentlyProcessed = true;
     updateDisplay();

@@ -35,13 +35,35 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-# Source files
-set(SOURCES
+# Source files organized by module
+set(CORE_SOURCES
     src/main.cpp
+)
+
+set(UI_SOURCES
     src/MainWindow.cpp
+)
+
+set(WIDGETS_SOURCES
     src/ImageCanvas.cpp
-    src/TransformDialog.cpp
     src/HistogramWidget.cpp
+)
+
+set(DIALOGS_SOURCES
+    src/TransformDialog.cpp
+)
+
+set(FILTERS_SOURCES
+    src/filters/ImageFilters.cpp
+)
+
+set(PROCESSING_SOURCES
+    src/processing/ImageProcessingLib.cpp
+    src/processing/TransformationsLib.cpp
+)
+
+set(UTILS_SOURCES
+    src/utils/ImageUtils.cpp
 )
 
 # Header files
@@ -50,7 +72,22 @@ set(HEADERS
     src/ImageCanvas.h
     src/TransformDialog.h
     src/HistogramWidget.h
+    src/filters/ImageFilters.h
+    src/processing/ImageProcessingLib.h
+    src/processing/TransformationsLib.h
+    src/utils/ImageUtils.h
     include/ImageProcessor.h
+)
+
+# Combine all sources
+set(SOURCES
+    ${CORE_SOURCES}
+    ${UI_SOURCES}
+    ${WIDGETS_SOURCES}
+    ${DIALOGS_SOURCES}
+    ${FILTERS_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${UTILS_SOURCES}
 )
 
 # Resources
@@ -68,6 +105,14 @@ add_executable(${PROJECT_NAME}
 # Include directories
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/ui
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/dialogs
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/filters
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/processing
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/core
     "F:/OpenCV/opencv/build/include"
 )
 
