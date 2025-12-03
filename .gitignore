@@ -361,3 +361,31 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Qt/OpenCV specific
+build/
+build_*/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+*.cmake
+!CMakeLists.txt
+!CMakeLists_*.txt
+
+# Qt MOC files
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
+*.moc
+
+# Temporary test files
+output.txt
+error.txt
+
+# Platform plugins (DLLs copied during build)
+platforms/
+styles/
+
+# OpenCV DLLs (copied during build)
+opencv_world*.dll

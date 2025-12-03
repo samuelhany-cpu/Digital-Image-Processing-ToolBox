@@ -13,7 +13,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), imageLoaded(false), recentlyProcessed(false) {
     
-    setWindowTitle("SamToolbox - Professional Image Processing");
+    setWindowTitle("Toolbox - Professional Image Processing");
     setWindowIcon(QIcon(":/icons/mexo_toolbox_logo.ico"));
     setMinimumSize(1200, 800);
     resize(1600, 1000);
