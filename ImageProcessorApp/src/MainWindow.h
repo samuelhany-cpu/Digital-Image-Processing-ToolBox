@@ -36,6 +36,10 @@ private slots:
     void loadImage();
     void saveImage();
     void resetImage();
+    void undoLastOperation();
+    
+    // Auto Enhancement
+    void autoEnhance();
     
     // Lab 1: Image Information
     void showImageInfo();
@@ -85,6 +89,7 @@ private:
                      const QString& type = "info", 
                      int progress = -1);
     void addTooltip(QWidget *widget, const QString& text);
+    void saveProcessingState();  // Save current state before processing
     
     QPixmap cvMatToQPixmap(const cv::Mat& mat);
     cv::Mat qPixmapToCvMat(const QPixmap& pixmap);
@@ -103,6 +108,7 @@ private:
     QAction *loadAction;
     QAction *saveAction;
     QAction *resetAction;
+    QAction *undoAction;
     QAction *exitAction;
     
     // Processing controls
@@ -121,6 +127,12 @@ private:
     // Processing state
     bool imageLoaded;
     bool recentlyProcessed;
+    
+    // Processing history
+    QStringList processingHistory;
+    QString lastOperation;
+    std::vector<cv::Mat> processingStack;  // Stack to store previous states
+    int maxHistorySize = 10;  // Maximum undo steps
 };
 
 #endif // MAINWINDOW_H

@@ -2,8 +2,17 @@
 #define IMAGEPROCESSINGLIB_H
 
 #include <opencv2/opencv.hpp>
+#include <QStringList>
 
 namespace ImageProcessingLib {
+
+/**
+ * @brief Automatically enhance image using multiple algorithms
+ * @param input Input image
+ * @param output Output enhanced image
+ * @param operations List of applied operations
+ */
+void applyAutoEnhance(const cv::Mat& input, cv::Mat& output, QStringList& operations);
 
 /**
  * @brief Convert image to grayscale

@@ -54,6 +54,14 @@ void MainWindow::createMenuBar() {
     resetAction->setEnabled(false);
     connect(resetAction, &QAction::triggered, this, &MainWindow::resetImage);
     
+    // Add Undo Action
+    undoAction = new QAction("Undo", this);
+    undoAction->setShortcut(QKeySequence::Undo); // Ctrl+Z
+    undoAction->setToolTip("Undo last operation");
+    undoAction->setEnabled(false);
+    connect(undoAction, &QAction::triggered, this, &MainWindow::undoLastOperation);
+    std::cout << "[DEBUG] Undo action created and connected" << std::endl;
+    
     exitAction = new QAction("Exit", this);
     exitAction->setShortcut(QKeySequence::Quit);
     connect(exitAction, &QAction::triggered, this, &QWidget::close);
@@ -62,8 +70,15 @@ void MainWindow::createMenuBar() {
     fileMenu->addSeparator();
     fileMenu->addAction(saveAction);
     fileMenu->addAction(resetAction);
+    fileMenu->addAction(undoAction);
     fileMenu->addSeparator();
     fileMenu->addAction(exitAction);
+    
+    // Enhancement Menu
+    QMenu *enhanceMenu = menuBar->addMenu("Enhancement");
+    QAction *autoEnhanceAction = enhanceMenu->addAction("Auto Enhance");
+    autoEnhanceAction->setShortcut(Qt::CTRL | Qt::Key_E);
+    connect(autoEnhanceAction, &QAction::triggered, this, &MainWindow::autoEnhance);
     
     // Labs Menu
     QMenu *labsMenu = menuBar->addMenu("Labs");
@@ -82,6 +97,8 @@ void MainWindow::createMenuBar() {
     connect(lab5Action, &QAction::triggered, this, &MainWindow::showHistogram);
     
     QAction *lab6Action = labsMenu->addAction("Lab 6: Processing");
+    
+    std::cout << "[DEBUG] Menu bar created successfully" << std::endl;
 }
 
 void MainWindow::createToolBar() {
@@ -92,6 +109,9 @@ void MainWindow::createToolBar() {
     toolBar->addSeparator();
     toolBar->addAction(saveAction);
     toolBar->addAction(resetAction);
+    toolBar->addAction(undoAction);
+    
+    std::cout << "[DEBUG] Toolbar created with undo button" << std::endl;
 }
 
 void MainWindow::createCentralWidget() {
@@ -162,6 +182,16 @@ void MainWindow::createCentralWidget() {
     scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     
     QVBoxLayout *controlLayout = new QVBoxLayout(controlPanel);
+    
+    // Auto Enhancement Group
+    QGroupBox *autoGroup = new QGroupBox("Auto Enhancement");
+    QVBoxLayout *autoLayout = new QVBoxLayout(autoGroup);
+    
+    QPushButton *autoEnhanceBtn = new QPushButton("Auto Enhance");
+    autoEnhanceBtn->setStyleSheet("QPushButton { background-color: #ff006e; font-weight: bold; }");
+    addTooltip(autoEnhanceBtn, "Automatically enhance image using multiple algorithms");
+    connect(autoEnhanceBtn, &QPushButton::clicked, this, &MainWindow::autoEnhance);
+    autoLayout->addWidget(autoEnhanceBtn);
     
     // Information Group
     infoGroup = new QGroupBox("Lab 1-3: Information & Analysis");
@@ -300,6 +330,7 @@ void MainWindow::createCentralWidget() {
     filtersLayout->addWidget(sobelBtn, 2, 1);
     
     // Add groups to control layout
+    controlLayout->addWidget(autoGroup);
     controlLayout->addWidget(infoGroup);
     controlLayout->addWidget(transformGroup);
     controlLayout->addWidget(histogramGroup);
@@ -407,7 +438,7 @@ void MainWindow::updateStatus(const QString& message, const QString& type, int p
 
 void MainWindow::loadImage() {
     QString fileName = QFileDialog::getOpenFileName(this,
-        "?? Load Image File",
+        "Load Image File",
         QString(),
         "Image Files (*.png *.jpg *.jpeg *.bmp *.tiff *.gif);;All Files (*.*)");
     
@@ -453,7 +484,7 @@ void MainWindow::saveImage() {
     }
     
     QString fileName = QFileDialog::getSaveFileName(this,
-        "?? Save Processed Image",
+        "Save Processed Image",
         QString(),
         "PNG Files (*.png);;JPEG Files (*.jpg);;BMP Files (*.bmp);;All Files (*.*)");
     
@@ -479,9 +510,88 @@ void MainWindow::resetImage() {
     currentImage = originalImage.clone();
     processedImage = cv::Mat();
     recentlyProcessed = false;
+    processingHistory.clear();
+    lastOperation = "";
+    processingStack.clear();
     
     updateDisplay();
     updateStatus("Image reset to original", "info");
+}
+
+void MainWindow::undoLastOperation() {
+    std::cout << "[DEBUG] ===== UNDO FUNCTION CALLED =====" << std::endl;
+    std::cout << "[DEBUG] Image loaded: " << (imageLoaded ? "YES" : "NO") << std::endl;
+    std::cout << "[DEBUG] Processing stack size: " << processingStack.size() << std::endl;
+    std::cout << "[DEBUG] Processing history size: " << processingHistory.size() << std::endl;
+    
+    if (!imageLoaded) {
+        std::cout << "[DEBUG] Undo failed: No image loaded" << std::endl;
+        QMessageBox::warning(this, "Warning", "Please load an image first!");
+        return;
+    }
+    
+    if (processingStack.empty()) {
+        std::cout << "[DEBUG] Undo failed: Processing stack is empty" << std::endl;
+        QMessageBox::information(this, "Undo", "No operations to undo!");
+        return;
+    }
+    
+    std::cout << "[DEBUG] Restoring state from stack..." << std::endl;
+    
+    // Restore previous state
+    processedImage = processingStack.back().clone();
+    processingStack.pop_back();
+    
+    std::cout << "[DEBUG] State restored. New stack size: " << processingStack.size() << std::endl;
+    
+    if (!processingHistory.isEmpty()) {
+        QString undoneOperation = processingHistory.last();
+        processingHistory.removeLast();
+        std::cout << "[DEBUG] Removed operation from history: " << undoneOperation.toStdString() << std::endl;
+    }
+    
+    // Enable/disable undo action based on stack state
+    if (undoAction) {
+        undoAction->setEnabled(!processingStack.empty());
+        std::cout << "[DEBUG] Undo action " << (processingStack.empty() ? "disabled" : "enabled") << std::endl;
+    }
+    
+    updateDisplay();
+    updateStatus("Undo: Last operation reverted", "info");
+    std::cout << "[DEBUG] ===== UNDO COMPLETED =====" << std::endl;
+}
+
+// Helper function to save state before processing
+void MainWindow::saveProcessingState() {
+    std::cout << "[DEBUG] ===== SAVING PROCESSING STATE =====" << std::endl;
+    
+    // For the FIRST operation: save the currentImage (original)
+    // For subsequent operations: save the processedImage (previous result)
+    if (processedImage.empty()) {
+        // First operation - save the original currentImage
+        std::cout << "[DEBUG] First operation detected - saving original currentImage" << std::endl;
+        processingStack.push_back(currentImage.clone());
+        std::cout << "[DEBUG] Original image saved to stack. Stack size: " << processingStack.size() << std::endl;
+    } else {
+        // Subsequent operations - save the current processed result
+        std::cout << "[DEBUG] Subsequent operation - saving current processedImage" << std::endl;
+        processingStack.push_back(processedImage.clone());
+        std::cout << "[DEBUG] Processed image saved to stack. Stack size: " << processingStack.size() << std::endl;
+    }
+    
+    // Limit stack size
+    if (processingStack.size() > static_cast<size_t>(maxHistorySize)) {
+        processingStack.erase(processingStack.begin());
+        std::cout << "[DEBUG] Stack size exceeded limit. Removed oldest state. New size: " << processingStack.size() << std::endl;
+    }
+    
+    // Enable undo action
+    if (undoAction) {
+        undoAction->setEnabled(true);
+        std::cout << "[DEBUG] Undo action enabled" << std::endl;
+    }
+    
+    std::cout << "[DEBUG] ===== STATE SAVE COMPLETED =====" << std::endl;
 }
 
 // Lab 1: Image Information
@@ -541,7 +651,7 @@ void MainWindow::showImageInfo() {
     cv::minMaxLoc(currentImage, &minVal, &maxVal);
     meanVal = cv::mean(currentImage)[0];
     
-    info += "???????????????????????????????????????????\n\n";
+    info += "======================================\n\n";
     info += QString("  File Path:               %1\n\n").arg(imagePath);
     info += QString("  Dimensions (WxH):        %1 x %2\n\n")
            .arg(cols, 6).arg(rows, -6);
@@ -560,7 +670,7 @@ void MainWindow::showImageInfo() {
            .arg(maxVal, 20, 'f', 2);
     info += QString("  Mean Value:              %1\n\n")
            .arg(meanVal, 20, 'f', 2);
-    info += "???????????????????????????????????????????";
+    info += "======================================";
     
     infoText->setPlainText(info);
     layout->addWidget(infoText);
@@ -704,10 +814,13 @@ void MainWindow::applyTranslation() {
         return;
     }
     
+    // Use processed image if available, otherwise use current
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    
     TransformDialog *dialog = new TransformDialog(
         this, 
         TransformDialog::Translation, 
-        currentImage
+        sourceImage
     );
     
     // Connect preview signal to update processed canvas
@@ -718,6 +831,9 @@ void MainWindow::applyTranslation() {
             });
     
     if (dialog->exec() == QDialog::Accepted) {
+        // Save state before applying transformation
+        saveProcessingState();
+        
         processedImage = dialog->getResultImage();
         recentlyProcessed = true;
         updateDisplay();
@@ -733,10 +849,13 @@ void MainWindow::applyRotation() {
         return;
     }
     
+    // Use processed image if available, otherwise use current
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    
     TransformDialog *dialog = new TransformDialog(
         this, 
         TransformDialog::Rotation, 
-        currentImage
+        sourceImage
     );
     
     connect(dialog, &TransformDialog::previewRequested,
@@ -746,6 +865,9 @@ void MainWindow::applyRotation() {
             });
     
     if (dialog->exec() == QDialog::Accepted) {
+        // Save state before applying transformation
+        saveProcessingState();
+        
         processedImage = dialog->getResultImage();
         recentlyProcessed = true;
         updateDisplay();
@@ -761,7 +883,11 @@ void MainWindow::applySkew() {
         return;
     }
     
-    cv::Mat img = currentImage.clone();
+    // Save state before processing
+    saveProcessingState();
+    
+    // Use processed image if available, otherwise use current
+    cv::Mat img = processedImage.empty() ? currentImage.clone() : processedImage.clone();
     int rows = img.rows;
     int cols = img.cols;
     
@@ -790,10 +916,13 @@ void MainWindow::applyZoom() {
         return;
     }
     
+    // Use processed image if available, otherwise use current
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    
     TransformDialog *dialog = new TransformDialog(
         this, 
         TransformDialog::Zoom, 
-        currentImage
+        sourceImage
     );
     
     connect(dialog, &TransformDialog::previewRequested,
@@ -803,6 +932,9 @@ void MainWindow::applyZoom() {
             });
     
     if (dialog->exec() == QDialog::Accepted) {
+        // Save state before applying transformation
+        saveProcessingState();
+        
         processedImage = dialog->getResultImage();
         recentlyProcessed = true;
         updateDisplay();
@@ -818,7 +950,12 @@ void MainWindow::applyFlipX() {
         return;
     }
     
-    cv::flip(currentImage, processedImage, 0); // Flip around x-axis
+    // Save state before processing
+    saveProcessingState();
+    
+    // Use processed image if available, otherwise use current
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    cv::flip(sourceImage, processedImage, 0); // Flip around x-axis
     recentlyProcessed = true;
     updateDisplay();
     updateStatus("Image flipped horizontally", "success");
@@ -830,7 +967,12 @@ void MainWindow::applyFlipY() {
         return;
     }
     
-    cv::flip(currentImage, processedImage, 1); // Flip around y-axis
+    // Save state before processing
+    saveProcessingState();
+    
+    // Use processed image if available, otherwise use current
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    cv::flip(sourceImage, processedImage, 1); // Flip around y-axis
     recentlyProcessed = true;
     updateDisplay();
     updateStatus("Image flipped vertically", "success");
@@ -842,7 +984,12 @@ void MainWindow::applyFlipXY() {
         return;
     }
     
-    cv::flip(currentImage, processedImage, -1); // Flip both axes
+    // Save state before processing
+    saveProcessingState();
+    
+    // Use processed image if available, otherwise use current
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    cv::flip(sourceImage, processedImage, -1); // Flip both axes
     recentlyProcessed = true;
     updateDisplay();
     updateStatus("Image flipped both ways", "success");
@@ -893,7 +1040,12 @@ void MainWindow::applyHistogramEqualization() {
         return;
     }
     
-    ImageProcessingLib::applyHistogramEqualization(currentImage, processedImage);
+    // Save state before processing
+    saveProcessingState();
+    
+    // Use processed image if available, otherwise use current
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    ImageProcessingLib::applyHistogramEqualization(sourceImage, processedImage);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -906,7 +1058,12 @@ void MainWindow::applyOtsuThresholding() {
         return;
     }
     
-    ImageProcessingLib::applyOtsuThresholding(currentImage, processedImage);
+    // Save state before processing
+    saveProcessingState();
+    
+    // Use processed image if available, otherwise use current
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    ImageProcessingLib::applyOtsuThresholding(sourceImage, processedImage);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -920,8 +1077,16 @@ void MainWindow::convertToGrayscale() {
         return;
     }
     
-    ImageProcessingLib::convertToGrayscale(currentImage, processedImage);
+    // Save state before processing
+    saveProcessingState();
     
+    // Continuous processing: use processed image if available
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    
+    ImageProcessingLib::convertToGrayscale(sourceImage, processedImage);
+    
+    processingHistory << "Grayscale";
+    lastOperation = "Grayscale";
     recentlyProcessed = true;
     updateDisplay();
     updateStatus("Converted to grayscale", "success");
@@ -933,7 +1098,12 @@ void MainWindow::applyBinaryThreshold() {
         return;
     }
     
-    ImageProcessingLib::applyBinaryThreshold(currentImage, processedImage, 128);
+    // Save state before processing
+    saveProcessingState();
+    
+    // Use processed image if available, otherwise use current
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    ImageProcessingLib::applyBinaryThreshold(sourceImage, processedImage, 128);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -946,7 +1116,12 @@ void MainWindow::applyGaussianBlur() {
         return;
     }
     
-    ImageProcessingLib::applyGaussianBlur(currentImage, processedImage, 5);
+    // Save state before processing
+    saveProcessingState();
+    
+    // Use processed image if available, otherwise use current
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    ImageProcessingLib::applyGaussianBlur(sourceImage, processedImage, 5);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -959,7 +1134,12 @@ void MainWindow::applyEdgeDetection() {
         return;
     }
     
-    ImageProcessingLib::applyEdgeDetection(currentImage, processedImage, 100, 200);
+    // Save state before processing
+    saveProcessingState();
+    
+    // Use processed image if available, otherwise use current
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    ImageProcessingLib::applyEdgeDetection(sourceImage, processedImage, 100, 200);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -972,7 +1152,12 @@ void MainWindow::invertColors() {
         return;
     }
     
-    ImageProcessingLib::invertColors(currentImage, processedImage);
+    // Save state before processing
+    saveProcessingState();
+    
+    // Use processed image if available, otherwise use current
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    ImageProcessingLib::invertColors(sourceImage, processedImage);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -986,9 +1171,14 @@ void MainWindow::applyTraditionalFilter() {
         return;
     }
     
+    // Save state before processing
+    saveProcessingState();
+    
     updateStatus("Applying traditional filter...", "info", 50);
     
-    ImageFilters::applyTraditionalFilter(currentImage, processedImage, 5);
+    // Use processed image if available, otherwise use current
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    ImageFilters::applyTraditionalFilter(sourceImage, processedImage, 5);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1008,9 +1198,14 @@ void MainWindow::applyPyramidalFilter() {
         return;
     }
     
+    // Save state before processing
+    saveProcessingState();
+    
     updateStatus("Applying pyramidal filter...", "info", 50);
     
-    ImageFilters::applyPyramidalFilter(currentImage, processedImage);
+    // Use processed image if available, otherwise use current
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    ImageFilters::applyPyramidalFilter(sourceImage, processedImage);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1030,9 +1225,14 @@ void MainWindow::applyCircularFilter() {
         return;
     }
     
+    // Save state before processing
+    saveProcessingState();
+    
     updateStatus("Applying circular filter...", "info", 50);
     
-    ImageFilters::applyCircularFilter(currentImage, processedImage, 2.0f);
+    // Use processed image if available, otherwise use current
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    ImageFilters::applyCircularFilter(sourceImage, processedImage, 2.0f);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1052,9 +1252,14 @@ void MainWindow::applyConeFilter() {
         return;
     }
     
+    // Save state before processing
+    saveProcessingState();
+    
     updateStatus("Applying cone filter...", "info", 50);
     
-    ImageFilters::applyConeFilter(currentImage, processedImage);
+    // Use processed image if available, otherwise use current
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    ImageFilters::applyConeFilter(sourceImage, processedImage);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1074,9 +1279,14 @@ void MainWindow::applyLaplacianFilter() {
         return;
     }
     
+    // Save state before processing
+    saveProcessingState();
+    
     updateStatus("Applying Laplacian filter...", "info", 50);
     
-    ImageFilters::applyLaplacianFilter(currentImage, processedImage);
+    // Use processed image if available, otherwise use current
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    ImageFilters::applyLaplacianFilter(sourceImage, processedImage);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1096,9 +1306,14 @@ void MainWindow::applySobelFilter() {
         return;
     }
     
+    // Save state before processing
+    saveProcessingState();
+    
     updateStatus("Applying Sobel filter...", "info", 50);
     
-    ImageFilters::applySobelFilter(currentImage, processedImage);
+    // Use processed image if available, otherwise use current
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    ImageFilters::applySobelFilter(sourceImage, processedImage);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1110,4 +1325,44 @@ void MainWindow::applySobelFilter() {
         "Kernels: 3x3 horizontal, vertical, and diagonal\n"
         "Effect: Detects directional edges\n"
         "Use case: Edge detection, gradient computation");
+}
+
+void MainWindow::autoEnhance() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    // Save state before processing
+    saveProcessingState();
+    
+    updateStatus("Auto-enhancing image...", "info", 50);
+    
+    // Get source image (continuous processing support)
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    
+    cv::Mat enhancedImage;
+    QStringList operations;
+    
+    // Call auto enhance with operation tracking
+    ImageProcessingLib::applyAutoEnhance(sourceImage, enhancedImage, operations);
+    
+    processedImage = enhancedImage.clone();
+    processingHistory.append(operations);
+    lastOperation = "Auto Enhancement";
+    recentlyProcessed = true;
+    
+    updateDisplay();
+    
+    // Update info label with operations applied
+    QString opsApplied = operations.join(" > ");
+    processedInfoLabel->setText(QString("Enhanced: %1").arg(opsApplied));
+    
+    updateStatus("Auto enhancement completed", "success");
+    
+    // Show detailed dialog
+    QMessageBox::information(this, "Auto Enhancement Complete",
+        QString("Auto Enhancement Applied!\n\nOperations performed:\n• %1\n\n"
+                "Each subsequent operation will build on this result.")
+                .arg(operations.join("\n• ")));
 }
