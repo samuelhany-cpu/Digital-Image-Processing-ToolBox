@@ -9,6 +9,7 @@
 #include <QApplication>
 #include <QSplitter>
 #include <QScrollArea>
+#include <cmath>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), imageLoaded(false), recentlyProcessed(false) {
@@ -406,11 +407,15 @@ void MainWindow::updateDisplay() {
     
     if (!processedImage.empty()) {
         processedCanvas->setImage(processedImage);
-        QString processedInfo = QString("Size: %1x%2 | Channels: %3 | Type: %4")
+        
+        // Calculate quality metrics
+        QString metricsText = getQualityMetrics();
+        
+        QString processedInfo = QString("Size: %1x%2 | Channels: %3\n%4")
                                .arg(processedImage.cols)
                                .arg(processedImage.rows)
                                .arg(processedImage.channels())
-                               .arg(QString::fromStdString(cv::typeToString(processedImage.type())));
+                               .arg(metricsText);
         processedInfoLabel->setText(processedInfo);
         
         saveAction->setEnabled(true);
@@ -482,25 +487,38 @@ void MainWindow::saveImage() {
         QMessageBox::warning(this, "Warning", "No processed image to save!");
         return;
     }
-    
+
+    QString selectedFilter;
     QString fileName = QFileDialog::getSaveFileName(this,
         "Save Processed Image",
         QString(),
-        "PNG Files (*.png);;JPEG Files (*.jpg);;BMP Files (*.bmp);;All Files (*.*)");
-    
+        "PNG Files (*.png);;JPEG Files (*.jpg);;BMP Files (*.bmp);;TIFF Files (*.tif *.tiff);;All Files (*.*)",
+        &selectedFilter);
+
     if (fileName.isEmpty()) return;
-    
+
+    // Determine desired extension from selected filter if user didn't provide one
+    QFileInfo fi(fileName);
+    if (fi.suffix().isEmpty()) {
+        QString ext = ".png";
+        if (selectedFilter.contains("TIFF", Qt::CaseInsensitive)) ext = ".tif";
+        else if (selectedFilter.contains("JPEG", Qt::CaseInsensitive) || selectedFilter.contains("JPG", Qt::CaseInsensitive)) ext = ".jpg";
+        else if (selectedFilter.contains("BMP", Qt::CaseInsensitive)) ext = ".bmp";
+
+        fileName += ext;
+    }
+
     updateStatus("Saving image...", "info", 50);
-    
+
     bool success = cv::imwrite(fileName.toStdString(), processedImage);
-    
+
     if (success) {
         updateStatus("Image saved successfully", "success");
-        QMessageBox::information(this, "Success", 
+        QMessageBox::information(this, "Success",
                                 QString("Image saved successfully!\n\n%1").arg(fileName));
     } else {
         updateStatus("Failed to save image", "error");
-        QMessageBox::critical(this, "Error", "Failed to save image file!");
+        QMessageBox::critical(this, "Error", "Failed to save image file!\n\nEnsure OpenCV was built with TIFF support if saving as TIFF.");
     }
 }
 
@@ -627,7 +645,7 @@ void MainWindow::showImageInfo() {
         "padding: 15px; "
         "font-family: 'Consolas', monospace; "
         "font-size: 11pt; "
-        "}"
+        "} "
     );
     
     // Build information string
@@ -1009,15 +1027,20 @@ void MainWindow::showHistogram() {
     
     QVBoxLayout *layout = new QVBoxLayout(histDialog);
     
-    // Title
-    QLabel *titleLabel = new QLabel("Pixel Value Distribution");
+    // Title - indicate which image we're showing
+    QString titleText = processedImage.empty() ? 
+        "Pixel Value Distribution - Original Image" : 
+        "Pixel Value Distribution - Processed Image";
+    
+    QLabel *titleLabel = new QLabel(titleText);
     titleLabel->setStyleSheet("font-size: 14pt; font-weight: bold; "
                              "color: #00d4ff; padding: 15px;");
     layout->addWidget(titleLabel);
     
-    // Histogram widget
+    // Histogram widget - use processed image if available, otherwise current
     HistogramWidget *histWidget = new HistogramWidget(histDialog);
-    histWidget->setImage(currentImage);
+    cv::Mat imageToAnalyze = processedImage.empty() ? currentImage : processedImage;
+    histWidget->setImage(imageToAnalyze);
     layout->addWidget(histWidget);
     
     // Close button
@@ -1365,4 +1388,87 @@ void MainWindow::autoEnhance() {
         QString("Auto Enhancement Applied!\n\nOperations performed:\n• %1\n\n"
                 "Each subsequent operation will build on this result.")
                 .arg(operations.join("\n• ")));
+}
+
+// ==================== Image Quality Metrics Implementation ====================
+
+double MainWindow::calculateMSE(const cv::Mat& original, const cv::Mat& processed) {
+    if (original.empty() || processed.empty()) return 0.0;
+    if (original.size() != processed.size()) return 0.0;
+    
+    cv::Mat diff;
+    cv::absdiff(original, processed, diff);
+    diff.convertTo(diff, CV_32F);
+    diff = diff.mul(diff);
+    
+    cv::Scalar s = cv::sum(diff);
+    double sumSquaredError = s[0] + s[1] + s[2];
+    
+    double mse = sumSquaredError / (double)(original.channels() * original.total());
+    return mse;
+}
+
+double MainWindow::calculateRMSE(const cv::Mat& original, const cv::Mat& processed) {
+    double mse = calculateMSE(original, processed);
+    return std::sqrt(mse);
+}
+
+double MainWindow::calculatePSNR(const cv::Mat& original, const cv::Mat& processed) {
+    double mse = calculateMSE(original, processed);
+    if (mse <= 1e-10) return 100.0; // Perfect match
+    
+    double maxPixelValue = 255.0;
+    double psnr = 10.0 * std::log10((maxPixelValue * maxPixelValue) / mse);
+    return psnr;
+}
+
+double MainWindow::calculateSNR(const cv::Mat& original, const cv::Mat& processed) {
+    if (original.empty() || processed.empty()) return 0.0;
+    if (original.size() != processed.size()) return 0.0;
+    
+    // Convert to float for calculations
+    cv::Mat origFloat, procFloat;
+    original.convertTo(origFloat, CV_32F);
+    processed.convertTo(procFloat, CV_32F);
+    
+    // Calculate signal power (original image)
+    cv::Mat origSquared = origFloat.mul(origFloat);
+    cv::Scalar signalPower = cv::sum(origSquared);
+    double totalSignalPower = signalPower[0] + signalPower[1] + signalPower[2];
+    
+    // Calculate noise power (difference between original and processed)
+    cv::Mat noise;
+    cv::absdiff(origFloat, procFloat, noise);
+    cv::Mat noiseSquared = noise.mul(noise);
+    cv::Scalar noisePower = cv::sum(noiseSquared);
+    double totalNoisePower = noisePower[0] + noisePower[1] + noisePower[2];
+    
+    if (totalNoisePower <= 1e-10) return 100.0; // No noise
+    
+    double snr = 10.0 * std::log10(totalSignalPower / totalNoisePower);
+    return snr;
+}
+
+QString MainWindow::getQualityMetrics() {
+    if (processedImage.empty() || currentImage.empty()) {
+        return "No metrics available";
+    }
+    
+    // Ensure both images have the same size
+    if (currentImage.size() != processedImage.size()) {
+        return "Size mismatch - cannot calculate metrics";
+    }
+    
+    double mse = calculateMSE(currentImage, processedImage);
+    double rmse = calculateRMSE(currentImage, processedImage);
+    double psnr = calculatePSNR(currentImage, processedImage);
+    double snr = calculateSNR(currentImage, processedImage);
+    
+    QString metrics = QString("MSE: %1 | RMSE: %2 | PSNR: %3 dB | SNR: %4 dB")
+                     .arg(mse, 0, 'f', 2)
+                     .arg(rmse, 0, 'f', 2)
+                     .arg(psnr, 0, 'f', 2)
+                     .arg(snr, 0, 'f', 2);
+    
+    return metrics;
 }

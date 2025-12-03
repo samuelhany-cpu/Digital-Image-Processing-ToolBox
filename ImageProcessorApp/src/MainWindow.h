@@ -94,6 +94,13 @@ private:
     QPixmap cvMatToQPixmap(const cv::Mat& mat);
     cv::Mat qPixmapToCvMat(const QPixmap& pixmap);
     
+    // Image quality metrics
+    double calculateMSE(const cv::Mat& original, const cv::Mat& processed);
+    double calculateRMSE(const cv::Mat& original, const cv::Mat& processed);
+    double calculatePSNR(const cv::Mat& original, const cv::Mat& processed);
+    double calculateSNR(const cv::Mat& original, const cv::Mat& processed);
+    QString getQualityMetrics();
+    
     // UI Components
     ImageCanvas *originalCanvas;
     ImageCanvas *processedCanvas;
