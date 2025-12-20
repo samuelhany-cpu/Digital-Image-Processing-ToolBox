@@ -2,17 +2,13 @@
 #include "ImageCanvas.h"
 #include "TransformDialog.h"
 #include "HistogramWidget.h"
-#include "dialogs/ColorAdjustDialog.h"
 #include "filters/ImageFilters.h"
 #include "processing/ImageProcessingLib.h"
 #include "processing/TransformationsLib.h"
-#include "processing/ColorProcessingLib.h"
 #include "utils/ImageUtils.h"
 #include <QApplication>
 #include <QSplitter>
 #include <QScrollArea>
-#include <QInputDialog>
-#include <cmath>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), imageLoaded(false), recentlyProcessed(false) {
@@ -52,19 +48,17 @@ void MainWindow::createMenuBar() {
     saveAction->setEnabled(false);
     connect(saveAction, &QAction::triggered, this, &MainWindow::saveImage);
     
+    undoAction = new QAction("Undo", this);
+    undoAction->setShortcut(QKeySequence::Undo);
+    undoAction->setToolTip("Undo last processing operation");
+    undoAction->setEnabled(false);
+    connect(undoAction, &QAction::triggered, this, &MainWindow::undoLastOperation);
+    
     resetAction = new QAction("Reset", this);
     resetAction->setShortcut(QKeySequence::Refresh);
     resetAction->setToolTip("Reset to original image");
     resetAction->setEnabled(false);
     connect(resetAction, &QAction::triggered, this, &MainWindow::resetImage);
-    
-    // Add Undo Action
-    undoAction = new QAction("Undo", this);
-    undoAction->setShortcut(QKeySequence::Undo); // Ctrl+Z
-    undoAction->setToolTip("Undo last operation");
-    undoAction->setEnabled(false);
-    connect(undoAction, &QAction::triggered, this, &MainWindow::undoLastOperation);
-    std::cout << "[DEBUG] Undo action created and connected" << std::endl;
     
     exitAction = new QAction("Exit", this);
     exitAction->setShortcut(QKeySequence::Quit);
@@ -73,8 +67,8 @@ void MainWindow::createMenuBar() {
     fileMenu->addAction(loadAction);
     fileMenu->addSeparator();
     fileMenu->addAction(saveAction);
-    fileMenu->addAction(resetAction);
     fileMenu->addAction(undoAction);
+    fileMenu->addAction(resetAction);
     fileMenu->addSeparator();
     fileMenu->addAction(exitAction);
     
@@ -101,8 +95,6 @@ void MainWindow::createMenuBar() {
     connect(lab5Action, &QAction::triggered, this, &MainWindow::showHistogram);
     
     QAction *lab6Action = labsMenu->addAction("Lab 6: Processing");
-    
-    std::cout << "[DEBUG] Menu bar created successfully" << std::endl;
 }
 
 void MainWindow::createToolBar() {
@@ -112,10 +104,8 @@ void MainWindow::createToolBar() {
     toolBar->addAction(loadAction);
     toolBar->addSeparator();
     toolBar->addAction(saveAction);
-    toolBar->addAction(resetAction);
     toolBar->addAction(undoAction);
-    
-    std::cout << "[DEBUG] Toolbar created with undo button" << std::endl;
+    toolBar->addAction(resetAction);
 }
 
 void MainWindow::createCentralWidget() {
@@ -333,46 +323,6 @@ void MainWindow::createCentralWidget() {
     filtersLayout->addWidget(laplacianBtn, 2, 0);
     filtersLayout->addWidget(sobelBtn, 2, 1);
     
-    // Color Processing Group (Lab 8)
-    colorGroup = new QGroupBox("Lab 8: Color Processing");
-    QGridLayout *colorLayout = new QGridLayout(colorGroup);
-    
-    QPushButton *colorSpaceBtn = new QPushButton("Color Space");
-    QPushButton *splitChannelsBtn = new QPushButton("Split Channels");
-    QPushButton *adjustColorsBtn = new QPushButton("Adjust Colors");
-    QPushButton *whiteBalanceBtn = new QPushButton("White Balance");
-    QPushButton *sepiaBtn = new QPushButton("Sepia Effect");
-    QPushButton *coolFilterBtn = new QPushButton("Cool Filter");
-    QPushButton *warmFilterBtn = new QPushButton("Warm Filter");
-    QPushButton *vintageBtn = new QPushButton("Vintage Effect");
-    
-    addTooltip(colorSpaceBtn, "Convert to different color spaces (HSV, LAB, YCrCb)");
-    addTooltip(splitChannelsBtn, "Split and visualize RGB channels separately");
-    addTooltip(adjustColorsBtn, "Adjust brightness, contrast, saturation, and hue");
-    addTooltip(whiteBalanceBtn, "Automatic white balance correction");
-    addTooltip(sepiaBtn, "Apply sepia tone effect");
-    addTooltip(coolFilterBtn, "Apply cool color filter (blue tint)");
-    addTooltip(warmFilterBtn, "Apply warm color filter (orange tint)");
-    addTooltip(vintageBtn, "Apply vintage/retro color effect");
-    
-    connect(colorSpaceBtn, &QPushButton::clicked, this, &MainWindow::convertToColorSpace);
-    connect(splitChannelsBtn, &QPushButton::clicked, this, &MainWindow::splitRGBChannels);
-    connect(adjustColorsBtn, &QPushButton::clicked, this, &MainWindow::adjustColors);
-    connect(whiteBalanceBtn, &QPushButton::clicked, this, &MainWindow::applyWhiteBalance);
-    connect(sepiaBtn, &QPushButton::clicked, this, &MainWindow::applySepiaEffect);
-    connect(coolFilterBtn, &QPushButton::clicked, this, &MainWindow::applyCoolFilter);
-    connect(warmFilterBtn, &QPushButton::clicked, this, &MainWindow::applyWarmFilter);
-    connect(vintageBtn, &QPushButton::clicked, this, &MainWindow::applyVintageEffect);
-    
-    colorLayout->addWidget(colorSpaceBtn, 0, 0);
-    colorLayout->addWidget(splitChannelsBtn, 0, 1);
-    colorLayout->addWidget(adjustColorsBtn, 1, 0);
-    colorLayout->addWidget(whiteBalanceBtn, 1, 1);
-    colorLayout->addWidget(sepiaBtn, 2, 0);
-    colorLayout->addWidget(coolFilterBtn, 2, 1);
-    colorLayout->addWidget(warmFilterBtn, 3, 0);
-    colorLayout->addWidget(vintageBtn, 3, 1);
-    
     // Add groups to control layout
     controlLayout->addWidget(autoGroup);
     controlLayout->addWidget(infoGroup);
@@ -380,7 +330,6 @@ void MainWindow::createCentralWidget() {
     controlLayout->addWidget(histogramGroup);
     controlLayout->addWidget(processingGroup);
     controlLayout->addWidget(filtersGroup);
-    controlLayout->addWidget(colorGroup);
     controlLayout->addStretch();
     
     // Add scroll area to splitter
@@ -451,15 +400,11 @@ void MainWindow::updateDisplay() {
     
     if (!processedImage.empty()) {
         processedCanvas->setImage(processedImage);
-        
-        // Calculate quality metrics
-        QString metricsText = getQualityMetrics();
-        
-        QString processedInfo = QString("Size: %1x%2 | Channels: %3\n%4")
+        QString processedInfo = QString("Size: %1x%2 | Channels: %3 | Type: %4")
                                .arg(processedImage.cols)
                                .arg(processedImage.rows)
                                .arg(processedImage.channels())
-                               .arg(metricsText);
+                               .arg(QString::fromStdString(cv::typeToString(processedImage.type())));
         processedInfoLabel->setText(processedInfo);
         
         saveAction->setEnabled(true);
@@ -468,6 +413,9 @@ void MainWindow::updateDisplay() {
         processedInfoLabel->setText("No processing applied");
         saveAction->setEnabled(false);
     }
+    
+    // Update undo button state
+    undoAction->setEnabled(!processingStack.empty());
 }
 
 void MainWindow::updateStatus(const QString& message, const QString& type, int progress) {
@@ -481,6 +429,19 @@ void MainWindow::updateStatus(const QString& message, const QString& type, int p
     }
     
     QApplication::processEvents();
+}
+
+void MainWindow::saveProcessingState() {
+    if (!processedImage.empty()) {
+        processingStack.push_back(processedImage.clone());
+        
+        // Limit history size
+        if (processingStack.size() > maxHistorySize) {
+            processingStack.erase(processingStack.begin());
+        }
+        
+        undoAction->setEnabled(true);
+    }
 }
 
 // File operations implementation continues in next part...
@@ -508,6 +469,7 @@ void MainWindow::loadImage() {
     
     currentImage = originalImage.clone();
     processedImage = cv::Mat(); // Clear processed image
+    processingStack.clear(); // Clear undo history
     imagePath = fileName;
     imageLoaded = true;
     recentlyProcessed = false;
@@ -518,12 +480,14 @@ void MainWindow::loadImage() {
     // Enable actions
     saveAction->setEnabled(false); // Only enable when there's processed image
     resetAction->setEnabled(true);
+    undoAction->setEnabled(false);
     
     // Enable all control groups
     infoGroup->setEnabled(true);
     transformGroup->setEnabled(true);
     histogramGroup->setEnabled(true);
     processingGroup->setEnabled(true);
+    filtersGroup->setEnabled(true);
 }
 
 void MainWindow::saveImage() {
@@ -531,38 +495,25 @@ void MainWindow::saveImage() {
         QMessageBox::warning(this, "Warning", "No processed image to save!");
         return;
     }
-
-    QString selectedFilter;
+    
     QString fileName = QFileDialog::getSaveFileName(this,
         "Save Processed Image",
         QString(),
-        "PNG Files (*.png);;JPEG Files (*.jpg);;BMP Files (*.bmp);;TIFF Files (*.tif *.tiff);;All Files (*.*)",
-        &selectedFilter);
-
+        "PNG Files (*.png);;JPEG Files (*.jpg);;BMP Files (*.bmp);;All Files (*.*)");
+    
     if (fileName.isEmpty()) return;
-
-    // Determine desired extension from selected filter if user didn't provide one
-    QFileInfo fi(fileName);
-    if (fi.suffix().isEmpty()) {
-        QString ext = ".png";
-        if (selectedFilter.contains("TIFF", Qt::CaseInsensitive)) ext = ".tif";
-        else if (selectedFilter.contains("JPEG", Qt::CaseInsensitive) || selectedFilter.contains("JPG", Qt::CaseInsensitive)) ext = ".jpg";
-        else if (selectedFilter.contains("BMP", Qt::CaseInsensitive)) ext = ".bmp";
-
-        fileName += ext;
-    }
-
+    
     updateStatus("Saving image...", "info", 50);
-
+    
     bool success = cv::imwrite(fileName.toStdString(), processedImage);
-
+    
     if (success) {
         updateStatus("Image saved successfully", "success");
-        QMessageBox::information(this, "Success",
+        QMessageBox::information(this, "Success", 
                                 QString("Image saved successfully!\n\n%1").arg(fileName));
     } else {
         updateStatus("Failed to save image", "error");
-        QMessageBox::critical(this, "Error", "Failed to save image file!\n\nEnsure OpenCV was built with TIFF support if saving as TIFF.");
+        QMessageBox::critical(this, "Error", "Failed to save image file!");
     }
 }
 
@@ -573,87 +524,36 @@ void MainWindow::resetImage() {
     processedImage = cv::Mat();
     recentlyProcessed = false;
     processingHistory.clear();
-    lastOperation = "";
     processingStack.clear();
+    lastOperation = "";
     
     updateDisplay();
     updateStatus("Image reset to original", "info");
 }
 
 void MainWindow::undoLastOperation() {
-    std::cout << "[DEBUG] ===== UNDO FUNCTION CALLED =====" << std::endl;
-    std::cout << "[DEBUG] Image loaded: " << (imageLoaded ? "YES" : "NO") << std::endl;
-    std::cout << "[DEBUG] Processing stack size: " << processingStack.size() << std::endl;
-    std::cout << "[DEBUG] Processing history size: " << processingHistory.size() << std::endl;
-    
-    if (!imageLoaded) {
-        std::cout << "[DEBUG] Undo failed: No image loaded" << std::endl;
-        QMessageBox::warning(this, "Warning", "Please load an image first!");
-        return;
-    }
-    
     if (processingStack.empty()) {
-        std::cout << "[DEBUG] Undo failed: Processing stack is empty" << std::endl;
-        QMessageBox::information(this, "Undo", "No operations to undo!");
+        QMessageBox::warning(this, "Warning", "No operations to undo!");
         return;
     }
     
-    std::cout << "[DEBUG] Restoring state from stack..." << std::endl;
-    
-    // Restore previous state
-    processedImage = processingStack.back().clone();
+    // Remove the last state
     processingStack.pop_back();
     
-    std::cout << "[DEBUG] State restored. New stack size: " << processingStack.size() << std::endl;
-    
-    if (!processingHistory.isEmpty()) {
-        QString undoneOperation = processingHistory.last();
-        processingHistory.removeLast();
-        std::cout << "[DEBUG] Removed operation from history: " << undoneOperation.toStdString() << std::endl;
-    }
-    
-    // Enable/disable undo action based on stack state
-    if (undoAction) {
-        undoAction->setEnabled(!processingStack.empty());
-        std::cout << "[DEBUG] Undo action " << (processingStack.empty() ? "disabled" : "enabled") << std::endl;
+    // Restore to previous state
+    if (processingStack.empty()) {
+        processedImage = cv::Mat();
+    } else {
+        processedImage = processingStack.back().clone();
     }
     
     updateDisplay();
-    updateStatus("Undo: Last operation reverted", "info");
-    std::cout << "[DEBUG] ===== UNDO COMPLETED =====" << std::endl;
-}
-
-// Helper function to save state before processing
-void MainWindow::saveProcessingState() {
-    std::cout << "[DEBUG] ===== SAVING PROCESSING STATE =====" << std::endl;
+    updateStatus("Operation undone", "info");
     
-    // For the FIRST operation: save the currentImage (original)
-    // For subsequent operations: save the processedImage (previous result)
-    if (processedImage.empty()) {
-        // First operation - save the original currentImage
-        std::cout << "[DEBUG] First operation detected - saving original currentImage" << std::endl;
-        processingStack.push_back(currentImage.clone());
-        std::cout << "[DEBUG] Original image saved to stack. Stack size: " << processingStack.size() << std::endl;
-    } else {
-        // Subsequent operations - save the current processed result
-        std::cout << "[DEBUG] Subsequent operation - saving current processedImage" << std::endl;
-        processingStack.push_back(processedImage.clone());
-        std::cout << "[DEBUG] Processed image saved to stack. Stack size: " << processingStack.size() << std::endl;
+    // Update processing history
+    if (!processingHistory.empty()) {
+        processingHistory.removeLast();
     }
-    
-    // Limit stack size
-    if (processingStack.size() > static_cast<size_t>(maxHistorySize)) {
-        processingStack.erase(processingStack.begin());
-        std::cout << "[DEBUG] Stack size exceeded limit. Removed oldest state. New size: " << processingStack.size() << std::endl;
-    }
-    
-    // Enable undo action
-    if (undoAction) {
-        undoAction->setEnabled(true);
-        std::cout << "[DEBUG] Undo action enabled" << std::endl;
-    }
-    
-    std::cout << "[DEBUG] ===== STATE SAVE COMPLETED =====" << std::endl;
 }
 
 // Lab 1: Image Information
@@ -689,7 +589,7 @@ void MainWindow::showImageInfo() {
         "padding: 15px; "
         "font-family: 'Consolas', monospace; "
         "font-size: 11pt; "
-        "} "
+        "}"
     );
     
     // Build information string
@@ -713,7 +613,7 @@ void MainWindow::showImageInfo() {
     cv::minMaxLoc(currentImage, &minVal, &maxVal);
     meanVal = cv::mean(currentImage)[0];
     
-    info += "======================================\n\n";
+    info += "=================================\n\n";
     info += QString("  File Path:               %1\n\n").arg(imagePath);
     info += QString("  Dimensions (WxH):        %1 x %2\n\n")
            .arg(cols, 6).arg(rows, -6);
@@ -732,7 +632,7 @@ void MainWindow::showImageInfo() {
            .arg(maxVal, 20, 'f', 2);
     info += QString("  Mean Value:              %1\n\n")
            .arg(meanVal, 20, 'f', 2);
-    info += "======================================";
+    info += "=================================";
     
     infoText->setPlainText(info);
     layout->addWidget(infoText);
@@ -851,11 +751,11 @@ void MainWindow::showImageStats() {
     
     QString stats = QString(
         "Image Statistics:\n\n"
-        "x Min Value: %1\n"
-        "x Max Value: %2\n"
-        "x Mean Value: %3\n"
-        "x Standard Deviation: %4\n"
-        "x Dynamic Range: %5"
+        "• Min Value: %1\n"
+        "• Max Value: %2\n"
+        "• Mean Value: %3\n"
+        "• Standard Deviation: %4\n"
+        "• Dynamic Range: %5"
     ).arg(minVal).arg(maxVal).arg(meanVal, 0, 'f', 2)
      .arg(stdDev, 0, 'f', 2).arg(maxVal - minVal);
     
@@ -876,13 +776,13 @@ void MainWindow::applyTranslation() {
         return;
     }
     
-    // Use processed image if available, otherwise use current
-    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    // Save current state before transformation
+    saveProcessingState();
     
     TransformDialog *dialog = new TransformDialog(
         this, 
         TransformDialog::Translation, 
-        sourceImage
+        currentImage
     );
     
     // Connect preview signal to update processed canvas
@@ -893,13 +793,15 @@ void MainWindow::applyTranslation() {
             });
     
     if (dialog->exec() == QDialog::Accepted) {
-        // Save state before applying transformation
-        saveProcessingState();
-        
         processedImage = dialog->getResultImage();
         recentlyProcessed = true;
         updateDisplay();
         updateStatus("Image translated successfully", "success");
+    } else {
+        // User cancelled, undo the state save
+        if (!processingStack.empty()) {
+            processingStack.pop_back();
+        }
     }
     
     delete dialog;
@@ -911,13 +813,12 @@ void MainWindow::applyRotation() {
         return;
     }
     
-    // Use processed image if available, otherwise use current
-    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    saveProcessingState();
     
     TransformDialog *dialog = new TransformDialog(
         this, 
         TransformDialog::Rotation, 
-        sourceImage
+        currentImage
     );
     
     connect(dialog, &TransformDialog::previewRequested,
@@ -927,13 +828,14 @@ void MainWindow::applyRotation() {
             });
     
     if (dialog->exec() == QDialog::Accepted) {
-        // Save state before applying transformation
-        saveProcessingState();
-        
         processedImage = dialog->getResultImage();
         recentlyProcessed = true;
         updateDisplay();
         updateStatus("Image rotated successfully", "success");
+    } else {
+        if (!processingStack.empty()) {
+            processingStack.pop_back();
+        }
     }
     
     delete dialog;
@@ -945,11 +847,9 @@ void MainWindow::applySkew() {
         return;
     }
     
-    // Save state before processing
     saveProcessingState();
     
-    // Use processed image if available, otherwise use current
-    cv::Mat img = processedImage.empty() ? currentImage.clone() : processedImage.clone();
+    cv::Mat img = currentImage.clone();
     int rows = img.rows;
     int cols = img.cols;
     
@@ -978,13 +878,12 @@ void MainWindow::applyZoom() {
         return;
     }
     
-    // Use processed image if available, otherwise use current
-    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    saveProcessingState();
     
     TransformDialog *dialog = new TransformDialog(
         this, 
         TransformDialog::Zoom, 
-        sourceImage
+        currentImage
     );
     
     connect(dialog, &TransformDialog::previewRequested,
@@ -994,13 +893,14 @@ void MainWindow::applyZoom() {
             });
     
     if (dialog->exec() == QDialog::Accepted) {
-        // Save state before applying transformation
-        saveProcessingState();
-        
         processedImage = dialog->getResultImage();
         recentlyProcessed = true;
         updateDisplay();
         updateStatus("Image zoomed successfully", "success");
+    } else {
+        if (!processingStack.empty()) {
+            processingStack.pop_back();
+        }
     }
     
     delete dialog;
@@ -1012,12 +912,9 @@ void MainWindow::applyFlipX() {
         return;
     }
     
-    // Save state before processing
     saveProcessingState();
     
-    // Use processed image if available, otherwise use current
-    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
-    cv::flip(sourceImage, processedImage, 0); // Flip around x-axis
+    cv::flip(currentImage, processedImage, 0); // Flip around x-axis
     recentlyProcessed = true;
     updateDisplay();
     updateStatus("Image flipped horizontally", "success");
@@ -1029,12 +926,9 @@ void MainWindow::applyFlipY() {
         return;
     }
     
-    // Save state before processing
     saveProcessingState();
     
-    // Use processed image if available, otherwise use current
-    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
-    cv::flip(sourceImage, processedImage, 1); // Flip around y-axis
+    cv::flip(currentImage, processedImage, 1); // Flip around y-axis
     recentlyProcessed = true;
     updateDisplay();
     updateStatus("Image flipped vertically", "success");
@@ -1046,12 +940,9 @@ void MainWindow::applyFlipXY() {
         return;
     }
     
-    // Save state before processing
     saveProcessingState();
     
-    // Use processed image if available, otherwise use current
-    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
-    cv::flip(sourceImage, processedImage, -1); // Flip both axes
+    cv::flip(currentImage, processedImage, -1); // Flip both axes
     recentlyProcessed = true;
     updateDisplay();
     updateStatus("Image flipped both ways", "success");
@@ -1071,20 +962,15 @@ void MainWindow::showHistogram() {
     
     QVBoxLayout *layout = new QVBoxLayout(histDialog);
     
-    // Title - indicate which image we're showing
-    QString titleText = processedImage.empty() ? 
-        "Pixel Value Distribution - Original Image" : 
-        "Pixel Value Distribution - Processed Image";
-    
-    QLabel *titleLabel = new QLabel(titleText);
+    // Title
+    QLabel *titleLabel = new QLabel("Pixel Value Distribution");
     titleLabel->setStyleSheet("font-size: 14pt; font-weight: bold; "
                              "color: #00d4ff; padding: 15px;");
     layout->addWidget(titleLabel);
     
-    // Histogram widget - use processed image if available, otherwise current
+    // Histogram widget
     HistogramWidget *histWidget = new HistogramWidget(histDialog);
-    cv::Mat imageToAnalyze = processedImage.empty() ? currentImage : processedImage;
-    histWidget->setImage(imageToAnalyze);
+    histWidget->setImage(currentImage);
     layout->addWidget(histWidget);
     
     // Close button
@@ -1107,12 +993,9 @@ void MainWindow::applyHistogramEqualization() {
         return;
     }
     
-    // Save state before processing
     saveProcessingState();
     
-    // Use processed image if available, otherwise use current
-    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
-    ImageProcessingLib::applyHistogramEqualization(sourceImage, processedImage);
+    ImageProcessingLib::applyHistogramEqualization(currentImage, processedImage);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1125,12 +1008,9 @@ void MainWindow::applyOtsuThresholding() {
         return;
     }
     
-    // Save state before processing
     saveProcessingState();
     
-    // Use processed image if available, otherwise use current
-    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
-    ImageProcessingLib::applyOtsuThresholding(sourceImage, processedImage);
+    ImageProcessingLib::applyOtsuThresholding(currentImage, processedImage);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1144,7 +1024,6 @@ void MainWindow::convertToGrayscale() {
         return;
     }
     
-    // Save state before processing
     saveProcessingState();
     
     // Continuous processing: use processed image if available
@@ -1165,12 +1044,9 @@ void MainWindow::applyBinaryThreshold() {
         return;
     }
     
-    // Save state before processing
     saveProcessingState();
     
-    // Use processed image if available, otherwise use current
-    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
-    ImageProcessingLib::applyBinaryThreshold(sourceImage, processedImage, 128);
+    ImageProcessingLib::applyBinaryThreshold(currentImage, processedImage, 128);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1183,12 +1059,9 @@ void MainWindow::applyGaussianBlur() {
         return;
     }
     
-    // Save state before processing
     saveProcessingState();
     
-    // Use processed image if available, otherwise use current
-    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
-    ImageProcessingLib::applyGaussianBlur(sourceImage, processedImage, 5);
+    ImageProcessingLib::applyGaussianBlur(currentImage, processedImage, 5);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1201,12 +1074,9 @@ void MainWindow::applyEdgeDetection() {
         return;
     }
     
-    // Save state before processing
     saveProcessingState();
     
-    // Use processed image if available, otherwise use current
-    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
-    ImageProcessingLib::applyEdgeDetection(sourceImage, processedImage, 100, 200);
+    ImageProcessingLib::applyEdgeDetection(currentImage, processedImage, 100, 200);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1219,12 +1089,9 @@ void MainWindow::invertColors() {
         return;
     }
     
-    // Save state before processing
     saveProcessingState();
     
-    // Use processed image if available, otherwise use current
-    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
-    ImageProcessingLib::invertColors(sourceImage, processedImage);
+    ImageProcessingLib::invertColors(currentImage, processedImage);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1238,14 +1105,11 @@ void MainWindow::applyTraditionalFilter() {
         return;
     }
     
-    // Save state before processing
     saveProcessingState();
     
     updateStatus("Applying traditional filter...", "info", 50);
     
-    // Use processed image if available, otherwise use current
-    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
-    ImageFilters::applyTraditionalFilter(sourceImage, processedImage, 5);
+    ImageFilters::applyTraditionalFilter(currentImage, processedImage, 5);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1265,14 +1129,11 @@ void MainWindow::applyPyramidalFilter() {
         return;
     }
     
-    // Save state before processing
     saveProcessingState();
     
     updateStatus("Applying pyramidal filter...", "info", 50);
     
-    // Use processed image if available, otherwise use current
-    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
-    ImageFilters::applyPyramidalFilter(sourceImage, processedImage);
+    ImageFilters::applyPyramidalFilter(currentImage, processedImage);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1292,14 +1153,11 @@ void MainWindow::applyCircularFilter() {
         return;
     }
     
-    // Save state before processing
     saveProcessingState();
     
     updateStatus("Applying circular filter...", "info", 50);
     
-    // Use processed image if available, otherwise use current
-    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
-    ImageFilters::applyCircularFilter(sourceImage, processedImage, 2.0f);
+    ImageFilters::applyCircularFilter(currentImage, processedImage, 2.0f);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1319,14 +1177,11 @@ void MainWindow::applyConeFilter() {
         return;
     }
     
-    // Save state before processing
     saveProcessingState();
     
     updateStatus("Applying cone filter...", "info", 50);
     
-    // Use processed image if available, otherwise use current
-    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
-    ImageFilters::applyConeFilter(sourceImage, processedImage);
+    ImageFilters::applyConeFilter(currentImage, processedImage);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1346,14 +1201,11 @@ void MainWindow::applyLaplacianFilter() {
         return;
     }
     
-    // Save state before processing
     saveProcessingState();
     
     updateStatus("Applying Laplacian filter...", "info", 50);
     
-    // Use processed image if available, otherwise use current
-    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
-    ImageFilters::applyLaplacianFilter(sourceImage, processedImage);
+    ImageFilters::applyLaplacianFilter(currentImage, processedImage);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1373,14 +1225,11 @@ void MainWindow::applySobelFilter() {
         return;
     }
     
-    // Save state before processing
     saveProcessingState();
     
     updateStatus("Applying Sobel filter...", "info", 50);
     
-    // Use processed image if available, otherwise use current
-    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
-    ImageFilters::applySobelFilter(sourceImage, processedImage);
+    ImageFilters::applySobelFilter(currentImage, processedImage);
     
     recentlyProcessed = true;
     updateDisplay();
@@ -1400,7 +1249,6 @@ void MainWindow::autoEnhance() {
         return;
     }
     
-    // Save state before processing
     saveProcessingState();
     
     updateStatus("Auto-enhancing image...", "info", 50);
@@ -1422,428 +1270,14 @@ void MainWindow::autoEnhance() {
     updateDisplay();
     
     // Update info label with operations applied
-    QString opsApplied = operations.join(" > ");
+    QString opsApplied = operations.join(" -> ");
     processedInfoLabel->setText(QString("Enhanced: %1").arg(opsApplied));
     
     updateStatus("Auto enhancement completed", "success");
     
     // Show detailed dialog
     QMessageBox::information(this, "Auto Enhancement Complete",
-        QString("Auto Enhancement Applied!\n\nOperations performed:\nï¿½ %1\n\n"
+        QString("Auto Enhancement Applied!\n\nOperations performed:\n• %1\n\n"
                 "Each subsequent operation will build on this result.")
-                .arg(operations.join("\nï¿½ ")));
-}
-
-// ==================== Image Quality Metrics Implementation ====================
-
-double MainWindow::calculateMSE(const cv::Mat& original, const cv::Mat& processed) {
-    if (original.empty() || processed.empty()) return 0.0;
-    if (original.size() != processed.size()) return 0.0;
-    
-    cv::Mat diff;
-    cv::absdiff(original, processed, diff);
-    diff.convertTo(diff, CV_32F);
-    diff = diff.mul(diff);
-    
-    cv::Scalar s = cv::sum(diff);
-    double sumSquaredError = s[0] + s[1] + s[2];
-    
-    double mse = sumSquaredError / (double)(original.channels() * original.total());
-    return mse;
-}
-
-double MainWindow::calculateRMSE(const cv::Mat& original, const cv::Mat& processed) {
-    double mse = calculateMSE(original, processed);
-    return std::sqrt(mse);
-}
-
-double MainWindow::calculatePSNR(const cv::Mat& original, const cv::Mat& processed) {
-    double mse = calculateMSE(original, processed);
-    if (mse <= 1e-10) return 100.0; // Perfect match
-    
-    double maxPixelValue = 255.0;
-    double psnr = 10.0 * std::log10((maxPixelValue * maxPixelValue) / mse);
-    return psnr;
-}
-
-double MainWindow::calculateSNR(const cv::Mat& original, const cv::Mat& processed) {
-    if (original.empty() || processed.empty()) return 0.0;
-    if (original.size() != processed.size()) return 0.0;
-    
-    // Convert to float for calculations
-    cv::Mat origFloat, procFloat;
-    original.convertTo(origFloat, CV_32F);
-    processed.convertTo(procFloat, CV_32F);
-    
-    // Calculate signal power (original image)
-    cv::Mat origSquared = origFloat.mul(origFloat);
-    cv::Scalar signalPower = cv::sum(origSquared);
-    double totalSignalPower = signalPower[0] + signalPower[1] + signalPower[2];
-    
-    // Calculate noise power (difference between original and processed)
-    cv::Mat noise;
-    cv::absdiff(origFloat, procFloat, noise);
-    cv::Mat noiseSquared = noise.mul(noise);
-    cv::Scalar noisePower = cv::sum(noiseSquared);
-    double totalNoisePower = noisePower[0] + noisePower[1] + noisePower[2];
-    
-    if (totalNoisePower <= 1e-10) return 100.0; // No noise
-    
-    double snr = 10.0 * std::log10(totalSignalPower / totalNoisePower);
-    return snr;
-}
-
-QString MainWindow::getQualityMetrics() {
-    if (processedImage.empty() || currentImage.empty()) {
-        return "No metrics available";
-    }
-    
-    // Ensure both images have the same size
-    if (currentImage.size() != processedImage.size()) {
-        return "Size mismatch - cannot calculate metrics";
-    }
-    
-    double mse = calculateMSE(currentImage, processedImage);
-    double rmse = calculateRMSE(currentImage, processedImage);
-    double psnr = calculatePSNR(currentImage, processedImage);
-    double snr = calculateSNR(currentImage, processedImage);
-    
-    QString metrics = QString("MSE: %1 | RMSE: %2 | PSNR: %3 dB | SNR: %4 dB")
-                     .arg(mse, 0, 'f', 2)
-                     .arg(rmse, 0, 'f', 2)
-                     .arg(psnr, 0, 'f', 2)
-                     .arg(snr, 0, 'f', 2);
-    
-    return metrics;
-}
-
-// =============================================================================
-// Lab 8: Color Space Operations & Channel Manipulation
-// =============================================================================
-
-void MainWindow::convertToColorSpace() {
-    if (!imageLoaded) {
-        QMessageBox::critical(this, "Error", "Please load an image first!");
-        return;
-    }
-    
-    if (currentImage.channels() != 3) {
-        QMessageBox::warning(this, "Warning", "Color space conversion requires a color image!");
-        return;
-    }
-    
-    QStringList colorSpaces;
-    colorSpaces << "HSV (Hue, Saturation, Value)" 
-                << "LAB (Perceptual color space)" 
-                << "YCrCb (Luminance, Chrominance)"
-                << "HSL (Hue, Saturation, Lightness)"
-                << "XYZ (CIE XYZ color space)";
-    
-    bool ok;
-    QString selection = QInputDialog::getItem(this, "Color Space Conversion",
-                                             "Select target color space:",
-                                             colorSpaces, 0, false, &ok);
-    
-    if (!ok || selection.isEmpty()) return;
-    
-    updateStatus("Converting color space...", "info", 50);
-    
-    ColorProcessingLib::ColorSpace targetSpace;
-    QString spaceName;
-    
-    if (selection.startsWith("HSV")) {
-        targetSpace = ColorProcessingLib::ColorSpace::HSV;
-        spaceName = "HSV";
-    } else if (selection.startsWith("LAB")) {
-        targetSpace = ColorProcessingLib::ColorSpace::LAB;
-        spaceName = "LAB";
-    } else if (selection.startsWith("YCrCb")) {
-        targetSpace = ColorProcessingLib::ColorSpace::YCrCb;
-        spaceName = "YCrCb";
-    } else if (selection.startsWith("HSL")) {
-        targetSpace = ColorProcessingLib::ColorSpace::HSL;
-        spaceName = "HSL";
-    } else if (selection.startsWith("XYZ")) {
-        targetSpace = ColorProcessingLib::ColorSpace::XYZ;
-        spaceName = "XYZ";
-    } else {
-        return;
-    }
-    
-    saveProcessingState();
-    
-    cv::Mat result;
-    if (ColorProcessingLib::convertColorSpace(currentImage, result, targetSpace)) {
-        processedImage = result;
-        recentlyProcessed = true;
-        lastOperation = QString("Color Space: %1").arg(spaceName);
-        updateDisplay();
-        updateStatus(QString("Converted to %1 color space").arg(spaceName), "success");
-        
-        QMessageBox::information(this, "Color Space Conversion",
-            QString("Image converted to %1 color space!\n\n"
-                   "The three channels now represent:\n%2")
-            .arg(spaceName)
-            .arg(selection.section(" (", 1).section(")", 0, 0)));
-    } else {
-        updateStatus("Color space conversion failed", "error");
-        QMessageBox::critical(this, "Error", "Failed to convert color space!");
-    }
-}
-
-void MainWindow::splitRGBChannels() {
-    if (!imageLoaded) {
-        QMessageBox::critical(this, "Error", "Please load an image first!");
-        return;
-    }
-    
-    if (currentImage.channels() != 3) {
-        QMessageBox::warning(this, "Warning", "Channel split requires a color image!");
-        return;
-    }
-    
-    QStringList channels;
-    channels << "Blue Channel" << "Green Channel" << "Red Channel" << "All Channels (composite)";
-    
-    bool ok;
-    QString selection = QInputDialog::getItem(this, "Split RGB Channels",
-                                             "Select channel to visualize:",
-                                             channels, 3, false, &ok);
-    
-    if (!ok || selection.isEmpty()) return;
-    
-    updateStatus("Splitting RGB channels...", "info", 50);
-    
-    std::vector<cv::Mat> channelImages;
-    ColorProcessingLib::splitChannels(currentImage, channelImages);
-    
-    if (channelImages.size() != 3) {
-        QMessageBox::critical(this, "Error", "Failed to split channels!");
-        return;
-    }
-    
-    saveProcessingState();
-    
-    if (selection == "All Channels (composite)") {
-        cv::Mat blue, green, red;
-        ColorProcessingLib::visualizeChannel(currentImage, blue, 0);
-        ColorProcessingLib::visualizeChannel(currentImage, green, 1);
-        ColorProcessingLib::visualizeChannel(currentImage, red, 2);
-        
-        int newWidth = currentImage.cols / 3;
-        int newHeight = currentImage.rows;
-        
-        cv::Mat blueResized, greenResized, redResized;
-        cv::resize(blue, blueResized, cv::Size(newWidth, newHeight));
-        cv::resize(green, greenResized, cv::Size(newWidth, newHeight));
-        cv::resize(red, redResized, cv::Size(newWidth, newHeight));
-        
-        cv::Mat composite;
-        cv::hconcat(blueResized, greenResized, composite);
-        cv::hconcat(composite, redResized, processedImage);
-        
-        recentlyProcessed = true;
-        lastOperation = "RGB Channels Split (Composite)";
-        updateDisplay();
-        updateStatus("RGB channels displayed (Blue | Green | Red)", "success");
-    } else {
-        int channelIndex = selection.startsWith("Blue") ? 0 : 
-                          (selection.startsWith("Green") ? 1 : 2);
-        
-        ColorProcessingLib::visualizeChannel(currentImage, processedImage, channelIndex);
-        
-        recentlyProcessed = true;
-        lastOperation = QString("Channel: %1").arg(selection);
-        updateDisplay();
-        updateStatus(QString("%1 visualized").arg(selection), "success");
-    }
-}
-
-void MainWindow::adjustColors() {
-    if (!imageLoaded) {
-        QMessageBox::critical(this, "Error", "Please load an image first!");
-        return;
-    }
-    
-    updateStatus("Opening color adjustment dialog...", "info", 0);
-    
-    ColorAdjustDialog dialog(currentImage, this);
-    
-    connect(&dialog, &ColorAdjustDialog::previewRequested, 
-            [this](const cv::Mat& preview) {
-        processedImage = preview.clone();
-        updateDisplay();
-    });
-    
-    if (dialog.exec() == QDialog::Accepted) {
-        saveProcessingState();
-        processedImage = dialog.getAdjustedImage();
-        recentlyProcessed = true;
-        lastOperation = QString("Color Adjust (B:%1, C:%2, S:%3, H:%4)")
-                     .arg(dialog.getBrightness())
-                     .arg(dialog.getContrast(), 0, 'f', 2)
-                     .arg(dialog.getSaturation())
-                     .arg(dialog.getHue());
-        updateDisplay();
-        
-        QString msg = QString("Colors adjusted (B:%1, C:%2, S:%3, H:%4)")
-                     .arg(dialog.getBrightness())
-                     .arg(dialog.getContrast(), 0, 'f', 2)
-                     .arg(dialog.getSaturation())
-                     .arg(dialog.getHue());
-        updateStatus(msg, "success");
-    } else {
-        if (recentlyProcessed) {
-            updateDisplay();
-        }
-        updateStatus("Color adjustment cancelled", "info");
-    }
-}
-
-void MainWindow::applyWhiteBalance() {
-    if (!imageLoaded) {
-        QMessageBox::critical(this, "Error", "Please load an image first!");
-        return;
-    }
-    
-    if (currentImage.channels() != 3) {
-        QMessageBox::warning(this, "Warning", "White balance requires a color image!");
-        return;
-    }
-    
-    updateStatus("Applying white balance...", "info", 50);
-    
-    saveProcessingState();
-    ColorProcessingLib::whiteBalance(currentImage, processedImage);
-    
-    recentlyProcessed = true;
-    lastOperation = "White Balance";
-    updateDisplay();
-    updateStatus("White balance applied successfully", "success");
-    
-    QMessageBox::information(this, "White Balance",
-        "Automatic white balance correction applied!\n\n"
-        "Algorithm: Gray World assumption\n"
-        "Effect: Corrects color cast by normalizing average RGB values\n"
-        "Use case: Fix images with color temperature issues");
-}
-
-void MainWindow::applySepiaEffect() {
-    if (!imageLoaded) {
-        QMessageBox::critical(this, "Error", "Please load an image first!");
-        return;
-    }
-    
-    if (currentImage.channels() != 3) {
-        QMessageBox::warning(this, "Warning", "Sepia effect requires a color image!");
-        return;
-    }
-    
-    bool ok;
-    int intensity = QInputDialog::getInt(this, "Sepia Effect",
-                                        "Effect intensity (0-100):",
-                                        80, 0, 100, 10, &ok);
-    
-    if (!ok) return;
-    
-    updateStatus("Applying sepia effect...", "info", 50);
-    
-    saveProcessingState();
-    double intensityFactor = intensity / 100.0;
-    ColorProcessingLib::applySepiaEffect(currentImage, processedImage, intensityFactor);
-    
-    recentlyProcessed = true;
-    lastOperation = QString("Sepia (%1%)").arg(intensity);
-    updateDisplay();
-    updateStatus(QString("Sepia effect applied (intensity: %1%)").arg(intensity), "success");
-}
-
-void MainWindow::applyCoolFilter() {
-    if (!imageLoaded) {
-        QMessageBox::critical(this, "Error", "Please load an image first!");
-        return;
-    }
-    
-    if (currentImage.channels() != 3) {
-        QMessageBox::warning(this, "Warning", "Cool filter requires a color image!");
-        return;
-    }
-    
-    bool ok;
-    int intensity = QInputDialog::getInt(this, "Cool Filter",
-                                        "Filter intensity (0-100):",
-                                        50, 0, 100, 10, &ok);
-    
-    if (!ok) return;
-    
-    updateStatus("Applying cool filter...", "info", 50);
-    
-    saveProcessingState();
-    double intensityFactor = intensity / 100.0;
-    ColorProcessingLib::applyCoolFilter(currentImage, processedImage, intensityFactor);
-    
-    recentlyProcessed = true;
-    lastOperation = QString("Cool Filter (%1%)").arg(intensity);
-    updateDisplay();
-    updateStatus(QString("Cool filter applied (intensity: %1%)").arg(intensity), "success");
-}
-
-void MainWindow::applyWarmFilter() {
-    if (!imageLoaded) {
-        QMessageBox::critical(this, "Error", "Please load an image first!");
-        return;
-    }
-    
-    if (currentImage.channels() != 3) {
-        QMessageBox::warning(this, "Warning", "Warm filter requires a color image!");
-        return;
-    }
-    
-    bool ok;
-    int intensity = QInputDialog::getInt(this, "Warm Filter",
-                                        "Filter intensity (0-100):",
-                                        50, 0, 100, 10, &ok);
-    
-    if (!ok) return;
-    
-    updateStatus("Applying warm filter...", "info", 50);
-    
-    saveProcessingState();
-    double intensityFactor = intensity / 100.0;
-    ColorProcessingLib::applyWarmFilter(currentImage, processedImage, intensityFactor);
-    
-    recentlyProcessed = true;
-    lastOperation = QString("Warm Filter (%1%)").arg(intensity);
-    updateDisplay();
-    updateStatus(QString("Warm filter applied (intensity: %1%)").arg(intensity), "success");
-}
-
-void MainWindow::applyVintageEffect() {
-    if (!imageLoaded) {
-        QMessageBox::critical(this, "Error", "Please load an image first!");
-        return;
-    }
-    
-    if (currentImage.channels() != 3) {
-        QMessageBox::warning(this, "Warning", "Vintage effect requires a color image!");
-        return;
-    }
-    
-    updateStatus("Applying vintage effect...", "info", 50);
-    
-    saveProcessingState();
-    ColorProcessingLib::applyVintageEffect(currentImage, processedImage);
-    
-    recentlyProcessed = true;
-    lastOperation = "Vintage Effect";
-    updateDisplay();
-    updateStatus("Vintage effect applied successfully", "success");
-    
-    QMessageBox::information(this, "Vintage Effect",
-        "Vintage/retro effect applied!\n\n"
-        "Includes:\n"
-        "- Sepia toning\n"
-        "- Reduced contrast\n"
-        "- Vignette effect\n"
-        "Use case: Create nostalgic, old-photo appearance");
+                .arg(operations.join("\n• ")));
 }

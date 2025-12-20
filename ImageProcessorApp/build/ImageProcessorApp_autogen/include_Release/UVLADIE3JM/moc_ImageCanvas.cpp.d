@@ -1,4 +1,4 @@
-C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/ImageProcessorApp_autogen/include_Release/UVLADIE3JM/moc_ImageCanvas.cpp: C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/src/ImageCanvas.h \
+F:/Project1/ImageProcessorApp/build/ImageProcessorApp_autogen/include_Release/UVLADIE3JM/moc_ImageCanvas.cpp: F:/Project1/ImageProcessorApp/src/ImageCanvas.h \
   C:/Qt/6.7.3/msvc2019_64/include/QtCore/QList \
   C:/Qt/6.7.3/msvc2019_64/include/QtCore/QObject \
   C:/Qt/6.7.3/msvc2019_64/include/QtCore/QRect \

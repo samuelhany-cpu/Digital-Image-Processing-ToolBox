@@ -36,10 +36,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -95,6 +92,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -137,9 +139,9 @@ events:
       The output was:
       0
       MSBuild version 17.14.23+b0019275e for .NET Framework
-      Build started 11/21/2025 5:55:05 PM.
+      Build started 12/3/2025 11:33:54 AM.
       
-      Project "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\4.2.0-rc2\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
+      Project "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\4.2.0-rc2\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
       PrepareForBuild:
         Creating directory "Debug\\".
         Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
@@ -152,7 +154,7 @@ events:
         CMakeCXXCompilerId.cpp
       Link:
         F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
-        CompilerIdCXX.vcxproj -> C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\4.2.0-rc2\\CompilerIdCXX\\CompilerIdCXX.exe
+        CompilerIdCXX.vcxproj -> F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\4.2.0-rc2\\CompilerIdCXX\\CompilerIdCXX.exe
       PostBuildEvent:
         for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
         :VCEnd
@@ -160,13 +162,13 @@ events:
       FinalizeBuildStatus:
         Deleting file "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
         Touching "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate".
-      Done Building Project "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\4.2.0-rc2\\CompilerIdCXX\\CompilerIdCXX.vcxproj" (default targets).
+      Done Building Project "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\4.2.0-rc2\\CompilerIdCXX\\CompilerIdCXX.vcxproj" (default targets).
       
       Build succeeded.
           0 Warning(s)
           0 Error(s)
       
-      Time Elapsed 00:00:01.04
+      Time Elapsed 00:00:01.97
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -174,7 +176,7 @@ events:
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
       
       The CXX compiler identification is MSVC, found in:
-        C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/4.2.0-rc2/CompilerIdCXX/CompilerIdCXX.exe
+        F:/Project1/ImageProcessorApp/build/CMakeFiles/4.2.0-rc2/CompilerIdCXX/CompilerIdCXX.exe
       
   -
     kind: "find-v1"
@@ -199,7 +201,6 @@ events:
       - "link"
     candidate_directories:
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/"
       - "F:/Visual Studio 2022/Common7/IDE/VC/vcpackages/"
       - "F:/Visual Studio 2022/Common7/IDE/CommonExtensions/Microsoft/TestWindow/"
@@ -272,10 +273,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -331,6 +329,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -371,7 +374,6 @@ events:
       - "lld-link"
     candidate_directories:
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/"
       - "F:/Visual Studio 2022/Common7/IDE/VC/vcpackages/"
       - "F:/Visual Studio 2022/Common7/IDE/CommonExtensions/Microsoft/TestWindow/"
@@ -442,9 +444,6 @@ events:
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lld-link.com"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lld-link.exe"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lld-link"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/lld-link.com"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/lld-link.exe"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/lld-link"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/lld-link.com"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/lld-link.exe"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/lld-link"
@@ -647,10 +646,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -706,6 +702,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -744,7 +745,6 @@ events:
       - "link"
     candidate_directories:
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/"
       - "F:/Visual Studio 2022/Common7/IDE/VC/vcpackages/"
       - "F:/Visual Studio 2022/Common7/IDE/CommonExtensions/Microsoft/TestWindow/"
@@ -817,10 +817,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -876,6 +873,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -914,7 +916,6 @@ events:
       - "mt"
     candidate_directories:
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/"
       - "F:/Visual Studio 2022/Common7/IDE/VC/vcpackages/"
       - "F:/Visual Studio 2022/Common7/IDE/CommonExtensions/Microsoft/TestWindow/"
@@ -985,9 +986,6 @@ events:
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/mt.com"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/mt.exe"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/mt"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/mt.com"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/mt.exe"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/mt"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/mt.com"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/mt.exe"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/mt"
@@ -1011,10 +1009,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -1070,6 +1065,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -1108,7 +1108,6 @@ events:
       - "lib"
     candidate_directories:
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/"
       - "F:/Visual Studio 2022/Common7/IDE/VC/vcpackages/"
       - "F:/Visual Studio 2022/Common7/IDE/CommonExtensions/Microsoft/TestWindow/"
@@ -1181,10 +1180,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -1240,6 +1236,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -1283,7 +1284,6 @@ events:
       - "C:/Qt/6.7.3/msvc2019_64/bin/"
       - "C:/Qt/6.7.3/msvc2019_64/sbin/"
       - "C:/Qt/6.7.3/msvc2019_64/"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/"
       - "F:/Visual Studio 2022/Common7/IDE/VC/vcpackages/"
       - "F:/Visual Studio 2022/Common7/IDE/CommonExtensions/Microsoft/TestWindow/"
@@ -1372,9 +1372,6 @@ events:
       - "C:/Qt/6.7.3/msvc2019_64/rc.com"
       - "C:/Qt/6.7.3/msvc2019_64/rc.exe"
       - "C:/Qt/6.7.3/msvc2019_64/rc"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/rc.com"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/rc.exe"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/rc"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/rc.com"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/rc.exe"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/rc"
@@ -1398,10 +1395,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -1457,6 +1451,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -1489,8 +1488,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-8ivm9g"
-      binary: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-8ivm9g"
+      source: "F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-hjm8d9"
+      binary: "F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-hjm8d9"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -1500,39 +1499,39 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-8ivm9g'
+        Change Dir: 'F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-hjm8d9'
         
-        Run Build Command(s): "F:/Visual Studio 2022/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_75585.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "F:/Visual Studio 2022/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_32aaa.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.14.23+b0019275e for .NET Framework
-        Build started 11/21/2025 5:55:06 PM.
+        Build started 12/3/2025 11:33:56 AM.
         
-        Project "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-8ivm9g\\cmTC_75585.vcxproj" on node 1 (default targets).
+        Project "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hjm8d9\\cmTC_32aaa.vcxproj" on node 1 (default targets).
         PrepareForBuild:
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-8ivm9g\\Debug\\".
-          Creating directory "cmTC_75585.dir\\Debug\\cmTC_75585.tlog\\".
+          Creating directory "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hjm8d9\\Debug\\".
+          Creating directory "cmTC_32aaa.dir\\Debug\\cmTC_32aaa.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_75585.dir\\Debug\\cmTC_75585.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_75585.dir\\Debug\\cmTC_75585.tlog\\unsuccessfulbuild".
+          Creating "cmTC_32aaa.dir\\Debug\\cmTC_32aaa.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_32aaa.dir\\Debug\\cmTC_32aaa.tlog\\unsuccessfulbuild".
         ClCompile:
-          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /Fo"cmTC_75585.dir\\Debug\\\\" /Fd"cmTC_75585.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
+          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /Fo"cmTC_32aaa.dir\\Debug\\\\" /Fd"cmTC_32aaa.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35220 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /Fo"cmTC_75585.dir\\Debug\\\\" /Fd"cmTC_75585.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /Fo"cmTC_32aaa.dir\\Debug\\\\" /Fd"cmTC_32aaa.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
           CMakeCXXCompilerABI.cpp
         Link:
-          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-8ivm9g\\Debug\\cmTC_75585.exe" /INCREMENTAL /ILK:"cmTC_75585.dir\\Debug\\cmTC_75585.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-8ivm9g/Debug/cmTC_75585.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-8ivm9g/Debug/cmTC_75585.lib" /MACHINE:X64  /machine:x64 cmTC_75585.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_75585.vcxproj -> C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-8ivm9g\\Debug\\cmTC_75585.exe
+          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hjm8d9\\Debug\\cmTC_32aaa.exe" /INCREMENTAL /ILK:"cmTC_32aaa.dir\\Debug\\cmTC_32aaa.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-hjm8d9/Debug/cmTC_32aaa.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-hjm8d9/Debug/cmTC_32aaa.lib" /MACHINE:X64  /machine:x64 cmTC_32aaa.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_32aaa.vcxproj -> F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hjm8d9\\Debug\\cmTC_32aaa.exe
         FinalizeBuildStatus:
-          Deleting file "cmTC_75585.dir\\Debug\\cmTC_75585.tlog\\unsuccessfulbuild".
-          Touching "cmTC_75585.dir\\Debug\\cmTC_75585.tlog\\cmTC_75585.lastbuildstate".
-        Done Building Project "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-8ivm9g\\cmTC_75585.vcxproj" (default targets).
+          Deleting file "cmTC_32aaa.dir\\Debug\\cmTC_32aaa.tlog\\unsuccessfulbuild".
+          Touching "cmTC_32aaa.dir\\Debug\\cmTC_32aaa.tlog\\cmTC_32aaa.lastbuildstate".
+        Done Building Project "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hjm8d9\\cmTC_32aaa.vcxproj" (default targets).
         
         Build succeeded.
             0 Warning(s)
             0 Error(s)
         
-        Time Elapsed 00:00:00.61
+        Time Elapsed 00:00:01.99
         
       exitCode: 0
   -
@@ -1575,12 +1574,12 @@ events:
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:36 (find_dependency)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Dependencies.cmake:27 (_qt_internal_find_third_party_dependencies)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:124 (include)"
-      - "CMakeLists.txt:8 (find_package)"
+      - "CMakeLists.txt:31 (find_package)"
     checks:
       - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
     directories:
-      source: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-o4b3ym"
-      binary: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-o4b3ym"
+      source: "F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-jv2jxz"
+      binary: "F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-jv2jxz"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -1590,39 +1589,39 @@ events:
       variable: "CMAKE_HAVE_LIBC_PTHREAD"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-o4b3ym'
+        Change Dir: 'F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-jv2jxz'
         
-        Run Build Command(s): "F:/Visual Studio 2022/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_7a70b.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "F:/Visual Studio 2022/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_134eb.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.14.23+b0019275e for .NET Framework
-        Build started 11/21/2025 5:55:07 PM.
+        Build started 12/3/2025 11:33:59 AM.
         
-        Project "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-o4b3ym\\cmTC_7a70b.vcxproj" on node 1 (default targets).
+        Project "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jv2jxz\\cmTC_134eb.vcxproj" on node 1 (default targets).
         PrepareForBuild:
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-o4b3ym\\Debug\\".
-          Creating directory "cmTC_7a70b.dir\\Debug\\cmTC_7a70b.tlog\\".
+          Creating directory "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jv2jxz\\Debug\\".
+          Creating directory "cmTC_134eb.dir\\Debug\\cmTC_134eb.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_7a70b.dir\\Debug\\cmTC_7a70b.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_7a70b.dir\\Debug\\cmTC_7a70b.tlog\\unsuccessfulbuild".
+          Creating "cmTC_134eb.dir\\Debug\\cmTC_134eb.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_134eb.dir\\Debug\\cmTC_134eb.tlog\\unsuccessfulbuild".
         ClCompile:
-          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++14 /Fo"cmTC_7a70b.dir\\Debug\\\\" /Fd"cmTC_7a70b.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-o4b3ym\\src.cxx"
+          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++14 /Fo"cmTC_134eb.dir\\Debug\\\\" /Fd"cmTC_134eb.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jv2jxz\\src.cxx"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35220 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++14 /Fo"cmTC_7a70b.dir\\Debug\\\\" /Fd"cmTC_7a70b.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-o4b3ym\\src.cxx"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++14 /Fo"cmTC_134eb.dir\\Debug\\\\" /Fd"cmTC_134eb.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jv2jxz\\src.cxx"
           src.cxx
-        C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-o4b3ym\\src.cxx(1,10): error C1083: Cannot open include file: 'pthread.h': No such file or directory [C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-o4b3ym\\cmTC_7a70b.vcxproj]
-        Done Building Project "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-o4b3ym\\cmTC_7a70b.vcxproj" (default targets) -- FAILED.
+        F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jv2jxz\\src.cxx(1,10): error C1083: Cannot open include file: 'pthread.h': No such file or directory [F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jv2jxz\\cmTC_134eb.vcxproj]
+        Done Building Project "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jv2jxz\\cmTC_134eb.vcxproj" (default targets) -- FAILED.
         
         Build FAILED.
         
-        "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-o4b3ym\\cmTC_7a70b.vcxproj" (default target) (1) ->
+        "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jv2jxz\\cmTC_134eb.vcxproj" (default target) (1) ->
         (ClCompile target) -> 
-          C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-o4b3ym\\src.cxx(1,10): error C1083: Cannot open include file: 'pthread.h': No such file or directory [C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-o4b3ym\\cmTC_7a70b.vcxproj]
+          F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jv2jxz\\src.cxx(1,10): error C1083: Cannot open include file: 'pthread.h': No such file or directory [F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jv2jxz\\cmTC_134eb.vcxproj]
         
             0 Warning(s)
             1 Error(s)
         
-        Time Elapsed 00:00:00.46
+        Time Elapsed 00:00:01.11
         
       exitCode: 1
   -
@@ -1636,12 +1635,12 @@ events:
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:36 (find_dependency)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Dependencies.cmake:27 (_qt_internal_find_third_party_dependencies)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:124 (include)"
-      - "CMakeLists.txt:8 (find_package)"
+      - "CMakeLists.txt:31 (find_package)"
     checks:
       - "Looking for pthread_create in pthreads"
     directories:
-      source: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-nwj3ng"
-      binary: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-nwj3ng"
+      source: "F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-2abtoc"
+      binary: "F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-2abtoc"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -1651,41 +1650,41 @@ events:
       variable: "CMAKE_HAVE_PTHREADS_CREATE"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-nwj3ng'
+        Change Dir: 'F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-2abtoc'
         
-        Run Build Command(s): "F:/Visual Studio 2022/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_82557.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "F:/Visual Studio 2022/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_34e98.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.14.23+b0019275e for .NET Framework
-        Build started 11/21/2025 5:55:08 PM.
+        Build started 12/3/2025 11:34:01 AM.
         
-        Project "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nwj3ng\\cmTC_82557.vcxproj" on node 1 (default targets).
+        Project "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-2abtoc\\cmTC_34e98.vcxproj" on node 1 (default targets).
         PrepareForBuild:
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nwj3ng\\Debug\\".
-          Creating directory "cmTC_82557.dir\\Debug\\cmTC_82557.tlog\\".
+          Creating directory "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-2abtoc\\Debug\\".
+          Creating directory "cmTC_34e98.dir\\Debug\\cmTC_34e98.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_82557.dir\\Debug\\cmTC_82557.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_82557.dir\\Debug\\cmTC_82557.tlog\\unsuccessfulbuild".
+          Creating "cmTC_34e98.dir\\Debug\\cmTC_34e98.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_34e98.dir\\Debug\\cmTC_34e98.tlog\\unsuccessfulbuild".
         ClCompile:
-          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++14 /Fo"cmTC_82557.dir\\Debug\\\\" /Fd"cmTC_82557.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nwj3ng\\CheckFunctionExists.cxx"
+          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++14 /Fo"cmTC_34e98.dir\\Debug\\\\" /Fd"cmTC_34e98.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-2abtoc\\CheckFunctionExists.cxx"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35220 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++14 /Fo"cmTC_82557.dir\\Debug\\\\" /Fd"cmTC_82557.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nwj3ng\\CheckFunctionExists.cxx"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++14 /Fo"cmTC_34e98.dir\\Debug\\\\" /Fd"cmTC_34e98.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-2abtoc\\CheckFunctionExists.cxx"
           CheckFunctionExists.cxx
         Link:
-          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nwj3ng\\Debug\\cmTC_82557.exe" /INCREMENTAL /ILK:"cmTC_82557.dir\\Debug\\cmTC_82557.ilk" /NOLOGO pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-nwj3ng/Debug/cmTC_82557.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-nwj3ng/Debug/cmTC_82557.lib" /MACHINE:X64  /machine:x64 cmTC_82557.dir\\Debug\\CheckFunctionExists.obj
-        LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nwj3ng\\cmTC_82557.vcxproj]
-        Done Building Project "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nwj3ng\\cmTC_82557.vcxproj" (default targets) -- FAILED.
+          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-2abtoc\\Debug\\cmTC_34e98.exe" /INCREMENTAL /ILK:"cmTC_34e98.dir\\Debug\\cmTC_34e98.ilk" /NOLOGO pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-2abtoc/Debug/cmTC_34e98.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-2abtoc/Debug/cmTC_34e98.lib" /MACHINE:X64  /machine:x64 cmTC_34e98.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-2abtoc\\cmTC_34e98.vcxproj]
+        Done Building Project "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-2abtoc\\cmTC_34e98.vcxproj" (default targets) -- FAILED.
         
         Build FAILED.
         
-        "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nwj3ng\\cmTC_82557.vcxproj" (default target) (1) ->
+        "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-2abtoc\\cmTC_34e98.vcxproj" (default target) (1) ->
         (Link target) -> 
-          LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nwj3ng\\cmTC_82557.vcxproj]
+          LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-2abtoc\\cmTC_34e98.vcxproj]
         
             0 Warning(s)
             1 Error(s)
         
-        Time Elapsed 00:00:00.50
+        Time Elapsed 00:00:01.48
         
       exitCode: 1
   -
@@ -1699,12 +1698,12 @@ events:
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:36 (find_dependency)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Dependencies.cmake:27 (_qt_internal_find_third_party_dependencies)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:124 (include)"
-      - "CMakeLists.txt:8 (find_package)"
+      - "CMakeLists.txt:31 (find_package)"
     checks:
       - "Looking for pthread_create in pthread"
     directories:
-      source: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-5g32po"
-      binary: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-5g32po"
+      source: "F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-pxwt4h"
+      binary: "F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-pxwt4h"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -1714,41 +1713,41 @@ events:
       variable: "CMAKE_HAVE_PTHREAD_CREATE"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-5g32po'
+        Change Dir: 'F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-pxwt4h'
         
-        Run Build Command(s): "F:/Visual Studio 2022/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_e31b3.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "F:/Visual Studio 2022/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_da173.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.14.23+b0019275e for .NET Framework
-        Build started 11/21/2025 5:55:09 PM.
+        Build started 12/3/2025 11:34:03 AM.
         
-        Project "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5g32po\\cmTC_e31b3.vcxproj" on node 1 (default targets).
+        Project "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-pxwt4h\\cmTC_da173.vcxproj" on node 1 (default targets).
         PrepareForBuild:
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5g32po\\Debug\\".
-          Creating directory "cmTC_e31b3.dir\\Debug\\cmTC_e31b3.tlog\\".
+          Creating directory "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-pxwt4h\\Debug\\".
+          Creating directory "cmTC_da173.dir\\Debug\\cmTC_da173.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_e31b3.dir\\Debug\\cmTC_e31b3.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_e31b3.dir\\Debug\\cmTC_e31b3.tlog\\unsuccessfulbuild".
+          Creating "cmTC_da173.dir\\Debug\\cmTC_da173.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_da173.dir\\Debug\\cmTC_da173.tlog\\unsuccessfulbuild".
         ClCompile:
-          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++14 /Fo"cmTC_e31b3.dir\\Debug\\\\" /Fd"cmTC_e31b3.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5g32po\\CheckFunctionExists.cxx"
+          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++14 /Fo"cmTC_da173.dir\\Debug\\\\" /Fd"cmTC_da173.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-pxwt4h\\CheckFunctionExists.cxx"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35220 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++14 /Fo"cmTC_e31b3.dir\\Debug\\\\" /Fd"cmTC_e31b3.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5g32po\\CheckFunctionExists.cxx"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++14 /Fo"cmTC_da173.dir\\Debug\\\\" /Fd"cmTC_da173.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-pxwt4h\\CheckFunctionExists.cxx"
           CheckFunctionExists.cxx
         Link:
-          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5g32po\\Debug\\cmTC_e31b3.exe" /INCREMENTAL /ILK:"cmTC_e31b3.dir\\Debug\\cmTC_e31b3.ilk" /NOLOGO pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-5g32po/Debug/cmTC_e31b3.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-5g32po/Debug/cmTC_e31b3.lib" /MACHINE:X64  /machine:x64 cmTC_e31b3.dir\\Debug\\CheckFunctionExists.obj
-        LINK : fatal error LNK1104: cannot open file 'pthread.lib' [C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5g32po\\cmTC_e31b3.vcxproj]
-        Done Building Project "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5g32po\\cmTC_e31b3.vcxproj" (default targets) -- FAILED.
+          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-pxwt4h\\Debug\\cmTC_da173.exe" /INCREMENTAL /ILK:"cmTC_da173.dir\\Debug\\cmTC_da173.ilk" /NOLOGO pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-pxwt4h/Debug/cmTC_da173.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-pxwt4h/Debug/cmTC_da173.lib" /MACHINE:X64  /machine:x64 cmTC_da173.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: cannot open file 'pthread.lib' [F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-pxwt4h\\cmTC_da173.vcxproj]
+        Done Building Project "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-pxwt4h\\cmTC_da173.vcxproj" (default targets) -- FAILED.
         
         Build FAILED.
         
-        "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5g32po\\cmTC_e31b3.vcxproj" (default target) (1) ->
+        "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-pxwt4h\\cmTC_da173.vcxproj" (default target) (1) ->
         (Link target) -> 
-          LINK : fatal error LNK1104: cannot open file 'pthread.lib' [C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5g32po\\cmTC_e31b3.vcxproj]
+          LINK : fatal error LNK1104: cannot open file 'pthread.lib' [F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-pxwt4h\\cmTC_da173.vcxproj]
         
             0 Warning(s)
             1 Error(s)
         
-        Time Elapsed 00:00:00.45
+        Time Elapsed 00:00:01.42
         
       exitCode: 1
   -
@@ -1763,12 +1762,12 @@ events:
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Core/Qt6CoreDependencies.cmake:33 (_qt_internal_find_third_party_dependencies)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Core/Qt6CoreConfig.cmake:45 (include)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:169 (find_package)"
-      - "CMakeLists.txt:8 (find_package)"
+      - "CMakeLists.txt:31 (find_package)"
     checks:
       - "Performing Test HAVE_STDATOMIC"
     directories:
-      source: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-r2780o"
-      binary: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-r2780o"
+      source: "F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-m9847a"
+      binary: "F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-m9847a"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -1778,39 +1777,39 @@ events:
       variable: "HAVE_STDATOMIC"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-r2780o'
+        Change Dir: 'F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-m9847a'
         
-        Run Build Command(s): "F:/Visual Studio 2022/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_682ec.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "F:/Visual Studio 2022/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_acaf7.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.14.23+b0019275e for .NET Framework
-        Build started 11/21/2025 5:55:09 PM.
+        Build started 12/3/2025 11:34:05 AM.
         
-        Project "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r2780o\\cmTC_682ec.vcxproj" on node 1 (default targets).
+        Project "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-m9847a\\cmTC_acaf7.vcxproj" on node 1 (default targets).
         PrepareForBuild:
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r2780o\\Debug\\".
-          Creating directory "cmTC_682ec.dir\\Debug\\cmTC_682ec.tlog\\".
+          Creating directory "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-m9847a\\Debug\\".
+          Creating directory "cmTC_acaf7.dir\\Debug\\cmTC_acaf7.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_682ec.dir\\Debug\\cmTC_682ec.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_682ec.dir\\Debug\\cmTC_682ec.tlog\\unsuccessfulbuild".
+          Creating "cmTC_acaf7.dir\\Debug\\cmTC_acaf7.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_acaf7.dir\\Debug\\cmTC_acaf7.tlog\\unsuccessfulbuild".
         ClCompile:
-          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D HAVE_STDATOMIC /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++14 /Fo"cmTC_682ec.dir\\Debug\\\\" /Fd"cmTC_682ec.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r2780o\\src.cxx"
+          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D HAVE_STDATOMIC /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++14 /Fo"cmTC_acaf7.dir\\Debug\\\\" /Fd"cmTC_acaf7.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-m9847a\\src.cxx"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35220 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D HAVE_STDATOMIC /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++14 /Fo"cmTC_682ec.dir\\Debug\\\\" /Fd"cmTC_682ec.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r2780o\\src.cxx"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D HAVE_STDATOMIC /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++14 /Fo"cmTC_acaf7.dir\\Debug\\\\" /Fd"cmTC_acaf7.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-m9847a\\src.cxx"
           src.cxx
         Link:
-          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r2780o\\Debug\\cmTC_682ec.exe" /INCREMENTAL /ILK:"cmTC_682ec.dir\\Debug\\cmTC_682ec.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-r2780o/Debug/cmTC_682ec.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-r2780o/Debug/cmTC_682ec.lib" /MACHINE:X64  /machine:x64 cmTC_682ec.dir\\Debug\\src.obj
-          cmTC_682ec.vcxproj -> C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r2780o\\Debug\\cmTC_682ec.exe
+          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-m9847a\\Debug\\cmTC_acaf7.exe" /INCREMENTAL /ILK:"cmTC_acaf7.dir\\Debug\\cmTC_acaf7.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-m9847a/Debug/cmTC_acaf7.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-m9847a/Debug/cmTC_acaf7.lib" /MACHINE:X64  /machine:x64 cmTC_acaf7.dir\\Debug\\src.obj
+          cmTC_acaf7.vcxproj -> F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-m9847a\\Debug\\cmTC_acaf7.exe
         FinalizeBuildStatus:
-          Deleting file "cmTC_682ec.dir\\Debug\\cmTC_682ec.tlog\\unsuccessfulbuild".
-          Touching "cmTC_682ec.dir\\Debug\\cmTC_682ec.tlog\\cmTC_682ec.lastbuildstate".
-        Done Building Project "C:\\Users\\Samuel\\source\\repos\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r2780o\\cmTC_682ec.vcxproj" (default targets).
+          Deleting file "cmTC_acaf7.dir\\Debug\\cmTC_acaf7.tlog\\unsuccessfulbuild".
+          Touching "cmTC_acaf7.dir\\Debug\\cmTC_acaf7.tlog\\cmTC_acaf7.lastbuildstate".
+        Done Building Project "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-m9847a\\cmTC_acaf7.vcxproj" (default targets).
         
         Build succeeded.
             0 Warning(s)
             0 Error(s)
         
-        Time Elapsed 00:00:00.75
+        Time Elapsed 00:00:02.12
         
       exitCode: 0
   -
@@ -1820,7 +1819,7 @@ events:
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Core/Qt6CoreDependencies.cmake:37 (_qt_internal_find_tool_dependencies)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Core/Qt6CoreConfig.cmake:45 (include)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:169 (find_package)"
-      - "CMakeLists.txt:8 (find_package)"
+      - "CMakeLists.txt:31 (find_package)"
     name: "Qt6CoreTools"
     configs:
       -
@@ -1858,11 +1857,11 @@ events:
         CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
     candidates:
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6CoreToolsConfig.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6CoreToolsConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6coretools-config.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6coretools-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -1880,10 +1879,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -1939,6 +1935,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -1971,7 +1972,7 @@ events:
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Core/Qt6CoreDependencies.cmake:42 (_qt_internal_find_qt_dependencies)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Core/Qt6CoreConfig.cmake:45 (include)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:169 (find_package)"
-      - "CMakeLists.txt:8 (find_package)"
+      - "CMakeLists.txt:31 (find_package)"
     name: "Qt6ZlibPrivate"
     configs:
       -
@@ -2016,19 +2017,19 @@ events:
         CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
     candidates:
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6ZlibConfig.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6ZlibConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6zlib-config.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6zlib-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6ZlibPrivateConfig.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6ZlibPrivateConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6zlibprivate-config.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6zlibprivate-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -2062,10 +2063,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -2121,6 +2119,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -2153,7 +2156,7 @@ events:
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Core/Qt6CoreDependencies.cmake:42 (_qt_internal_find_qt_dependencies)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Core/Qt6CoreConfig.cmake:45 (include)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:169 (find_package)"
-      - "CMakeLists.txt:8 (find_package)"
+      - "CMakeLists.txt:31 (find_package)"
     name: "Qt6EntryPointPrivate"
     configs:
       -
@@ -2198,19 +2201,19 @@ events:
         CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
     candidates:
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6EntryPointConfig.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6EntryPointConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6entrypoint-config.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6entrypoint-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6EntryPointPrivateConfig.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6EntryPointPrivateConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6entrypointprivate-config.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6entrypointprivate-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -2244,10 +2247,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -2303,6 +2303,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -2333,7 +2338,7 @@ events:
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Core/Qt6CoreConfigExtras.cmake:30 (_qt_internal_setup_deploy_support)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Core/Qt6CoreConfig.cmake:145 (include)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:169 (find_package)"
-      - "CMakeLists.txt:8 (find_package)"
+      - "CMakeLists.txt:31 (find_package)"
     mode: "program"
     variable: "WINDEPLOYQT_EXECUTABLE"
     description: "Path to a program."
@@ -2436,10 +2441,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -2495,6 +2497,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -2522,7 +2529,7 @@ events:
     kind: "find_package-v1"
     backtrace:
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:169 (find_package)"
-      - "CMakeLists.txt:8 (find_package)"
+      - "CMakeLists.txt:31 (find_package)"
     name: "Qt6Core"
     configs:
       -
@@ -2557,11 +2564,11 @@ events:
         CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
     candidates:
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6CoreConfig.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6CoreConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6core-config.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6core-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -2587,10 +2594,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -2646,6 +2650,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -2680,7 +2689,7 @@ events:
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake:37 (_qt_internal_find_tool_dependencies)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake:43 (include)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:169 (find_package)"
-      - "CMakeLists.txt:8 (find_package)"
+      - "CMakeLists.txt:31 (find_package)"
     name: "Qt6GuiTools"
     configs:
       -
@@ -2715,11 +2724,11 @@ events:
         CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
     candidates:
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6GuiToolsConfig.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6GuiToolsConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6guitools-config.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6guitools-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -2737,10 +2746,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -2796,6 +2802,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -2830,7 +2841,7 @@ events:
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake:37 (_qt_internal_find_tool_dependencies)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake:43 (include)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:169 (find_package)"
-      - "CMakeLists.txt:8 (find_package)"
+      - "CMakeLists.txt:31 (find_package)"
     name: "Qt6WidgetsTools"
     configs:
       -
@@ -2868,11 +2879,11 @@ events:
         CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
     candidates:
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6WidgetsToolsConfig.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6WidgetsToolsConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6widgetstools-config.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6widgetstools-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -2890,10 +2901,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -2949,6 +2957,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -2986,7 +2999,7 @@ events:
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake:42 (_qt_internal_find_qt_dependencies)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake:43 (include)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:169 (find_package)"
-      - "CMakeLists.txt:8 (find_package)"
+      - "CMakeLists.txt:31 (find_package)"
     mode: "path"
     variable: "Vulkan_INCLUDE_DIR"
     description: "Path to a file."
@@ -3012,7 +3025,6 @@ events:
       - "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/shared/"
       - "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/winrt/"
       - "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/cppwinrt/"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/"
       - "F:/Visual Studio 2022/Common7/IDE/VC/vcpackages/"
       - "F:/Visual Studio 2022/Common7/IDE/CommonExtensions/Microsoft/TestWindow/"
@@ -3099,7 +3111,6 @@ events:
       - "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/shared/vulkan/vulkan.h"
       - "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/winrt/vulkan/vulkan.h"
       - "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/cppwinrt/vulkan/vulkan.h"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/vulkan/vulkan.h"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/vulkan/vulkan.h"
       - "F:/Visual Studio 2022/Common7/IDE/VC/vcpackages/vulkan/vulkan.h"
       - "F:/Visual Studio 2022/Common7/IDE/CommonExtensions/Microsoft/TestWindow/vulkan/vulkan.h"
@@ -3178,10 +3189,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -3237,6 +3245,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -3283,7 +3296,7 @@ events:
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake:42 (_qt_internal_find_qt_dependencies)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake:43 (include)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:169 (find_package)"
-      - "CMakeLists.txt:8 (find_package)"
+      - "CMakeLists.txt:31 (find_package)"
     mode: "library"
     variable: "Vulkan_LIBRARY"
     description: "Path to a library."
@@ -3306,7 +3319,6 @@ events:
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/lib/x86/"
       - "C:/Program Files (x86)/Windows Kits/10/Lib/10.0.26100.0/ucrt/x86/"
       - "C:/Program Files (x86)/Windows Kits/10/Lib/10.0.26100.0/um/x86/"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/"
       - "F:/Visual Studio 2022/Common7/IDE/VC/vcpackages/"
       - "F:/Visual Studio 2022/Common7/IDE/CommonExtensions/Microsoft/TestWindow/"
@@ -3391,7 +3403,6 @@ events:
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/lib/x86/"
       - "C:/Program Files (x86)/Windows Kits/10/Lib/10.0.26100.0/ucrt/x86/"
       - "C:/Program Files (x86)/Windows Kits/10/Lib/10.0.26100.0/um/x86/"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/"
       - "F:/Visual Studio 2022/Common7/IDE/VC/vcpackages/"
       - "F:/Visual Studio 2022/Common7/IDE/CommonExtensions/Microsoft/TestWindow/"
@@ -3471,10 +3482,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -3530,6 +3538,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -3576,7 +3589,7 @@ events:
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake:42 (_qt_internal_find_qt_dependencies)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake:43 (include)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:169 (find_package)"
-      - "CMakeLists.txt:8 (find_package)"
+      - "CMakeLists.txt:31 (find_package)"
     mode: "program"
     variable: "Vulkan_GLSLC_EXECUTABLE"
     description: "Path to a program."
@@ -3595,7 +3608,6 @@ events:
       - "C:/Qt/6.7.3/msvc2019_64/sbin/"
       - "C:/Qt/6.7.3/msvc2019_64/"
       - "/bin/"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/"
       - "F:/Visual Studio 2022/Common7/IDE/VC/vcpackages/"
       - "F:/Visual Studio 2022/Common7/IDE/CommonExtensions/Microsoft/TestWindow/"
@@ -3687,9 +3699,6 @@ events:
       - "/bin/glslc.com"
       - "/bin/glslc.exe"
       - "/bin/glslc"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/glslc.com"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/glslc.exe"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/glslc"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/glslc.com"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/glslc.exe"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/glslc"
@@ -3928,10 +3937,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -3987,6 +3993,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -4024,7 +4035,7 @@ events:
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake:42 (_qt_internal_find_qt_dependencies)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake:43 (include)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:169 (find_package)"
-      - "CMakeLists.txt:8 (find_package)"
+      - "CMakeLists.txt:31 (find_package)"
     mode: "program"
     variable: "Vulkan_GLSLANG_VALIDATOR_EXECUTABLE"
     description: "Path to a program."
@@ -4043,7 +4054,6 @@ events:
       - "C:/Qt/6.7.3/msvc2019_64/sbin/"
       - "C:/Qt/6.7.3/msvc2019_64/"
       - "/bin/"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/"
       - "F:/Visual Studio 2022/Common7/IDE/VC/vcpackages/"
       - "F:/Visual Studio 2022/Common7/IDE/CommonExtensions/Microsoft/TestWindow/"
@@ -4135,9 +4145,6 @@ events:
       - "/bin/glslangValidator.com"
       - "/bin/glslangValidator.exe"
       - "/bin/glslangValidator"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/glslangValidator.com"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/glslangValidator.exe"
-      - "C:/Qt/6.7.3/msvc2019_64/bin/glslangValidator"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/glslangValidator.com"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/glslangValidator.exe"
       - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx86/x86/glslangValidator"
@@ -4376,10 +4383,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -4435,6 +4439,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -4467,7 +4476,7 @@ events:
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake:42 (_qt_internal_find_qt_dependencies)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake:43 (include)"
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:169 (find_package)"
-      - "CMakeLists.txt:8 (find_package)"
+      - "CMakeLists.txt:31 (find_package)"
     name: "Qt6Gui"
     configs:
       -
@@ -4505,11 +4514,11 @@ events:
         CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
     candidates:
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6GuiConfig.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6GuiConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6gui-config.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6gui-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -4535,10 +4544,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -4594,6 +4600,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -4621,7 +4632,7 @@ events:
     kind: "find_package-v1"
     backtrace:
       - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:169 (find_package)"
-      - "CMakeLists.txt:8 (find_package)"
+      - "CMakeLists.txt:31 (find_package)"
     name: "Qt6Widgets"
     configs:
       -
@@ -4656,11 +4667,11 @@ events:
         CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
     candidates:
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6WidgetsConfig.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6WidgetsConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6widgets-config.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6widgets-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -4686,10 +4697,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -4745,6 +4753,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -4771,7 +4784,7 @@ events:
   -
     kind: "find_package-v1"
     backtrace:
-      - "CMakeLists.txt:8 (find_package)"
+      - "CMakeLists.txt:31 (find_package)"
     name: "Qt6"
     components:
       -
@@ -4813,11 +4826,11 @@ events:
         CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
     candidates:
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6Config.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/Qt6Config.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6-config.cmake"
+        path: "F:/Project1/ImageProcessorApp/build/CMakeFiles/pkgRedirects/qt6-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -5595,10 +5608,7 @@ events:
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\Qt\\6.7.3\\msvc2019_64"
-      ENV{CMAKE_PREFIX_PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64"
       ENV{PATH}:
-        - "C:\\Qt\\6.7.3\\msvc2019_64\\bin"
         - "F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\VC\\VCPackages"
         - "F:\\Visual Studio 2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow"
@@ -5654,6 +5664,11 @@ events:
         - "C:\\Program Files\\PowerToys\\"
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
         - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
         - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
@@ -5681,4 +5696,752 @@ events:
         - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6"
         - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules"
         - "C:/Qt/6.7.3/msvc2019_64/lib/cmake/Qt6/3rdparty/kwin"
+...
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineSystem.cmake:212 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The system is: Windows - 10.0.26200 - AMD64
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "file"
+    variable: "src_in"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "CMakeCXXCompilerId.cpp.in"
+    candidate_directories:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/"
+    found: "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeCXXCompilerId.cpp.in"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "C:\\Qt\\6.7.3\\msvc2019_64"
+      ENV{PATH}:
+        - "C:\\Program Files\\PowerShell\\7-preview"
+        - "c:\\Users\\Samuel\\AppData\\Roaming\\Code - Insiders\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\Samuel\\AppData\\Roaming\\Code - Insiders\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v13.1\\bin\\x64"
+        - "C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v13.1\\bin"
+        - "C:\\Users\\Samuel\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\"
+        - "C:\\Users\\Samuel\\AppData\\Local\\Programs\\Python\\Python313\\"
+        - "C:\\Program Files\\Microsoft\\jdk-17.0.15.6-hotspot\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "c:\\Users\\Samuel\\AppData\\Local\\Programs\\cursor\\resources\\app\\bin"
+        - "C:\\WinAVR-20100110\\bin"
+        - "C:\\WinAVR-20100110\\utils\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files\\Microchip\\xc8\\v2.36\\bin"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\MATLAB\\R2023b\\runtime\\win64"
+        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\Samuel\\emsdk"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\kotlin compiler\\kotlinc\\bin"
+        - "C:\\Program Files\\Java\\jdk-22"
+        - "C:\\MinGW\\bin"
+        - "C:\\Apache\\Maven\\apache-maven-3.9.6\\bin"
+        - "C:\\Users\\Samuel\\AppDa"
+        - "C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin"
+        - "C:\\Program Files\\Microsoft\\jdk-17.0.15.6-hotspot\\\\bin"
+        - "F:\\Flutter\\flutter\\bin"
+        - "C:\\ProgramData\\chocolatey\\bin"
+        - "C:\\Users\\Samuel\\AppData\\Local\\nvm"
+        - "C:\\nvm4w\\nodejs"
+        - "C:\\Program Files\\nodejs\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\msys64\\mingw64\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\PowerToys\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\PowerShell\\7-preview\\preview"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\NVIDIA Corporation\\Nsight Compute 2025.4.0\\"
+        - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
+        - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
+        - "C:\\Program Files\\Azure Data Studio\\bin"
+        - "F:\\Flutter\\bin"
+        - "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2025.1\\bin"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WinGet\\Links"
+        - "C:\\Users\\Samuel\\AppData\\Local\\Android\\Sdk\\platform-tools"
+        - "C:\\Users\\Samuel\\AppData\\Local\\nvm"
+        - "C:\\nvm4w\\nodejs"
+        - "C:\\Users\\Samuel\\AppData\\Roaming\\npm"
+        - "C:\\Program Files\\JetBrains\\WebStorm 2025.1.4.1\\bin"
+        - "C:\\Users\\Samuel\\.dotnet\\tools"
+        - "C:\\Users\\Samuel\\AppData\\Local\\Programs\\Microsoft VS Code Insiders\\bin"
+        - "C:\\apache-maven-3.9.11-bin\\bin"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files (x86)/ImageProcessorApp"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler:  
+      Build flags: /DWIN32;/D_WINDOWS;/GR;/EHsc
+      Id flags:  
+      
+      The output was:
+      0
+      MSBuild version 17.14.23+b0019275e for .NET Framework
+      Build started 12/21/2025 1:24:59 AM.
+      
+      Project "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\4.2.1\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
+      PrepareForBuild:
+        Creating directory "Debug\\".
+        Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+        Creating directory "Debug\\CompilerIdCXX.tlog\\".
+      InitializeBuildStatus:
+        Creating "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        Touching "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+      VcpkgTripletSelection:
+        Using triplet "x64-windows" from "F:\\Naghuma Toolbox\\vcpkg\\installed\\x64-windows\\"
+        Using normalized configuration "Release"
+      ClCompile:
+        F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /I"F:\\Naghuma Toolbox\\vcpkg\\installed\\x64-windows\\include" /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+        CMakeCXXCompilerId.cpp
+      Link:
+        F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"F:\\Naghuma Toolbox\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"F:\\Naghuma Toolbox\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib "F:\\Naghuma Toolbox\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
+        CompilerIdCXX.vcxproj -> F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\4.2.1\\CompilerIdCXX\\CompilerIdCXX.exe
+      AppLocalFromInstalled:
+        pwsh.exe -ExecutionPolicy Bypass -noprofile -File "F:\\Naghuma Toolbox\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\4.2.1\\CompilerIdCXX\\CompilerIdCXX.exe" "F:\\Naghuma Toolbox\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.write.1u.tlog" "Debug\\vcpkg.applocal.log"
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_CXX_COMPILER=F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Deleting file "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+        Touching "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate".
+      Done Building Project "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\4.2.1\\CompilerIdCXX\\CompilerIdCXX.vcxproj" (default targets).
+      
+      Build succeeded.
+          0 Warning(s)
+          0 Error(s)
+      
+      Time Elapsed 00:00:01.80
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+      
+      The CXX compiler identification is MSVC, found in:
+        F:/Project1/ImageProcessorApp/build/CMakeFiles/4.2.1/CompilerIdCXX/CompilerIdCXX.exe
+      
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:37 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:65 (__resolve_tool_path)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:103 (__resolve_linker_path)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "_CMAKE_TOOL_WITH_PATH"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "link"
+    candidate_directories:
+      - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
+      - "C:/Program Files/PowerShell/7-preview/"
+      - "C:/Users/Samuel/AppData/Roaming/Code - Insiders/User/globalStorage/github.copilot-chat/debugCommand/"
+      - "C:/Users/Samuel/AppData/Roaming/Code - Insiders/User/globalStorage/github.copilot-chat/copilotCli/"
+      - "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.1/bin/x64/"
+      - "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.1/bin/"
+      - "C:/Users/Samuel/AppData/Local/Programs/Python/Python313/Scripts/"
+      - "C:/Users/Samuel/AppData/Local/Programs/Python/Python313/"
+      - "C:/Program Files/Microsoft/jdk-17.0.15.6-hotspot/bin/"
+      - "C:/Program Files/Common Files/Oracle/Java/javapath/"
+      - "C:/Users/Samuel/AppData/Local/Programs/cursor/resources/app/bin/"
+      - "C:/WinAVR-20100110/bin/"
+      - "C:/WinAVR-20100110/utils/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Microchip/xc8/v2.36/bin/"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
+      - "C:/Program Files/MATLAB/R2023b/runtime/win64/"
+      - "C:/Program Files/MATLAB/R2023b/bin/"
+      - "C:/Users/Samuel/emsdk/"
+      - "C:/Program Files/NVIDIA Corporation/NVIDIA app/NvDLISR/"
+      - "C:/kotlin compiler/kotlinc/bin/"
+      - "C:/Program Files/Java/jdk-22/"
+      - "C:/MinGW/bin/"
+      - "C:/Apache/Maven/apache-maven-3.9.6/bin/"
+      - "C:/Users/Samuel/AppDa/"
+      - "C:/Program Files/MySQL/MySQL Server 8.0/bin/"
+      - "F:/Flutter/flutter/bin/"
+      - "C:/ProgramData/chocolatey/bin/"
+      - "C:/Users/Samuel/AppData/Local/nvm/"
+      - "C:/nvm4w/nodejs/"
+      - "C:/Program Files/nodejs/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/PuTTY/"
+      - "C:/msys64/mingw64/bin/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/PowerToys/"
+      - "C:/Program Files/PowerShell/7-preview/preview/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/NVIDIA Corporation/Nsight Compute 2025.4.0/"
+      - "C:/Users/Samuel/AppData/Local/pnpm/"
+      - "C:/Users/Samuel/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Program Files/JetBrains/PyCharm Community Edition 2024.1.1/bin/"
+      - "C:/Program Files/Azure Data Studio/bin/"
+      - "F:/Flutter/bin/"
+      - "C:/Program Files/JetBrains/IntelliJ IDEA 2025.1/bin/"
+      - "C:/msys64/ucrt64/bin/"
+      - "C:/Users/Samuel/AppData/Local/Microsoft/WinGet/Links/"
+      - "C:/Users/Samuel/AppData/Local/Android/Sdk/platform-tools/"
+      - "C:/Users/Samuel/AppData/Roaming/npm/"
+      - "C:/Program Files/JetBrains/WebStorm 2025.1.4.1/bin/"
+      - "C:/Users/Samuel/.dotnet/tools/"
+      - "C:/Users/Samuel/AppData/Local/Programs/Microsoft VS Code Insiders/bin/"
+      - "C:/apache-maven-3.9.11-bin/bin/"
+    searched_directories:
+      - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/link.com"
+    found: "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/link.exe"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "C:\\Qt\\6.7.3\\msvc2019_64"
+      ENV{PATH}:
+        - "C:\\Program Files\\PowerShell\\7-preview"
+        - "c:\\Users\\Samuel\\AppData\\Roaming\\Code - Insiders\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\Samuel\\AppData\\Roaming\\Code - Insiders\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v13.1\\bin\\x64"
+        - "C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v13.1\\bin"
+        - "C:\\Users\\Samuel\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\"
+        - "C:\\Users\\Samuel\\AppData\\Local\\Programs\\Python\\Python313\\"
+        - "C:\\Program Files\\Microsoft\\jdk-17.0.15.6-hotspot\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "c:\\Users\\Samuel\\AppData\\Local\\Programs\\cursor\\resources\\app\\bin"
+        - "C:\\WinAVR-20100110\\bin"
+        - "C:\\WinAVR-20100110\\utils\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files\\Microchip\\xc8\\v2.36\\bin"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\MATLAB\\R2023b\\runtime\\win64"
+        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\Samuel\\emsdk"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\kotlin compiler\\kotlinc\\bin"
+        - "C:\\Program Files\\Java\\jdk-22"
+        - "C:\\MinGW\\bin"
+        - "C:\\Apache\\Maven\\apache-maven-3.9.6\\bin"
+        - "C:\\Users\\Samuel\\AppDa"
+        - "C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin"
+        - "C:\\Program Files\\Microsoft\\jdk-17.0.15.6-hotspot\\\\bin"
+        - "F:\\Flutter\\flutter\\bin"
+        - "C:\\ProgramData\\chocolatey\\bin"
+        - "C:\\Users\\Samuel\\AppData\\Local\\nvm"
+        - "C:\\nvm4w\\nodejs"
+        - "C:\\Program Files\\nodejs\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\msys64\\mingw64\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\PowerToys\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\PowerShell\\7-preview\\preview"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\NVIDIA Corporation\\Nsight Compute 2025.4.0\\"
+        - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
+        - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
+        - "C:\\Program Files\\Azure Data Studio\\bin"
+        - "F:\\Flutter\\bin"
+        - "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2025.1\\bin"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WinGet\\Links"
+        - "C:\\Users\\Samuel\\AppData\\Local\\Android\\Sdk\\platform-tools"
+        - "C:\\Users\\Samuel\\AppData\\Local\\nvm"
+        - "C:\\nvm4w\\nodejs"
+        - "C:\\Users\\Samuel\\AppData\\Roaming\\npm"
+        - "C:\\Program Files\\JetBrains\\WebStorm 2025.1.4.1\\bin"
+        - "C:\\Users\\Samuel\\.dotnet\\tools"
+        - "C:\\Users\\Samuel\\AppData\\Local\\Programs\\Microsoft VS Code Insiders\\bin"
+        - "C:\\apache-maven-3.9.11-bin\\bin"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files (x86)/ImageProcessorApp"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:37 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:65 (__resolve_tool_path)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:104 (__resolve_linker_path)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "_CMAKE_TOOL_WITH_PATH"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "lld-link"
+    candidate_directories:
+      - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
+      - "C:/Program Files/PowerShell/7-preview/"
+      - "C:/Users/Samuel/AppData/Roaming/Code - Insiders/User/globalStorage/github.copilot-chat/debugCommand/"
+      - "C:/Users/Samuel/AppData/Roaming/Code - Insiders/User/globalStorage/github.copilot-chat/copilotCli/"
+      - "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.1/bin/x64/"
+      - "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.1/bin/"
+      - "C:/Users/Samuel/AppData/Local/Programs/Python/Python313/Scripts/"
+      - "C:/Users/Samuel/AppData/Local/Programs/Python/Python313/"
+      - "C:/Program Files/Microsoft/jdk-17.0.15.6-hotspot/bin/"
+      - "C:/Program Files/Common Files/Oracle/Java/javapath/"
+      - "C:/Users/Samuel/AppData/Local/Programs/cursor/resources/app/bin/"
+      - "C:/WinAVR-20100110/bin/"
+      - "C:/WinAVR-20100110/utils/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Microchip/xc8/v2.36/bin/"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
+      - "C:/Program Files/MATLAB/R2023b/runtime/win64/"
+      - "C:/Program Files/MATLAB/R2023b/bin/"
+      - "C:/Users/Samuel/emsdk/"
+      - "C:/Program Files/NVIDIA Corporation/NVIDIA app/NvDLISR/"
+      - "C:/kotlin compiler/kotlinc/bin/"
+      - "C:/Program Files/Java/jdk-22/"
+      - "C:/MinGW/bin/"
+      - "C:/Apache/Maven/apache-maven-3.9.6/bin/"
+      - "C:/Users/Samuel/AppDa/"
+      - "C:/Program Files/MySQL/MySQL Server 8.0/bin/"
+      - "F:/Flutter/flutter/bin/"
+      - "C:/ProgramData/chocolatey/bin/"
+      - "C:/Users/Samuel/AppData/Local/nvm/"
+      - "C:/nvm4w/nodejs/"
+      - "C:/Program Files/nodejs/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/PuTTY/"
+      - "C:/msys64/mingw64/bin/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/PowerToys/"
+      - "C:/Program Files/PowerShell/7-preview/preview/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/NVIDIA Corporation/Nsight Compute 2025.4.0/"
+      - "C:/Users/Samuel/AppData/Local/pnpm/"
+      - "C:/Users/Samuel/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Program Files/JetBrains/PyCharm Community Edition 2024.1.1/bin/"
+      - "C:/Program Files/Azure Data Studio/bin/"
+      - "F:/Flutter/bin/"
+      - "C:/Program Files/JetBrains/IntelliJ IDEA 2025.1/bin/"
+      - "C:/msys64/ucrt64/bin/"
+      - "C:/Users/Samuel/AppData/Local/Microsoft/WinGet/Links/"
+      - "C:/Users/Samuel/AppData/Local/Android/Sdk/platform-tools/"
+      - "C:/Users/Samuel/AppData/Roaming/npm/"
+      - "C:/Program Files/JetBrains/WebStorm 2025.1.4.1/bin/"
+      - "C:/Users/Samuel/.dotnet/tools/"
+      - "C:/Users/Samuel/AppData/Local/Programs/Microsoft VS Code Insiders/bin/"
+      - "C:/apache-maven-3.9.11-bin/bin/"
+    searched_directories:
+      - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lld-link.com"
+      - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lld-link.exe"
+      - "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lld-link"
+      - "C:/Program Files/PowerShell/7-preview/lld-link.com"
+      - "C:/Program Files/PowerShell/7-preview/lld-link.exe"
+      - "C:/Program Files/PowerShell/7-preview/lld-link"
+      - "C:/Users/Samuel/AppData/Roaming/Code - Insiders/User/globalStorage/github.copilot-chat/debugCommand/lld-link.com"
+      - "C:/Users/Samuel/AppData/Roaming/Code - Insiders/User/globalStorage/github.copilot-chat/debugCommand/lld-link.exe"
+      - "C:/Users/Samuel/AppData/Roaming/Code - Insiders/User/globalStorage/github.copilot-chat/debugCommand/lld-link"
+      - "C:/Users/Samuel/AppData/Roaming/Code - Insiders/User/globalStorage/github.copilot-chat/copilotCli/lld-link.com"
+      - "C:/Users/Samuel/AppData/Roaming/Code - Insiders/User/globalStorage/github.copilot-chat/copilotCli/lld-link.exe"
+      - "C:/Users/Samuel/AppData/Roaming/Code - Insiders/User/globalStorage/github.copilot-chat/copilotCli/lld-link"
+      - "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.1/bin/x64/lld-link.com"
+      - "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.1/bin/x64/lld-link.exe"
+      - "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.1/bin/x64/lld-link"
+      - "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.1/bin/lld-link.com"
+      - "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.1/bin/lld-link.exe"
+      - "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.1/bin/lld-link"
+      - "C:/Users/Samuel/AppData/Local/Programs/Python/Python313/Scripts/lld-link.com"
+      - "C:/Users/Samuel/AppData/Local/Programs/Python/Python313/Scripts/lld-link.exe"
+      - "C:/Users/Samuel/AppData/Local/Programs/Python/Python313/Scripts/lld-link"
+      - "C:/Users/Samuel/AppData/Local/Programs/Python/Python313/lld-link.com"
+      - "C:/Users/Samuel/AppData/Local/Programs/Python/Python313/lld-link.exe"
+      - "C:/Users/Samuel/AppData/Local/Programs/Python/Python313/lld-link"
+      - "C:/Program Files/Microsoft/jdk-17.0.15.6-hotspot/bin/lld-link.com"
+      - "C:/Program Files/Microsoft/jdk-17.0.15.6-hotspot/bin/lld-link.exe"
+      - "C:/Program Files/Microsoft/jdk-17.0.15.6-hotspot/bin/lld-link"
+      - "C:/Program Files/Common Files/Oracle/Java/javapath/lld-link.com"
+      - "C:/Program Files/Common Files/Oracle/Java/javapath/lld-link.exe"
+      - "C:/Program Files/Common Files/Oracle/Java/javapath/lld-link"
+      - "C:/Users/Samuel/AppData/Local/Programs/cursor/resources/app/bin/lld-link.com"
+      - "C:/Users/Samuel/AppData/Local/Programs/cursor/resources/app/bin/lld-link.exe"
+      - "C:/Users/Samuel/AppData/Local/Programs/cursor/resources/app/bin/lld-link"
+      - "C:/WinAVR-20100110/bin/lld-link.com"
+      - "C:/WinAVR-20100110/bin/lld-link.exe"
+      - "C:/WinAVR-20100110/bin/lld-link"
+      - "C:/WinAVR-20100110/utils/bin/lld-link.com"
+      - "C:/WinAVR-20100110/utils/bin/lld-link.exe"
+      - "C:/WinAVR-20100110/utils/bin/lld-link"
+      - "C:/Windows/System32/lld-link.com"
+      - "C:/Windows/System32/lld-link.exe"
+      - "C:/Windows/System32/lld-link"
+      - "C:/Windows/lld-link.com"
+      - "C:/Windows/lld-link.exe"
+      - "C:/Windows/lld-link"
+      - "C:/Windows/System32/wbem/lld-link.com"
+      - "C:/Windows/System32/wbem/lld-link.exe"
+      - "C:/Windows/System32/wbem/lld-link"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link"
+      - "C:/Windows/System32/OpenSSH/lld-link.com"
+      - "C:/Windows/System32/OpenSSH/lld-link.exe"
+      - "C:/Windows/System32/OpenSSH/lld-link"
+      - "C:/Program Files/dotnet/lld-link.com"
+      - "C:/Program Files/dotnet/lld-link.exe"
+      - "C:/Program Files/dotnet/lld-link"
+      - "C:/Program Files/Microchip/xc8/v2.36/bin/lld-link.com"
+      - "C:/Program Files/Microchip/xc8/v2.36/bin/lld-link.exe"
+      - "C:/Program Files/Microchip/xc8/v2.36/bin/lld-link"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/lld-link.com"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/lld-link.exe"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/lld-link"
+      - "C:/Program Files/MATLAB/R2023b/runtime/win64/lld-link.com"
+      - "C:/Program Files/MATLAB/R2023b/runtime/win64/lld-link.exe"
+      - "C:/Program Files/MATLAB/R2023b/runtime/win64/lld-link"
+      - "C:/Program Files/MATLAB/R2023b/bin/lld-link.com"
+      - "C:/Program Files/MATLAB/R2023b/bin/lld-link.exe"
+      - "C:/Program Files/MATLAB/R2023b/bin/lld-link"
+      - "C:/Users/Samuel/emsdk/lld-link.com"
+      - "C:/Users/Samuel/emsdk/lld-link.exe"
+      - "C:/Users/Samuel/emsdk/lld-link"
+      - "C:/Program Files/NVIDIA Corporation/NVIDIA app/NvDLISR/lld-link.com"
+      - "C:/Program Files/NVIDIA Corporation/NVIDIA app/NvDLISR/lld-link.exe"
+      - "C:/Program Files/NVIDIA Corporation/NVIDIA app/NvDLISR/lld-link"
+      - "C:/kotlin compiler/kotlinc/bin/lld-link.com"
+      - "C:/kotlin compiler/kotlinc/bin/lld-link.exe"
+      - "C:/kotlin compiler/kotlinc/bin/lld-link"
+      - "C:/Program Files/Java/jdk-22/lld-link.com"
+      - "C:/Program Files/Java/jdk-22/lld-link.exe"
+      - "C:/Program Files/Java/jdk-22/lld-link"
+      - "C:/MinGW/bin/lld-link.com"
+      - "C:/MinGW/bin/lld-link.exe"
+      - "C:/MinGW/bin/lld-link"
+      - "C:/Apache/Maven/apache-maven-3.9.6/bin/lld-link.com"
+      - "C:/Apache/Maven/apache-maven-3.9.6/bin/lld-link.exe"
+      - "C:/Apache/Maven/apache-maven-3.9.6/bin/lld-link"
+      - "C:/Users/Samuel/AppDa/lld-link.com"
+      - "C:/Users/Samuel/AppDa/lld-link.exe"
+      - "C:/Users/Samuel/AppDa/lld-link"
+      - "C:/Program Files/MySQL/MySQL Server 8.0/bin/lld-link.com"
+      - "C:/Program Files/MySQL/MySQL Server 8.0/bin/lld-link.exe"
+      - "C:/Program Files/MySQL/MySQL Server 8.0/bin/lld-link"
+      - "F:/Flutter/flutter/bin/lld-link.com"
+      - "F:/Flutter/flutter/bin/lld-link.exe"
+      - "F:/Flutter/flutter/bin/lld-link"
+      - "C:/ProgramData/chocolatey/bin/lld-link.com"
+      - "C:/ProgramData/chocolatey/bin/lld-link.exe"
+      - "C:/ProgramData/chocolatey/bin/lld-link"
+      - "C:/Users/Samuel/AppData/Local/nvm/lld-link.com"
+      - "C:/Users/Samuel/AppData/Local/nvm/lld-link.exe"
+      - "C:/Users/Samuel/AppData/Local/nvm/lld-link"
+      - "C:/nvm4w/nodejs/lld-link.com"
+      - "C:/nvm4w/nodejs/lld-link.exe"
+      - "C:/nvm4w/nodejs/lld-link"
+      - "C:/Program Files/nodejs/lld-link.com"
+      - "C:/Program Files/nodejs/lld-link.exe"
+      - "C:/Program Files/nodejs/lld-link"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link"
+      - "C:/Program Files/PuTTY/lld-link.com"
+      - "C:/Program Files/PuTTY/lld-link.exe"
+      - "C:/Program Files/PuTTY/lld-link"
+      - "C:/msys64/mingw64/bin/lld-link.com"
+      - "C:/msys64/mingw64/bin/lld-link.exe"
+      - "C:/msys64/mingw64/bin/lld-link"
+      - "C:/Program Files/Git/cmd/lld-link.com"
+      - "C:/Program Files/Git/cmd/lld-link.exe"
+      - "C:/Program Files/Git/cmd/lld-link"
+      - "C:/Program Files/PowerToys/lld-link.com"
+      - "C:/Program Files/PowerToys/lld-link.exe"
+      - "C:/Program Files/PowerToys/lld-link"
+      - "C:/Program Files/PowerShell/7-preview/preview/lld-link.com"
+      - "C:/Program Files/PowerShell/7-preview/preview/lld-link.exe"
+      - "C:/Program Files/PowerShell/7-preview/preview/lld-link"
+      - "C:/Program Files/CMake/bin/lld-link.com"
+      - "C:/Program Files/CMake/bin/lld-link.exe"
+      - "C:/Program Files/CMake/bin/lld-link"
+      - "C:/Program Files/NVIDIA Corporation/Nsight Compute 2025.4.0/lld-link.com"
+      - "C:/Program Files/NVIDIA Corporation/Nsight Compute 2025.4.0/lld-link.exe"
+      - "C:/Program Files/NVIDIA Corporation/Nsight Compute 2025.4.0/lld-link"
+      - "C:/Users/Samuel/AppData/Local/pnpm/lld-link.com"
+      - "C:/Users/Samuel/AppData/Local/pnpm/lld-link.exe"
+      - "C:/Users/Samuel/AppData/Local/pnpm/lld-link"
+      - "C:/Users/Samuel/AppData/Local/Microsoft/WindowsApps/lld-link.com"
+      - "C:/Users/Samuel/AppData/Local/Microsoft/WindowsApps/lld-link.exe"
+      - "C:/Users/Samuel/AppData/Local/Microsoft/WindowsApps/lld-link"
+      - "C:/Program Files/JetBrains/PyCharm Community Edition 2024.1.1/bin/lld-link.com"
+      - "C:/Program Files/JetBrains/PyCharm Community Edition 2024.1.1/bin/lld-link.exe"
+      - "C:/Program Files/JetBrains/PyCharm Community Edition 2024.1.1/bin/lld-link"
+      - "C:/Program Files/Azure Data Studio/bin/lld-link.com"
+      - "C:/Program Files/Azure Data Studio/bin/lld-link.exe"
+      - "C:/Program Files/Azure Data Studio/bin/lld-link"
+      - "F:/Flutter/bin/lld-link.com"
+      - "F:/Flutter/bin/lld-link.exe"
+      - "F:/Flutter/bin/lld-link"
+      - "C:/Program Files/JetBrains/IntelliJ IDEA 2025.1/bin/lld-link.com"
+      - "C:/Program Files/JetBrains/IntelliJ IDEA 2025.1/bin/lld-link.exe"
+      - "C:/Program Files/JetBrains/IntelliJ IDEA 2025.1/bin/lld-link"
+      - "C:/msys64/ucrt64/bin/lld-link.com"
+      - "C:/msys64/ucrt64/bin/lld-link.exe"
+      - "C:/msys64/ucrt64/bin/lld-link"
+      - "C:/Users/Samuel/AppData/Local/Microsoft/WinGet/Links/lld-link.com"
+      - "C:/Users/Samuel/AppData/Local/Microsoft/WinGet/Links/lld-link.exe"
+      - "C:/Users/Samuel/AppData/Local/Microsoft/WinGet/Links/lld-link"
+      - "C:/Users/Samuel/AppData/Local/Android/Sdk/platform-tools/lld-link.com"
+      - "C:/Users/Samuel/AppData/Local/Android/Sdk/platform-tools/lld-link.exe"
+      - "C:/Users/Samuel/AppData/Local/Android/Sdk/platform-tools/lld-link"
+      - "C:/Users/Samuel/AppData/Roaming/npm/lld-link.com"
+      - "C:/Users/Samuel/AppData/Roaming/npm/lld-link.exe"
+      - "C:/Users/Samuel/AppData/Roaming/npm/lld-link"
+      - "C:/Program Files/JetBrains/WebStorm 2025.1.4.1/bin/lld-link.com"
+      - "C:/Program Files/JetBrains/WebStorm 2025.1.4.1/bin/lld-link.exe"
+      - "C:/Program Files/JetBrains/WebStorm 2025.1.4.1/bin/lld-link"
+      - "C:/Users/Samuel/.dotnet/tools/lld-link.com"
+      - "C:/Users/Samuel/.dotnet/tools/lld-link.exe"
+      - "C:/Users/Samuel/.dotnet/tools/lld-link"
+      - "C:/Users/Samuel/AppData/Local/Programs/Microsoft VS Code Insiders/bin/lld-link.com"
+      - "C:/Users/Samuel/AppData/Local/Programs/Microsoft VS Code Insiders/bin/lld-link.exe"
+      - "C:/Users/Samuel/AppData/Local/Programs/Microsoft VS Code Insiders/bin/lld-link"
+      - "C:/apache-maven-3.9.11-bin/bin/lld-link.com"
+      - "C:/apache-maven-3.9.11-bin/bin/lld-link.exe"
+      - "C:/apache-maven-3.9.11-bin/bin/lld-link"
+    found: false
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "C:\\Qt\\6.7.3\\msvc2019_64"
+      ENV{PATH}:
+        - "C:\\Program Files\\PowerShell\\7-preview"
+        - "c:\\Users\\Samuel\\AppData\\Roaming\\Code - Insiders\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\Samuel\\AppData\\Roaming\\Code - Insiders\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v13.1\\bin\\x64"
+        - "C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v13.1\\bin"
+        - "C:\\Users\\Samuel\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\"
+        - "C:\\Users\\Samuel\\AppData\\Local\\Programs\\Python\\Python313\\"
+        - "C:\\Program Files\\Microsoft\\jdk-17.0.15.6-hotspot\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "c:\\Users\\Samuel\\AppData\\Local\\Programs\\cursor\\resources\\app\\bin"
+        - "C:\\WinAVR-20100110\\bin"
+        - "C:\\WinAVR-20100110\\utils\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files\\Microchip\\xc8\\v2.36\\bin"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\MATLAB\\R2023b\\runtime\\win64"
+        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\Samuel\\emsdk"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\kotlin compiler\\kotlinc\\bin"
+        - "C:\\Program Files\\Java\\jdk-22"
+        - "C:\\MinGW\\bin"
+        - "C:\\Apache\\Maven\\apache-maven-3.9.6\\bin"
+        - "C:\\Users\\Samuel\\AppDa"
+        - "C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin"
+        - "C:\\Program Files\\Microsoft\\jdk-17.0.15.6-hotspot\\\\bin"
+        - "F:\\Flutter\\flutter\\bin"
+        - "C:\\ProgramData\\chocolatey\\bin"
+        - "C:\\Users\\Samuel\\AppData\\Local\\nvm"
+        - "C:\\nvm4w\\nodejs"
+        - "C:\\Program Files\\nodejs\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\msys64\\mingw64\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\PowerToys\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\PowerShell\\7-preview\\preview"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\NVIDIA Corporation\\Nsight Compute 2025.4.0\\"
+        - "C:\\Users\\Samuel\\AppData\\Local\\pnpm"
+        - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2024.1.1\\bin"
+        - "C:\\Program Files\\Azure Data Studio\\bin"
+        - "F:\\Flutter\\bin"
+        - "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2025.1\\bin"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\Users\\Samuel\\AppData\\Local\\Microsoft\\WinGet\\Links"
+        - "C:\\Users\\Samuel\\AppData\\Local\\Android\\Sdk\\platform-tools"
+        - "C:\\Users\\Samuel\\AppData\\Local\\nvm"
+        - "C:\\nvm4w\\nodejs"
+        - "C:\\Users\\Samuel\\AppData\\Roaming\\npm"
+        - "C:\\Program Files\\JetBrains\\WebStorm 2025.1.4.1\\bin"
+        - "C:\\Users\\Samuel\\.dotnet\\tools"
+        - "C:\\Users\\Samuel\\AppData\\Local\\Programs\\Microsoft VS Code Insiders\\bin"
+        - "C:\\apache-maven-3.9.11-bin\\bin"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files (x86)/ImageProcessorApp"
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-vtmi5v"
+      binary: "F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-vtmi5v"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-vtmi5v'
+        
+        Run Build Command(s): "F:/Visual Studio 2022/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_ec515.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.23+b0019275e for .NET Framework
+        Build started 12/21/2025 1:25:01 AM.
+        
+        Project "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-vtmi5v\\cmTC_ec515.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-vtmi5v\\Debug\\".
+          Creating directory "cmTC_ec515.dir\\Debug\\cmTC_ec515.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_ec515.dir\\Debug\\cmTC_ec515.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_ec515.dir\\Debug\\cmTC_ec515.tlog\\unsuccessfulbuild".
+        VcpkgTripletSelection:
+          Using triplet "x64-windows" from "F:\\Naghuma Toolbox\\vcpkg\\installed\\x64-windows\\"
+          Using normalized configuration "Debug"
+        ClCompile:
+          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /I"F:\\Naghuma Toolbox\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /Fo"cmTC_ec515.dir\\Debug\\\\" /Fd"cmTC_ec515.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35220 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /I"F:\\Naghuma Toolbox\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /Fo"cmTC_ec515.dir\\Debug\\\\" /Fd"cmTC_ec515.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
+          CMakeCXXCompilerABI.cpp
+        Link:
+          F:\\Visual Studio 2022\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-vtmi5v\\Debug\\cmTC_ec515.exe" /INCREMENTAL /ILK:"cmTC_ec515.dir\\Debug\\cmTC_ec515.ilk" /NOLOGO /LIBPATH:"F:\\Naghuma Toolbox\\vcpkg\\installed\\x64-windows\\debug\\lib" /LIBPATH:"F:\\Naghuma Toolbox\\vcpkg\\installed\\x64-windows\\debug\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "F:\\Naghuma Toolbox\\vcpkg\\installed\\x64-windows\\debug\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-vtmi5v/Debug/cmTC_ec515.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"F:/Project1/ImageProcessorApp/build/CMakeFiles/CMakeScratch/TryCompile-vtmi5v/Debug/cmTC_ec515.lib" /MACHINE:X64  /machine:x64 cmTC_ec515.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_ec515.vcxproj -> F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-vtmi5v\\Debug\\cmTC_ec515.exe
+        AppLocalFromInstalled:
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "F:\\Naghuma Toolbox\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-vtmi5v\\Debug\\cmTC_ec515.exe" "F:\\Naghuma Toolbox\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_ec515.dir\\Debug\\cmTC_ec515.tlog\\cmTC_ec515.write.1u.tlog" "cmTC_ec515.dir\\Debug\\vcpkg.applocal.log"
+        FinalizeBuildStatus:
+          Deleting file "cmTC_ec515.dir\\Debug\\cmTC_ec515.tlog\\unsuccessfulbuild".
+          Touching "cmTC_ec515.dir\\Debug\\cmTC_ec515.tlog\\cmTC_ec515.lastbuildstate".
+        Done Building Project "F:\\Project1\\ImageProcessorApp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-vtmi5v\\cmTC_ec515.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:01.58
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?))("|,| |$)]
+        linker tool for 'CXX': F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/HostX64/x64/link.exe
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the CXX compiler's linker: "F:/Visual Studio 2022/VC/Tools/MSVC/14.44.35207/bin/HostX64/x64/link.exe" "-v"
+      Microsoft (R) Incremental Linker Version 14.44.35220.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
 ...

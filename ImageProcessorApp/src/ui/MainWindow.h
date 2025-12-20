@@ -23,6 +23,7 @@
 
 class ImageCanvas;
 class HistogramWidget;
+class ColorAdjustDialog;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -70,6 +71,16 @@ private slots:
     void applyConeFilter();
     void applyLaplacianFilter();
     void applySobelFilter();
+    
+    // Lab 8: Color Space Operations
+    void convertToColorSpace();
+    void splitRGBChannels();
+    void adjustColors();
+    void applyWhiteBalance();
+    void applySepiaEffect();
+    void applyCoolFilter();
+    void applyWarmFilter();
+    void applyVintageEffect();
 
 private:
     void setupUI();
@@ -111,6 +122,7 @@ private:
     QGroupBox *histogramGroup;
     QGroupBox *processingGroup;
     QGroupBox *filtersGroup;
+    QGroupBox *colorGroup;
     
     // Image data
     cv::Mat originalImage;

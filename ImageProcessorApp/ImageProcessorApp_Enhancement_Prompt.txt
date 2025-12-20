@@ -1,0 +1,1127 @@
+=================================================================================
+IMAGEPROCESSOR APP - COMPREHENSIVE ENHANCEMENT PLAN
+=================================================================================
+
+PROJECT CONTEXT:
+- Current Application: "Mexo Toolbox" - Professional Image Processing Application
+- Framework: Qt6 + OpenCV 4.x + C++17
+- Implementation Language: C++ (all algorithms and backend logic)
+- UI Framework: Qt6 (Widgets, GUI components, dialogs, and user interface)
+- Architecture: Modular design with separate processing, filters, transformations libs
+- UI: Modern dark theme with neon accents (#0a0e27 background)
+- Current Status: 7 Labs implemented with basic functionality
+
+IMPORTANT: All features must be implemented in C++ with Qt6 for the UI. No external 
+languages or frameworks should be used except for optional third-party C++ libraries 
+like Tesseract OCR which can be integrated via C++ API.
+
+CURRENT IMPLEMENTED FEATURES:
+✓ Lab 1: Image Information (dimensions, channels, statistics)
+✓ Lab 2: Pixel Operations (coordinate-based value inspection)
+✓ Lab 3: Statistical Analysis (mean, std dev, min/max)
+✓ Lab 4: Geometric Transformations (translation, rotation, zoom, flip, skew)
+✓ Lab 5: Histogram & Thresholding (visualization, equalization, Otsu)
+✓ Lab 6: Basic Processing (grayscale, threshold, blur, edges, invert)
+✓ Lab 7: Custom Filters (Traditional, Pyramidal, Circular, Cone, Laplacian, Sobel)
+
+=================================================================================
+PHASE 1: ADVANCED FILTERING & NOISE HANDLING
+=================================================================================
+
+OBJECTIVE: Enhance Lab 7 with professional-grade noise reduction and filtering
+
+1.1 NOISE ADDITION (for testing/simulation)
+   - Add Gaussian Noise (mean, standard deviation parameters)
+   - Add Salt & Pepper Noise (density parameter)
+   - Add Poisson Noise (for photon-counting applications)
+   - Add Speckle Noise (multiplicative noise)
+   - UI: "Add Noise" dialog with noise type selection and parameters
+
+1.2 ADVANCED DENOISING FILTERS
+   - Median Filter (excellent for salt-and-pepper noise)
+     * Variable kernel sizes (3x3, 5x5, 7x7, 9x9)
+   - Bilateral Filter (edge-preserving smoothing)
+     * Sigma color and sigma space parameters
+   - Non-Local Means Denoising (cv::fastNlMeansDenoisingColored)
+     * Template window size and search window size
+   - Morphological Filters
+     * Opening (erosion followed by dilation)
+     * Closing (dilation followed by erosion)
+     * Gradient, Top-hat, Black-hat operations
+
+1.3 SHARPENING FILTERS
+   - Unsharp Masking (standard sharpening technique)
+   - High-pass filtering
+   - Custom sharpening kernels (configurable strength)
+
+1.4 UI ENHANCEMENTS
+   - Add "Lab 7: Advanced Filters" section
+   - Parameter sliders with live preview
+   - Before/After comparison view
+   - Filter strength adjustment (0-200%)
+
+IMPLEMENTATION FILES:
+- src/filters/ImageFilters.cpp (add new filter methods)
+- src/filters/ImageFilters.h (declare new functions)
+- src/ui/MainWindow.cpp (add UI buttons and slots)
+- src/dialogs/FilterDialog.h/.cpp (NEW: parameter adjustment dialog)
+
+=================================================================================
+PHASE 2: COLOR SPACE OPERATIONS & CHANNEL MANIPULATION
+=================================================================================
+
+OBJECTIVE: Add Lab 8 for comprehensive color processing
+
+2.1 COLOR SPACE CONVERSIONS
+   - RGB to HSV (Hue, Saturation, Value)
+   - RGB to LAB (L*a*b* color space)
+   - RGB to YCrCb (luminance and chrominance)
+   - RGB to HSL (Hue, Saturation, Lightness)
+   - XYZ and other standard color spaces
+   - Display each channel separately
+
+2.2 CHANNEL OPERATIONS
+   - Split RGB channels into separate images
+   - Merge channels back into composite
+   - Single channel manipulation (adjust R, G, or B independently)
+   - Channel swapping (e.g., BGR to RGB display)
+   - Alpha channel handling for PNG images
+
+2.3 COLOR ADJUSTMENTS
+   - Brightness adjustment (-100 to +100)
+   - Contrast adjustment (0.5x to 3.0x)
+   - Saturation adjustment (0% to 200%)
+   - Hue shifting (0-360 degrees)
+   - White balance correction
+   - Color temperature adjustment
+
+2.4 COLOR GRADING
+   - Sepia tone effect
+   - Cool/Warm filters
+   - Vintage/Retro color profiles
+   - Custom LUT (Look-Up Table) application
+
+IMPLEMENTATION FILES:
+- src/processing/ColorProcessingLib.cpp (NEW)
+- src/processing/ColorProcessingLib.h (NEW)
+- src/ui/MainWindow.cpp (add Lab 8 section)
+- src/dialogs/ColorAdjustDialog.h/.cpp (NEW: sliders for adjustments)
+
+=================================================================================
+PHASE 3: MORPHOLOGICAL OPERATIONS & IMAGE SEGMENTATION
+=================================================================================
+
+OBJECTIVE: Add Lab 9 for shape analysis and segmentation
+
+3.1 BASIC MORPHOLOGICAL OPERATIONS
+   - Erosion (shrink bright regions)
+   - Dilation (expand bright regions)
+   - Opening (remove small bright spots)
+   - Closing (fill small dark holes)
+   - Morphological Gradient (edge detection)
+   - Top Hat (bright spots on dark background)
+   - Black Hat (dark spots on bright background)
+
+3.2 ADVANCED MORPHOLOGY
+   - Custom structuring elements (rectangle, ellipse, cross)
+   - Variable kernel sizes (3x3 to 21x21)
+   - Iterative morphological operations
+
+3.3 EDGE DETECTION SUITE
+   - Prewitt operator
+   - Roberts Cross operator
+   - Laplacian of Gaussian (LoG)
+   - Difference of Gaussians (DoG)
+   - Zero-crossing edge detection
+
+3.4 SEGMENTATION ALGORITHMS
+   - Thresholding variants
+     * Global thresholding (already implemented)
+     * Adaptive thresholding (local threshold calculation)
+     * Multi-level thresholding
+   - Watershed segmentation (cv::watershed)
+     * Interactive marker placement
+     * Automatic marker detection
+   - GrabCut segmentation (cv::grabCut)
+     * Rectangle selection for foreground
+     * Iterative refinement
+   - Contour detection and analysis
+     * Find all contours
+     * Display contour hierarchy
+     * Calculate contour properties (area, perimeter, centroid)
+
+IMPLEMENTATION FILES:
+- src/processing/MorphologyLib.cpp (NEW)
+- src/processing/MorphologyLib.h (NEW)
+- src/processing/SegmentationLib.cpp (NEW)
+- src/processing/SegmentationLib.h (NEW)
+- src/ui/MainWindow.cpp (add Lab 9 section)
+- src/dialogs/SegmentationDialog.h/.cpp (NEW)
+
+=================================================================================
+PHASE 4: FREQUENCY DOMAIN ANALYSIS & TRANSFORMS
+=================================================================================
+
+OBJECTIVE: Add Lab 10 for advanced mathematical transforms
+
+4.1 FOURIER TRANSFORM
+   - Forward FFT (spatial to frequency domain)
+   - Inverse FFT (frequency to spatial domain)
+   - Magnitude spectrum visualization
+   - Phase spectrum visualization
+   - FFT shift for centered display
+
+4.2 FREQUENCY DOMAIN FILTERING
+   - Ideal Low-Pass Filter (smooth blur)
+   - Ideal High-Pass Filter (edge enhancement)
+   - Butterworth filters (smoother frequency response)
+   - Gaussian filters in frequency domain
+   - Band-pass and band-stop filters
+   - Notch filters (remove specific frequencies)
+
+4.3 DISCRETE COSINE TRANSFORM (DCT)
+   - Forward DCT (JPEG compression basis)
+   - Inverse DCT
+   - DCT coefficient visualization
+   - Compression simulation (zero out high frequencies)
+
+4.4 WAVELET TRANSFORMS
+   - Haar Wavelet (simple implementation)
+   - Discrete Wavelet Transform (DWT)
+   - Multi-resolution analysis
+   - Wavelet-based denoising
+
+IMPLEMENTATION FILES:
+- src/processing/FrequencyAnalysisLib.cpp (NEW)
+- src/processing/FrequencyAnalysisLib.h (NEW)
+- src/widgets/SpectrumWidget.cpp/.h (NEW: FFT spectrum display)
+- src/ui/MainWindow.cpp (add Lab 10 section)
+
+=================================================================================
+PHASE 5: FEATURE DETECTION & COMPUTER VISION
+=================================================================================
+
+OBJECTIVE: Add Lab 11 for feature extraction and matching
+
+5.1 CORNER DETECTION
+   - Harris Corner Detector
+   - Shi-Tomasi Corner Detection (Good Features to Track)
+   - FAST (Features from Accelerated Segment Test)
+   - Sub-pixel corner refinement
+
+5.2 BLOB DETECTION
+   - SimpleBlobDetector with parameter tuning
+   - Laplacian of Gaussian (LoG) blob detection
+   - Difference of Gaussian (DoG) blob detection
+
+5.3 KEYPOINT DETECTORS & DESCRIPTORS
+   - SIFT (Scale-Invariant Feature Transform)
+   - SURF (Speeded-Up Robust Features)
+   - ORB (Oriented FAST and Rotated BRIEF)
+   - BRISK, AKAZE, KAZE detectors
+
+5.4 FEATURE MATCHING
+   - Brute-force matcher
+   - FLANN (Fast Library for Approximate Nearest Neighbors)
+   - Homography estimation
+   - Feature visualization with keypoint overlay
+
+5.5 LINE & SHAPE DETECTION
+   - Hough Line Transform (standard and probabilistic)
+   - Hough Circle Transform
+   - Ellipse detection
+   - Rectangle detection
+
+IMPLEMENTATION FILES:
+- src/processing/FeatureDetectionLib.cpp (NEW)
+- src/processing/FeatureDetectionLib.h (NEW)
+- src/ui/MainWindow.cpp (add Lab 11 section)
+- src/widgets/FeatureOverlay.cpp/.h (NEW: draw keypoints on image)
+
+=================================================================================
+PHASE 6: IMAGE RESTORATION & ENHANCEMENT
+=================================================================================
+
+OBJECTIVE: Add Lab 12 for advanced image improvement techniques
+
+6.1 CONTRAST ENHANCEMENT
+   - Histogram Equalization (already implemented)
+   - Adaptive Histogram Equalization (CLAHE)
+     * Clip limit and grid size parameters
+   - Histogram Matching (transfer histogram from reference image)
+   - Gamma Correction (adjustable gamma value 0.1-5.0)
+
+6.2 IMAGE DEBLURRING
+   - Wiener Filter (motion blur removal)
+   - Lucy-Richardson Deconvolution
+   - Motion deblurring with known PSF (Point Spread Function)
+   - Blind deconvolution (estimate blur kernel)
+
+6.3 IMAGE INPAINTING
+   - Telea's Algorithm (cv::inpaint with INPAINT_TELEA)
+   - Navier-Stokes based inpainting (INPAINT_NS)
+   - Interactive mask drawing for inpainting regions
+   - Automatic scratch/text removal
+
+6.4 SUPER RESOLUTION
+   - Bicubic upscaling (already available)
+   - Bilinear interpolation
+   - Lanczos resampling
+   - Deep Learning-based super resolution (if OpenCV DNN module available)
+
+6.5 HDR (HIGH DYNAMIC RANGE)
+   - Tone mapping (Drago, Reinhard, Mantiuk)
+   - Exposure fusion
+   - Multiple exposure combination
+
+IMPLEMENTATION FILES:
+- src/processing/RestorationLib.cpp (NEW)
+- src/processing/RestorationLib.h (NEW)
+- src/dialogs/InpaintDialog.h/.cpp (NEW: mask drawing interface)
+- src/ui/MainWindow.cpp (add Lab 12 section)
+
+=================================================================================
+PHASE 7: ADVANCED TRANSFORMATIONS & WARPING
+=================================================================================
+
+OBJECTIVE: Enhance Lab 4 with professional geometric operations
+
+7.1 ADVANCED AFFINE TRANSFORMATIONS
+   - Custom affine matrix input
+   - Perspective transformation (4-point warp)
+   - Cylindrical warping (panorama correction)
+   - Spherical warping
+
+7.2 DISTORTION CORRECTION
+   - Barrel distortion correction
+   - Pincushion distortion correction
+   - Lens distortion calibration
+   - Fisheye lens correction
+
+7.3 IMAGE REGISTRATION
+   - Image alignment using feature matching
+   - Template matching (cv::matchTemplate)
+   - Optical flow estimation (Lucas-Kanade)
+
+7.4 PANORAMA CREATION
+   - Image stitching (cv::Stitcher)
+   - Cylindrical/spherical projection
+   - Automatic feature-based alignment
+   - Exposure compensation and blending
+
+IMPLEMENTATION FILES:
+- src/processing/TransformationsLib.cpp (enhance existing)
+- src/processing/WarpsLib.cpp (NEW)
+- src/processing/WarpsLib.h (NEW)
+- src/dialogs/PerspectiveDialog.h/.cpp (NEW: 4-point selector)
+
+=================================================================================
+PHASE 8: OCR (OPTICAL CHARACTER RECOGNITION) & TEXT EXTRACTION
+=================================================================================
+
+OBJECTIVE: Add Lab 13 for text detection and recognition capabilities
+
+8.1 TEXT DETECTION
+   - Text region detection using OpenCV Text Detection API
+   - EAST (Efficient and Accurate Scene Text) Detector
+   - Text bounding box visualization
+   - Multi-language text detection
+   - Rotated text detection support
+
+8.2 OCR ENGINES INTEGRATION
+   - Tesseract OCR integration (C++ API)
+     * Install: vcpkg install tesseract:x64-windows
+     * Link Tesseract libraries with Qt project
+   - Text recognition from detected regions
+   - Character-level recognition
+   - Word-level recognition
+   - Line-level recognition
+
+8.3 TEXT PREPROCESSING FOR OCR
+   - Image binarization (Otsu, adaptive thresholding)
+   - Noise reduction specifically for text
+   - Skew correction (deskewing)
+   - Text enhancement (sharpening)
+   - Border removal
+   - Contrast adjustment for text
+
+8.4 OCR FEATURES
+   - Multiple language support
+     * English, Arabic, French, German, Spanish, Chinese, etc.
+     * Language selection dropdown in UI
+   - Confidence scoring for recognized text
+   - Text extraction to plain text
+   - Export to TXT, CSV, JSON formats
+   - Copy text to clipboard
+
+8.5 TEXT REGION MANIPULATION
+   - Interactive text region selection
+   - Manual region drawing for OCR
+   - Batch OCR for multiple regions
+   - Region-specific language settings
+   - Highlight detected text on image
+
+8.6 ADVANCED OCR FEATURES
+   - Table detection and extraction
+   - Form field recognition
+   - Barcode/QR code detection and decoding
+   - Handwriting recognition (basic)
+   - Text spell checking and correction
+
+8.7 OCR UI COMPONENTS
+   - Text result panel (QTextEdit for displaying recognized text)
+   - Language selection combobox
+   - Confidence threshold slider
+   - Text region overlay on image
+   - Export buttons (TXT, CSV, JSON)
+   - Search within recognized text
+   - Text editing capabilities before export
+
+IMPLEMENTATION FILES:
+- src/processing/OCRLib.cpp (NEW: Tesseract integration in C++)
+- src/processing/OCRLib.h (NEW: OCR function declarations)
+- src/processing/TextDetectionLib.cpp (NEW: OpenCV text detection)
+- src/processing/TextDetectionLib.h (NEW: text detection headers)
+- src/dialogs/OCRDialog.h/.cpp (NEW: Qt dialog for OCR settings)
+- src/widgets/TextResultWidget.h/.cpp (NEW: Qt widget for text display)
+- src/ui/MainWindow.cpp (add Lab 13 section with Qt buttons)
+- CMakeLists.txt (add Tesseract library linkage)
+
+THIRD-PARTY LIBRARIES (C++ ONLY):
+- Tesseract OCR (C++ API) - https://github.com/tesseract-ocr/tesseract
+  * Install via vcpkg: vcpkg install tesseract:x64-windows
+  * Required trained data files for languages
+- Leptonica (C++ library, required by Tesseract)
+  * Image processing library
+  * Install via vcpkg: vcpkg install leptonica:x64-windows
+
+EXAMPLE IMPLEMENTATION (C++ with Qt):
+```cpp
+// In src/processing/OCRLib.h
+#ifndef OCRLIB_H
+#define OCRLIB_H
+
+#include <opencv2/opencv.hpp>
+#include <tesseract/baseapi.h>
+#include <QString>
+#include <QRect>
+#include <vector>
+
+namespace OCRLib {
+    struct OCRResult {
+        QString text;
+        float confidence;
+        QRect boundingBox;
+    };
+    
+    // Initialize Tesseract engine
+    bool initializeOCR(const QString& language = "eng");
+    
+    // Recognize text from entire image
+    OCRResult recognizeText(const cv::Mat& image, const QString& language = "eng");
+    
+    // Recognize text from specific region
+    OCRResult recognizeTextRegion(const cv::Mat& image, const QRect& region, 
+                                  const QString& language = "eng");
+    
+    // Detect text regions in image
+    std::vector<QRect> detectTextRegions(const cv::Mat& image);
+    
+    // Preprocess image for better OCR
+    void preprocessForOCR(const cv::Mat& input, cv::Mat& output);
+    
+    // Cleanup Tesseract resources
+    void cleanupOCR();
+}
+
+#endif // OCRLIB_H
+
+// In src/processing/OCRLib.cpp
+#include "OCRLib.h"
+#include <tesseract/baseapi.h>
+#include <leptonica/allheaders.h>
+
+namespace OCRLib {
+    static tesseract::TessBaseAPI* tessApi = nullptr;
+    
+    bool initializeOCR(const QString& language) {
+        if (!tessApi) {
+            tessApi = new tesseract::TessBaseAPI();
+        }
+        
+        // Initialize with language (tessdata path should be configured)
+        if (tessApi->Init(nullptr, language.toStdString().c_str())) {
+            return false;
+        }
+        
+        tessApi->SetPageSegMode(tesseract::PSM_AUTO);
+        return true;
+    }
+    
+    OCRResult recognizeText(const cv::Mat& image, const QString& language) {
+        OCRResult result;
+        result.confidence = 0.0f;
+        
+        if (image.empty()) return result;
+        
+        // Initialize if needed
+        if (!tessApi || !initializeOCR(language)) {
+            return result;
+        }
+        
+        // Convert cv::Mat to format Tesseract expects
+        cv::Mat grayImage;
+        if (image.channels() == 3) {
+            cv::cvtColor(image, grayImage, cv::COLOR_BGR2GRAY);
+        } else {
+            grayImage = image.clone();
+        }
+        
+        // Set image for Tesseract
+        tessApi->SetImage(grayImage.data, grayImage.cols, grayImage.rows,
+                         1, grayImage.step);
+        
+        // Recognize text
+        char* text = tessApi->GetUTF8Text();
+        result.text = QString::fromUtf8(text);
+        result.confidence = tessApi->MeanTextConf();
+        result.boundingBox = QRect(0, 0, image.cols, image.rows);
+        
+        delete[] text;
+        return result;
+    }
+    
+    void preprocessForOCR(const cv::Mat& input, cv::Mat& output) {
+        // Convert to grayscale
+        cv::Mat gray;
+        if (input.channels() == 3) {
+            cv::cvtColor(input, gray, cv::COLOR_BGR2GRAY);
+        } else {
+            gray = input.clone();
+        }
+        
+        // Apply adaptive thresholding
+        cv::adaptiveThreshold(gray, output, 255, 
+                            cv::ADAPTIVE_THRESH_GAUSSIAN_C,
+                            cv::THRESH_BINARY, 11, 2);
+    }
+    
+    void cleanupOCR() {
+        if (tessApi) {
+            tessApi->End();
+            delete tessApi;
+            tessApi = nullptr;
+        }
+    }
+}
+
+// In src/ui/MainWindow.cpp - Add OCR button handler
+void MainWindow::performOCR() {
+    if (originalImage.empty()) {
+        QMessageBox::warning(this, "No Image", "Please load an image first.");
+        return;
+    }
+    
+    // Show language selection dialog
+    QStringList languages = {"eng", "ara", "fra", "deu", "spa", "chi_sim"};
+    bool ok;
+    QString language = QInputDialog::getItem(this, "Select Language",
+                                            "OCR Language:", languages, 
+                                            0, false, &ok);
+    if (!ok) return;
+    
+    updateStatus("Performing OCR...", "info", 0);
+    
+    // Preprocess image
+    cv::Mat preprocessed;
+    OCRLib::preprocessForOCR(originalImage, preprocessed);
+    
+    // Perform OCR
+    OCRLib::OCRResult result = OCRLib::recognizeText(preprocessed, language);
+    
+    if (result.confidence > 0) {
+        // Show result in dialog
+        QDialog *dialog = new QDialog(this);
+        dialog->setWindowTitle("OCR Result");
+        dialog->resize(600, 400);
+        
+        QVBoxLayout *layout = new QVBoxLayout(dialog);
+        
+        QLabel *confLabel = new QLabel(
+            QString("Confidence: %1%").arg(result.confidence));
+        layout->addWidget(confLabel);
+        
+        QTextEdit *textEdit = new QTextEdit();
+        textEdit->setPlainText(result.text);
+        layout->addWidget(textEdit);
+        
+        QPushButton *copyBtn = new QPushButton("Copy to Clipboard");
+        connect(copyBtn, &QPushButton::clicked, [result]() {
+            QApplication::clipboard()->setText(result.text);
+        });
+        layout->addWidget(copyBtn);
+        
+        dialog->exec();
+        
+        updateStatus(QString("OCR completed (Confidence: %1%)")
+                    .arg(result.confidence), "success", 100);
+    } else {
+        updateStatus("OCR failed", "error", 0);
+    }
+}
+```
+
+CMAKE CONFIGURATION:
+```cmake
+# In CMakeLists.txt - Add Tesseract support
+find_package(Tesseract CONFIG REQUIRED)
+find_package(Leptonica CONFIG REQUIRED)
+
+target_link_libraries(ImageProcessorApp PRIVATE
+    Qt6::Widgets
+    Qt6::Core
+    Qt6::Gui
+    opencv_world
+    libtesseract
+    leptonica
+)
+
+# Copy tessdata folder to build directory
+file(COPY ${Tesseract_DIR}/../../../share/tessdata 
+     DESTINATION ${CMAKE_BINARY_DIR}/Release/)
+```
+
+=================================================================================
+PHASE 9: BATCH PROCESSING & AUTOMATION
+=================================================================================
+
+OBJECTIVE: Add workflow automation and batch operations
+
+8.1 BATCH IMAGE PROCESSING
+   - Select multiple images from folder (Qt QFileDialog)
+   - Apply same operation to all images
+   - Save results with automatic naming
+   - Progress indicator for batch operations (Qt QProgressBar)
+   - Multi-threaded batch processing (Qt QtConcurrent)
+
+8.2 PROCESSING PIPELINE
+   - Chain multiple operations together
+   - Save/Load processing pipelines (JSON/XML format using Qt QJsonDocument)
+   - Visual pipeline editor (flowchart-style using Qt Graphics View)
+   - Apply saved pipeline to new images
+   - Pipeline validation and error handling
+
+8.3 MACRO RECORDING
+   - Record user actions as macro (Qt event recording)
+   - Replay macro on current/new images
+   - Edit recorded macro steps (Qt custom dialog)
+   - Export macro as Python/C++ script
+   - Macro library management (Qt list widget)
+
+8.4 IMAGE COMPARISON
+   - Side-by-side comparison view (Qt splitter widget)
+   - Difference image (pixel-wise subtraction in C++)
+   - PSNR (Peak Signal-to-Noise Ratio) calculation (C++ OpenCV)
+   - SSIM (Structural Similarity Index) calculation (C++ OpenCV)
+   - MSE (Mean Squared Error) calculation (C++ implementation)
+
+IMPLEMENTATION FILES (C++ with Qt):
+- src/processing/BatchProcessingLib.cpp (NEW: C++ batch processing logic)
+- src/processing/BatchProcessingLib.h (NEW: batch processing headers)
+- src/dialogs/BatchDialog.h/.cpp (NEW: Qt dialog for batch operations)
+- src/dialogs/PipelineEditor.h/.cpp (NEW: Qt graphics view pipeline editor)
+- src/utils/MacroRecorder.cpp/.h (NEW: C++ macro recording with Qt events)
+- src/widgets/ComparisonWidget.cpp/.h (NEW: Qt widget for image comparison)
+
+=================================================================================
+PHASE 10: UI/UX IMPROVEMENTS & PROFESSIONAL FEATURES
+=================================================================================
+
+OBJECTIVE: Enhance user experience and add professional tools (All in C++ with Qt)
+
+10.1 ADVANCED UNDO/REDO SYSTEM
+   - Multi-level undo stack (50+ steps) using Qt QUndoStack
+   - Redo functionality (built-in Qt support)
+   - Visual undo history browser (Qt QListWidget)
+   - Memory-efficient image storage (use cv::Mat clone)
+   - Command pattern implementation in C++
+
+10.2 LAYER SYSTEM
+   - Multiple image layers (C++ vector of cv::Mat)
+   - Layer blending modes (C++ algorithms: normal, multiply, screen, overlay)
+   - Layer opacity adjustment (Qt QSlider)
+   - Layer visibility toggle (Qt QCheckBox)
+   - Layer panel with Qt QListWidget
+
+10.3 SELECTION TOOLS
+   - Rectangular selection (ROI - Region of Interest using Qt rubber band)
+   - Elliptical selection (C++ with Qt QPainterPath)
+   - Freehand selection (polygon/lasso using Qt mouse events)
+   - Magic wand selection (color-based, C++ flood fill algorithm)
+   - Apply operations only to selected region
+
+10.4 ANNOTATIONS & DRAWING TOOLS
+   - Draw lines, rectangles, circles, ellipses (Qt QPainter on QPixmap)
+   - Text annotation on images (Qt QGraphicsTextItem)
+   - Arrow drawing for presentations (Qt QPainter with arrow heads)
+   - Color picker for drawing tools (Qt QColorDialog)
+   - Adjustable pen width and color (Qt pen properties)
+
+10.5 ZOOM & NAVIGATION
+   - Zoom in/out (already partially implemented, enhance with Qt)
+   - Pan image by dragging (Qt mouse event handling)
+   - Fit to window / 100% / Custom zoom (Qt transformation matrix)
+   - Navigator window (thumbnail with viewport indicator using Qt)
+   - Smooth zoom with mouse wheel (Qt wheel event)
+
+10.6 IMAGE CANVAS ENHANCEMENTS
+   - Grid overlay (for alignment, Qt QPainter grid drawing)
+   - Ruler/measurement tool (measure distances/angles with Qt)
+   - Crosshair cursor for precision (Qt custom cursor)
+   - Coordinates display in status bar (Qt QLabel)
+   - Real-time pixel value preview on hover (Qt mouse tracking)
+
+10.7 FILE FORMAT SUPPORT (C++ OpenCV and Qt)
+   - JPEG 2000 support (OpenCV imread with flags)
+   - WebP support (OpenCV with WebP codec)
+   - RAW image format support (if available through OpenCV)
+   - DICOM medical image support (OpenCV GDCM integration)
+   - Multi-page TIFF support (C++ with libtiff or OpenCV)
+
+10.8 METADATA HANDLING (C++ with Qt)
+   - Display EXIF data (camera, exposure, GPS) - Qt/C++ EXIF library
+   - Edit metadata fields (Qt input dialogs)
+   - Remove all metadata (privacy) - C++ implementation
+   - Copy metadata between images (C++ file operations)
+
+IMPLEMENTATION FILES (All C++ with Qt):
+- src/utils/UndoManager.cpp/.h (NEW: C++ with Qt QUndoStack)
+- src/widgets/LayerPanel.cpp/.h (NEW: Qt widget for layer management)
+- src/widgets/SelectionTool.cpp/.h (NEW: C++ selection algorithms with Qt)
+- src/widgets/DrawingTool.cpp/.h (NEW: Qt QPainter drawing tools)
+- src/widgets/NavigatorWidget.cpp/.h (NEW: Qt thumbnail navigator)
+- src/utils/MetadataHandler.cpp/.h (NEW: C++ EXIF handling)
+- src/widgets/ImageCanvas.cpp (enhance existing Qt widget)
+
+=================================================================================
+PHASE 11: PERFORMANCE OPTIMIZATION & POLISH
+=================================================================================
+
+OBJECTIVE: Optimize performance and add final touches (C++ optimizations with Qt)
+
+11.1 PERFORMANCE OPTIMIZATIONS (C++ implementations)
+   - Multi-threading for heavy operations (cv::parallel_for_ or Qt QtConcurrent)
+   - GPU acceleration using OpenCV CUDA module (optional, C++ CUDA kernels)
+   - Image pyramid for fast preview (C++ OpenCV pyrDown/pyrUp)
+   - Lazy loading for large images (load on demand, C++ smart pointers)
+   - Memory pooling to reduce allocations (C++ custom allocators)
+   - SIMD optimizations (C++ intrinsics where applicable)
+
+11.2 PREFERENCES & SETTINGS (Qt-based settings system)
+   - Adjustable UI theme (dark, light, custom) using Qt stylesheets
+   - Default file paths (Qt QSettings for persistence)
+   - Auto-save interval (Qt QTimer)
+   - Performance settings (thread count, memory limits) - C++ configuration
+   - Keyboard shortcuts customization (Qt QKeySequence)
+   - Settings dialog (Qt QDialog with tabs)
+
+11.3 HELP SYSTEM (Qt Help Framework)
+   - Comprehensive user manual (HTML/PDF) generated from Qt Help
+   - Context-sensitive help (F1 key, Qt What's This)
+   - Interactive tutorials (Qt wizard dialogs)
+   - Algorithm documentation with examples (embedded in Qt Help)
+   - Video tutorials (optional, Qt multimedia widgets)
+   - Searchable help index (Qt Assistant integration)
+
+11.4 EXPORT & SHARING (C++ with Qt)
+   - Export processing report (operations applied, parameters) - Qt text documents
+   - Generate processing script (Python/MATLAB equivalent) - C++ code generation
+   - Share via email/cloud services (Qt network integration)
+   - Create animated GIF from sequence (C++ with GIF library)
+   - PDF export with annotations (Qt QPrinter)
+
+11.5 TESTING & QUALITY ASSURANCE (C++ testing)
+   - Unit tests for all processing functions (Qt Test framework)
+   - UI automation tests (Qt Test with GUI testing)
+   - Memory leak detection (C++ sanitizers, Valgrind)
+   - Performance benchmarks (C++ chrono timing)
+   - Cross-platform testing (Windows, Linux, macOS with Qt)
+
+11.6 DOCUMENTATION (C++ API documentation)
+   - API documentation (Doxygen for C++)
+   - User guide with screenshots (Qt Assistant format)
+   - Tutorial videos (embedded in Qt help)
+   - Algorithm reference cards (PDF/HTML)
+   - Keyboard shortcut cheat sheet (Qt-formatted HTML)
+
+IMPLEMENTATION FILES (All C++ with Qt):
+- tests/test_filters.cpp (NEW: Qt Test unit tests)
+- tests/test_transformations.cpp (NEW: Qt Test unit tests)
+- tests/test_segmentation.cpp (NEW: Qt Test unit tests)
+- src/utils/PerformanceProfiler.cpp/.h (NEW: C++ profiling)
+- src/dialogs/PreferencesDialog.h/.cpp (NEW: Qt settings dialog)
+- docs/UserManual.qhp (NEW: Qt Help Project)
+- docs/API_Reference.html (NEW: Doxygen-generated C++ docs)
+
+=================================================================================
+PRIORITY IMPLEMENTATION ORDER
+=================================================================================
+
+MUST-HAVE FEATURES (Implement First):
+1. Undo/Redo System (Phase 10.1) - Critical for usability - C++ with Qt QUndoStack
+2. Advanced Filters (Phase 1) - Extends existing Lab 7 - C++ OpenCV
+3. Color Space Operations (Phase 2) - New Lab 8 - C++ OpenCV with Qt UI
+4. Morphological Operations (Phase 3.1-3.2) - Completes basic toolset - C++ OpenCV
+5. Selection Tools (Phase 10.3) - Needed for ROI operations - Qt mouse events + C++
+
+HIGH PRIORITY:
+6. OCR Feature (Phase 8) - Text extraction capability - C++ Tesseract with Qt UI
+7. Batch Processing (Phase 9.1) - High user demand - C++ with Qt QtConcurrent
+8. Zoom & Navigation (Phase 10.5) - Usability improvement - Qt transformations
+9. Segmentation (Phase 3.4) - Advanced Lab 9 - C++ OpenCV algorithms
+10. Contrast Enhancement (Phase 6.1) - Lab 12 basics - C++ OpenCV
+11. Drawing Tools (Phase 10.4) - Annotation capability - Qt QPainter
+
+MEDIUM PRIORITY:
+12. Frequency Domain (Phase 4) - Lab 10, advanced users - C++ OpenCV FFT
+13. Feature Detection (Phase 5) - Lab 11, CV applications - C++ OpenCV
+14. Advanced Transformations (Phase 7) - Enhance Lab 4 - C++ OpenCV
+15. Preferences System (Phase 11.2) - Customization - Qt QSettings
+16. Layer System (Phase 10.2) - Advanced editing - C++ with Qt
+
+NICE-TO-HAVE:
+17. Image Restoration (Phase 6.2-6.5) - Specialized features - C++ OpenCV
+18. Panorama Creation (Phase 7.4) - Specialized feature - C++ OpenCV Stitcher
+19. Macro Recording (Phase 9.3) - Automation - C++ with Qt event system
+20. GPU Acceleration (Phase 11.1) - Performance boost - C++ CUDA
+21. HDR Processing (Phase 6.5) - Professional feature - C++ OpenCV
+
+=================================================================================
+TECHNICAL IMPLEMENTATION GUIDELINES
+=================================================================================
+
+LANGUAGE & FRAMEWORK REQUIREMENTS:
+- **Primary Language**: C++17 (all algorithms, business logic, processing)
+- **UI Framework**: Qt6 (Widgets module for all UI components)
+- **Image Processing**: OpenCV 4.x (C++ API only)
+- **No Other Languages**: Do not use Python, JavaScript, or other languages
+- **Third-Party Libraries**: Only C++ libraries with proper API integration
+
+CODE STYLE (C++):
+- Follow existing C++17 conventions
+- Use OpenCV cv:: namespace consistently
+- Use Qt Q-prefixed classes (QWidget, QString, QPixmap, etc.)
+- Keep functions focused (single responsibility)
+- Add comprehensive comments for complex algorithms
+- Use const references where appropriate (const cv::Mat&, const QString&)
+- Use smart pointers (std::unique_ptr, std::shared_ptr) for memory management
+
+QT-SPECIFIC GUIDELINES:
+- Use Qt signal/slot mechanism for event handling
+- Use Qt layouts (QVBoxLayout, QHBoxLayout, QGridLayout) for UI design
+- Use Qt stylesheets for consistent theming
+- Use Qt resource system (.qrc) for embedded resources
+- Use Qt QSettings for persistent configuration
+- Use Qt QtConcurrent for multi-threading when appropriate
+- All dialogs should inherit from QDialog
+- All custom widgets should inherit from QWidget
+
+ERROR HANDLING (C++ with Qt):
+- Check for null/empty images before processing (if (image.empty()) return;)
+- Handle OpenCV exceptions gracefully (try/catch cv::Exception)
+- Display user-friendly error messages (QMessageBox::warning/critical)
+- Log errors to file for debugging (QFile, QTextStream)
+- Validate user input from Qt widgets
+
+UI CONSISTENCY (Qt Stylesheets):
+- Maintain dark theme colors (#0a0e27, #0f1535, #1a2351)
+- Use consistent neon accents (cyan, lime, pink)
+- Group related controls with QGroupBox
+- Add tooltips to all buttons and controls (setToolTip())
+- Use progress indicators for operations > 1 second (QProgressBar)
+- All buttons should use consistent styling
+
+TESTING (C++ with Qt Test):
+- Test with various image sizes (small to 50MP)
+- Test with different formats (PNG, JPEG, BMP, TIFF)
+- Test with grayscale and color images
+- Test edge cases (1x1 image, very large image)
+- Performance test with timing measurements (std::chrono)
+- Use Qt Test framework for unit testing
+
+DOCUMENTATION (C++ API):
+- Document each function with Doxygen comments
+- Add usage examples in comments
+- Update README.md with new features
+- Create/update user manual sections
+- Include algorithm references
+- Document Qt signal/slot connections
+
+=================================================================================
+ESTIMATED IMPLEMENTATION TIME
+=================================================================================
+
+Phase 1: 2-3 days (Advanced Filtering - C++ OpenCV)
+Phase 2: 2-3 days (Color Operations - C++ OpenCV + Qt UI)
+Phase 3: 3-4 days (Morphology & Segmentation - C++ OpenCV)
+Phase 4: 4-5 days (Frequency Domain - C++ OpenCV FFT)
+Phase 5: 3-4 days (Feature Detection - C++ OpenCV)
+Phase 6: 3-4 days (Image Restoration - C++ OpenCV)
+Phase 7: 2-3 days (Advanced Transforms - C++ OpenCV)
+Phase 8: 3-4 days (OCR Integration - C++ Tesseract + Qt UI)
+Phase 9: 3-4 days (Batch Processing - C++ + Qt QtConcurrent)
+Phase 10: 5-6 days (UI/UX Improvements - Qt Widgets)
+Phase 11: 3-4 days (Optimization & Polish - C++ optimization)
+
+Total Estimated Time: 33-48 days (1.5-2.5 months for single developer)
+
+NOTE: All implementations use C++ for algorithms and Qt6 for UI components.
+
+=================================================================================
+EXAMPLE IMPLEMENTATION SNIPPET (Phase 1.2 - Median Filter)
+=================================================================================
+
+// In src/filters/ImageFilters.h
+namespace ImageFilters {
+    void applyMedianFilter(const cv::Mat& input, cv::Mat& output, int kernelSize = 5);
+}
+
+// In src/filters/ImageFilters.cpp
+void ImageFilters::applyMedianFilter(const cv::Mat& input, cv::Mat& output, int kernelSize) {
+    if (input.empty()) {
+        return;
+    }
+    
+    // Ensure kernel size is odd
+    if (kernelSize % 2 == 0) {
+        kernelSize++;
+    }
+    
+    // Apply median blur (excellent for salt-and-pepper noise)
+    cv::medianBlur(input, output, kernelSize);
+}
+
+// In src/ui/MainWindow.h
+private slots:
+    void applyMedianFilter();
+
+// In src/ui/MainWindow.cpp
+void MainWindow::applyMedianFilter() {
+    if (originalImage.empty()) {
+        QMessageBox::warning(this, "No Image", "Please load an image first.");
+        return;
+    }
+    
+    // Show kernel size selection dialog
+    bool ok;
+    int kernelSize = QInputDialog::getInt(this, "Median Filter", 
+                                         "Kernel Size (odd number):",
+                                         5, 3, 21, 2, &ok);
+    
+    if (!ok) return;
+    
+    // Ensure odd kernel size
+    if (kernelSize % 2 == 0) kernelSize++;
+    
+    updateStatus("Applying median filter...", "info", 0);
+    
+    cv::Mat result;
+    ImageFilters::applyMedianFilter(originalImage, result, kernelSize);
+    
+    if (!result.empty()) {
+        processedImage = result.clone();
+        updateDisplay();
+        updateStatus("Median filter applied successfully", "success", 100);
+    } else {
+        updateStatus("Failed to apply median filter", "error", 0);
+    }
+}
+
+// In MainWindow createCentralWidget() - add button
+QPushButton *medianBtn = new QPushButton("Median Filter");
+connect(medianBtn, &QPushButton::clicked, this, &MainWindow::applyMedianFilter);
+advancedFiltersLayout->addWidget(medianBtn, 0, 1);
+
+=================================================================================
+RESOURCE REQUIREMENTS
+=================================================================================
+
+DISK SPACE:
+- Source code: ~50 MB
+- Compiled binaries: ~100-200 MB
+- Dependencies (Qt6, OpenCV): ~2-3 GB
+- Documentation: ~50-100 MB
+
+MEMORY REQUIREMENTS:
+- Base application: ~100 MB
+- Large image processing: 500 MB - 2 GB
+- Batch processing: 1-4 GB
+
+=================================================================================
+THIRD-PARTY LIBRARIES (C++ ONLY)
+=================================================================================
+
+REQUIRED LIBRARIES:
+- Qt6 (Widgets, GUI, Core) - Already integrated
+  * Qt6::Widgets - All UI components
+  * Qt6::Core - Core functionality
+  * Qt6::Gui - GUI support
+  * Installation: Download from qt.io or use package manager
+
+- OpenCV 4.x (core, imgproc, highgui, imgcodecs) - Already integrated
+  * opencv_core - Core functionality
+  * opencv_imgproc - Image processing
+  * opencv_highgui - High-level GUI (optional)
+  * opencv_imgcodecs - Image codecs
+  * Installation: vcpkg install opencv4:x64-windows
+
+OPTIONAL C++ LIBRARIES:
+- Tesseract OCR (C++ API) - For OCR functionality (Phase 8)
+  * Installation: vcpkg install tesseract:x64-windows
+  * Requires: leptonica library
+  * Installation: vcpkg install leptonica:x64-windows
+  * Trained data: Download tessdata files
+
+- OpenCV contrib modules (optional, for SIFT, SURF, etc.)
+  * Installation: vcpkg install opencv[contrib]:x64-windows
+  * Provides: SIFT, SURF, xfeatures2d
+
+- CUDA Toolkit (optional, for GPU acceleration)
+  * OpenCV with CUDA support
+  * Installation: vcpkg install opencv[cuda]:x64-windows
+  * Requires: NVIDIA GPU and CUDA toolkit
+
+- LibRaw (optional, for RAW image support)
+  * Installation: vcpkg install libraw:x64-windows
+  * C++ API for RAW image decoding
+
+BUILD TOOLS (C++ DEVELOPMENT):
+- CMake 3.16+ (build system generator)
+- Visual Studio 2019+ (Windows) with C++17 support
+- GCC 8+ (Linux) with C++17 support
+- Clang 7+ (macOS) with C++17 support
+- vcpkg (C++ package manager) - Recommended for dependencies
+- Qt Creator (optional, IDE for Qt development)
+
+VCPKG INSTALLATION COMMANDS (Windows):
+```powershell
+# Install vcpkg
+git clone https://github.com/Microsoft/vcpkg.git
+cd vcpkg
+.\bootstrap-vcpkg.bat
+
+# Install required packages
+.\vcpkg install qt6:x64-windows
+.\vcpkg install opencv4:x64-windows
+.\vcpkg install tesseract:x64-windows
+.\vcpkg install leptonica:x64-windows
+
+# Optional packages
+.\vcpkg install opencv[contrib]:x64-windows
+.\vcpkg install libraw:x64-windows
+
+# Integrate with CMake
+.\vcpkg integrate install
+```
+
+CMAKE INTEGRATION:
+```cmake
+# In CMakeLists.txt
+cmake_minimum_required(VERSION 3.16)
+project(ImageProcessorApp CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Find Qt6 (C++ framework)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Core Gui)
+
+# Find OpenCV (C++ library)
+find_package(OpenCV REQUIRED)
+
+# Find Tesseract (C++ OCR library, optional)
+find_package(Tesseract CONFIG)
+
+# Your source files
+add_executable(ImageProcessorApp
+    src/main.cpp
+    src/ui/MainWindow.cpp
+    # ... other C++ source files
+)
+
+# Link libraries (all C++)
+target_link_libraries(ImageProcessorApp PRIVATE
+    Qt6::Widgets
+    Qt6::Core
+    Qt6::Gui
+    opencv_world
+)
+
+# Optional: Link Tesseract if found
+if(Tesseract_FOUND)
+    target_link_libraries(ImageProcessorApp PRIVATE libtesseract)
+endif()
+```
+
+=================================================================================
+SUCCESS METRICS
+=================================================================================
+
+FUNCTIONALITY:
+✓ All 13 Labs fully implemented (including OCR)
+✓ 120+ image processing operations available
+✓ Professional UI with consistent theming (Qt6 widgets)
+✓ Comprehensive documentation
+✓ OCR with multi-language support (C++ Tesseract)
+
+PERFORMANCE (C++ optimized):
+✓ Operations complete in < 2 seconds for 5MP images
+✓ UI remains responsive during processing (Qt event loop)
+✓ Memory usage stays under 2 GB for typical operations
+✓ No memory leaks detected (C++ RAII, smart pointers)
+✓ Multi-threaded where appropriate (Qt QtConcurrent)
+
+QUALITY (C++ & Qt best practices):
+✓ Zero critical bugs
+✓ 90%+ test coverage (Qt Test framework)
+✓ Cross-platform compatibility (Windows, Linux, macOS with Qt)
+✓ User-friendly error messages (Qt QMessageBox)
+✓ Clean C++ code following best practices
+
+USER EXPERIENCE (Qt UI):
+✓ Intuitive workflow
+✓ Comprehensive tooltips and help (Qt What's This)
+✓ Undo/Redo working perfectly (Qt QUndoStack)
+✓ Professional output quality
+✓ Fast and responsive interface (Qt optimization)
+
+TECHNICAL COMPLIANCE:
+✓ All algorithms implemented in C++17
+✓ All UI components using Qt6 Widgets
+✓ No dependencies on external languages (Python, JS, etc.)
+✓ Proper CMake build system
+✓ Well-documented C++ API (Doxygen)
+
+=================================================================================
+END OF ENHANCEMENT PLAN
+=================================================================================
+
+This comprehensive plan provides a roadmap for transforming the Mexo Toolbox 
+from a solid foundation into a professional-grade image processing application 
+comparable to commercial software.
+
+IMPLEMENTATION REQUIREMENTS:
+- All algorithms and business logic: C++17
+- All user interface components: Qt6 (Widgets module)
+- Image processing operations: OpenCV C++ API
+- OCR functionality: Tesseract C++ API with Qt dialogs
+- No Python, JavaScript, or other languages
+- Pure C++/Qt implementation throughout
+
+Implement phases sequentially, starting with must-have features, and test 
+thoroughly at each stage. Maintain code quality and documentation throughout.
+
+All features are designed to work seamlessly within the existing C++/Qt 
+architecture of the Mexo Toolbox application.
+
+Good luck with the development!

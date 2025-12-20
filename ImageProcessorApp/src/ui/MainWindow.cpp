@@ -2,9 +2,12 @@
 #include "ImageCanvas.h"
 #include "TransformDialog.h"
 #include "HistogramWidget.h"
+#include "../dialogs/ColorAdjustDialog.h"
+#include "../processing/ColorProcessingLib.h"
 #include <QApplication>
 #include <QSplitter>
 #include <QScrollArea>
+#include <QInputDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), imageLoaded(false), recentlyProcessed(false) {
@@ -295,12 +298,53 @@ void MainWindow::createCentralWidget() {
     filtersLayout->addWidget(laplacianBtn, 2, 0);
     filtersLayout->addWidget(sobelBtn, 2, 1);
     
+    // Color Processing Group (Lab 8)
+    colorGroup = new QGroupBox("Lab 8: Color Processing");
+    QGridLayout *colorLayout = new QGridLayout(colorGroup);
+    
+    QPushButton *colorSpaceBtn = new QPushButton("Color Space");
+    QPushButton *splitChannelsBtn = new QPushButton("Split Channels");
+    QPushButton *adjustColorsBtn = new QPushButton("Adjust Colors");
+    QPushButton *whiteBalanceBtn = new QPushButton("White Balance");
+    QPushButton *sepiaBtn = new QPushButton("Sepia Effect");
+    QPushButton *coolFilterBtn = new QPushButton("Cool Filter");
+    QPushButton *warmFilterBtn = new QPushButton("Warm Filter");
+    QPushButton *vintageBtn = new QPushButton("Vintage Effect");
+    
+    addTooltip(colorSpaceBtn, "Convert to different color spaces (HSV, LAB, YCrCb)");
+    addTooltip(splitChannelsBtn, "Split and visualize RGB channels separately");
+    addTooltip(adjustColorsBtn, "Adjust brightness, contrast, saturation, and hue");
+    addTooltip(whiteBalanceBtn, "Automatic white balance correction");
+    addTooltip(sepiaBtn, "Apply sepia tone effect");
+    addTooltip(coolFilterBtn, "Apply cool color filter (blue tint)");
+    addTooltip(warmFilterBtn, "Apply warm color filter (orange tint)");
+    addTooltip(vintageBtn, "Apply vintage/retro color effect");
+    
+    connect(colorSpaceBtn, &QPushButton::clicked, this, &MainWindow::convertToColorSpace);
+    connect(splitChannelsBtn, &QPushButton::clicked, this, &MainWindow::splitRGBChannels);
+    connect(adjustColorsBtn, &QPushButton::clicked, this, &MainWindow::adjustColors);
+    connect(whiteBalanceBtn, &QPushButton::clicked, this, &MainWindow::applyWhiteBalance);
+    connect(sepiaBtn, &QPushButton::clicked, this, &MainWindow::applySepiaEffect);
+    connect(coolFilterBtn, &QPushButton::clicked, this, &MainWindow::applyCoolFilter);
+    connect(warmFilterBtn, &QPushButton::clicked, this, &MainWindow::applyWarmFilter);
+    connect(vintageBtn, &QPushButton::clicked, this, &MainWindow::applyVintageEffect);
+    
+    colorLayout->addWidget(colorSpaceBtn, 0, 0);
+    colorLayout->addWidget(splitChannelsBtn, 0, 1);
+    colorLayout->addWidget(adjustColorsBtn, 1, 0);
+    colorLayout->addWidget(whiteBalanceBtn, 1, 1);
+    colorLayout->addWidget(sepiaBtn, 2, 0);
+    colorLayout->addWidget(coolFilterBtn, 2, 1);
+    colorLayout->addWidget(warmFilterBtn, 3, 0);
+    colorLayout->addWidget(vintageBtn, 3, 1);
+    
     // Add groups to control layout
     controlLayout->addWidget(infoGroup);
     controlLayout->addWidget(transformGroup);
     controlLayout->addWidget(histogramGroup);
     controlLayout->addWidget(processingGroup);
     controlLayout->addWidget(filtersGroup);
+    controlLayout->addWidget(colorGroup);
     controlLayout->addStretch();
     
     // Add scroll area to splitter
@@ -1238,4 +1282,334 @@ void MainWindow::applySobelFilter() {
         "Kernels: 3x3 horizontal, vertical, and diagonal\n"
         "Effect: Detects directional edges\n"
         "Use case: Edge detection, gradient computation");
+}
+
+// =============================================================================
+// Lab 8: Color Space Operations & Channel Manipulation
+// =============================================================================
+
+void MainWindow::convertToColorSpace() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    if (currentImage.channels() != 3) {
+        QMessageBox::warning(this, "Warning", "Color space conversion requires a color image!");
+        return;
+    }
+    
+    // Let user select color space
+    QStringList colorSpaces;
+    colorSpaces << "HSV (Hue, Saturation, Value)" 
+                << "LAB (Perceptual color space)" 
+                << "YCrCb (Luminance, Chrominance)"
+                << "HSL (Hue, Saturation, Lightness)"
+                << "XYZ (CIE XYZ color space)";
+    
+    bool ok;
+    QString selection = QInputDialog::getItem(this, "Color Space Conversion",
+                                             "Select target color space:",
+                                             colorSpaces, 0, false, &ok);
+    
+    if (!ok || selection.isEmpty()) {
+        return;
+    }
+    
+    updateStatus("Converting color space...", "info", 50);
+    
+    ColorProcessingLib::ColorSpace targetSpace;
+    QString spaceName;
+    
+    if (selection.startsWith("HSV")) {
+        targetSpace = ColorProcessingLib::ColorSpace::HSV;
+        spaceName = "HSV";
+    } else if (selection.startsWith("LAB")) {
+        targetSpace = ColorProcessingLib::ColorSpace::LAB;
+        spaceName = "LAB";
+    } else if (selection.startsWith("YCrCb")) {
+        targetSpace = ColorProcessingLib::ColorSpace::YCrCb;
+        spaceName = "YCrCb";
+    } else if (selection.startsWith("HSL")) {
+        targetSpace = ColorProcessingLib::ColorSpace::HSL;
+        spaceName = "HSL";
+    } else if (selection.startsWith("XYZ")) {
+        targetSpace = ColorProcessingLib::ColorSpace::XYZ;
+        spaceName = "XYZ";
+    } else {
+        return;
+    }
+    
+    cv::Mat result;
+    if (ColorProcessingLib::convertColorSpace(currentImage, result, targetSpace)) {
+        processedImage = result;
+        recentlyProcessed = true;
+        updateDisplay();
+        updateStatus(QString("Converted to %1 color space").arg(spaceName), "success");
+        
+        QMessageBox::information(this, "Color Space Conversion",
+            QString("Image converted to %1 color space!\n\n"
+                   "The three channels now represent:\n%2")
+            .arg(spaceName)
+            .arg(selection.section(" (", 1).section(")", 0, 0)));
+    } else {
+        updateStatus("Color space conversion failed", "error");
+        QMessageBox::critical(this, "Error", "Failed to convert color space!");
+    }
+}
+
+void MainWindow::splitRGBChannels() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    if (currentImage.channels() != 3) {
+        QMessageBox::warning(this, "Warning", "Channel split requires a color image!");
+        return;
+    }
+    
+    // Let user select which channel to visualize
+    QStringList channels;
+    channels << "Blue Channel" << "Green Channel" << "Red Channel" << "All Channels (composite)";
+    
+    bool ok;
+    QString selection = QInputDialog::getItem(this, "Split RGB Channels",
+                                             "Select channel to visualize:",
+                                             channels, 3, false, &ok);
+    
+    if (!ok || selection.isEmpty()) {
+        return;
+    }
+    
+    updateStatus("Splitting RGB channels...", "info", 50);
+    
+    std::vector<cv::Mat> channelImages;
+    ColorProcessingLib::splitChannels(currentImage, channelImages);
+    
+    if (channelImages.size() != 3) {
+        QMessageBox::critical(this, "Error", "Failed to split channels!");
+        return;
+    }
+    
+    if (selection == "All Channels (composite)") {
+        // Create composite view showing all three channels
+        cv::Mat blue, green, red;
+        ColorProcessingLib::visualizeChannel(currentImage, blue, 0);
+        ColorProcessingLib::visualizeChannel(currentImage, green, 1);
+        ColorProcessingLib::visualizeChannel(currentImage, red, 2);
+        
+        // Resize to fit side by side
+        int newWidth = currentImage.cols / 3;
+        int newHeight = currentImage.rows;
+        
+        cv::Mat blueResized, greenResized, redResized;
+        cv::resize(blue, blueResized, cv::Size(newWidth, newHeight));
+        cv::resize(green, greenResized, cv::Size(newWidth, newHeight));
+        cv::resize(red, redResized, cv::Size(newWidth, newHeight));
+        
+        // Concatenate horizontally
+        cv::Mat composite;
+        cv::hconcat(blueResized, greenResized, composite);
+        cv::hconcat(composite, redResized, processedImage);
+        
+        recentlyProcessed = true;
+        updateDisplay();
+        updateStatus("RGB channels displayed (Blue | Green | Red)", "success");
+    } else {
+        // Visualize single channel
+        int channelIndex = selection.startsWith("Blue") ? 0 : 
+                          (selection.startsWith("Green") ? 1 : 2);
+        
+        ColorProcessingLib::visualizeChannel(currentImage, processedImage, channelIndex);
+        
+        recentlyProcessed = true;
+        updateDisplay();
+        updateStatus(QString("%1 visualized").arg(selection), "success");
+    }
+}
+
+void MainWindow::adjustColors() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    updateStatus("Opening color adjustment dialog...", "info", 0);
+    
+    // Create and show color adjustment dialog
+    ColorAdjustDialog dialog(currentImage, this);
+    
+    // Connect preview signal
+    connect(&dialog, &ColorAdjustDialog::previewRequested, 
+            [this](const cv::Mat& preview) {
+        processedImage = preview.clone();
+        updateDisplay();
+    });
+    
+    if (dialog.exec() == QDialog::Accepted) {
+        processedImage = dialog.getAdjustedImage();
+        recentlyProcessed = true;
+        updateDisplay();
+        
+        QString msg = QString("Colors adjusted (B:%1, C:%2, S:%3, H:%4)")
+                     .arg(dialog.getBrightness())
+                     .arg(dialog.getContrast(), 0, 'f', 2)
+                     .arg(dialog.getSaturation())
+                     .arg(dialog.getHue());
+        updateStatus(msg, "success");
+    } else {
+        // Restore original if cancelled
+        if (recentlyProcessed) {
+            updateDisplay();
+        }
+        updateStatus("Color adjustment cancelled", "info");
+    }
+}
+
+void MainWindow::applyWhiteBalance() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    if (currentImage.channels() != 3) {
+        QMessageBox::warning(this, "Warning", "White balance requires a color image!");
+        return;
+    }
+    
+    updateStatus("Applying white balance...", "info", 50);
+    
+    ColorProcessingLib::whiteBalance(currentImage, processedImage);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("White balance applied successfully", "success");
+    
+    QMessageBox::information(this, "White Balance",
+        "Automatic white balance correction applied!\n\n"
+        "Algorithm: Gray World assumption\n"
+        "Effect: Corrects color cast by normalizing average RGB values\n"
+        "Use case: Fix images with color temperature issues");
+}
+
+void MainWindow::applySepiaEffect() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    if (currentImage.channels() != 3) {
+        QMessageBox::warning(this, "Warning", "Sepia effect requires a color image!");
+        return;
+    }
+    
+    // Ask for intensity
+    bool ok;
+    int intensity = QInputDialog::getInt(this, "Sepia Effect",
+                                        "Effect intensity (0-100):",
+                                        80, 0, 100, 10, &ok);
+    
+    if (!ok) {
+        return;
+    }
+    
+    updateStatus("Applying sepia effect...", "info", 50);
+    
+    double intensityFactor = intensity / 100.0;
+    ColorProcessingLib::applySepiaEffect(currentImage, processedImage, intensityFactor);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus(QString("Sepia effect applied (intensity: %1%)").arg(intensity), "success");
+}
+
+void MainWindow::applyCoolFilter() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    if (currentImage.channels() != 3) {
+        QMessageBox::warning(this, "Warning", "Cool filter requires a color image!");
+        return;
+    }
+    
+    // Ask for intensity
+    bool ok;
+    int intensity = QInputDialog::getInt(this, "Cool Filter",
+                                        "Filter intensity (0-100):",
+                                        50, 0, 100, 10, &ok);
+    
+    if (!ok) {
+        return;
+    }
+    
+    updateStatus("Applying cool filter...", "info", 50);
+    
+    double intensityFactor = intensity / 100.0;
+    ColorProcessingLib::applyCoolFilter(currentImage, processedImage, intensityFactor);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus(QString("Cool filter applied (intensity: %1%)").arg(intensity), "success");
+}
+
+void MainWindow::applyWarmFilter() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    if (currentImage.channels() != 3) {
+        QMessageBox::warning(this, "Warning", "Warm filter requires a color image!");
+        return;
+    }
+    
+    // Ask for intensity
+    bool ok;
+    int intensity = QInputDialog::getInt(this, "Warm Filter",
+                                        "Filter intensity (0-100):",
+                                        50, 0, 100, 10, &ok);
+    
+    if (!ok) {
+        return;
+    }
+    
+    updateStatus("Applying warm filter...", "info", 50);
+    
+    double intensityFactor = intensity / 100.0;
+    ColorProcessingLib::applyWarmFilter(currentImage, processedImage, intensityFactor);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus(QString("Warm filter applied (intensity: %1%)").arg(intensity), "success");
+}
+
+void MainWindow::applyVintageEffect() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    if (currentImage.channels() != 3) {
+        QMessageBox::warning(this, "Warning", "Vintage effect requires a color image!");
+        return;
+    }
+    
+    updateStatus("Applying vintage effect...", "info", 50);
+    
+    ColorProcessingLib::applyVintageEffect(currentImage, processedImage);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("Vintage effect applied successfully", "success");
+    
+    QMessageBox::information(this, "Vintage Effect",
+        "Vintage/retro effect applied!\n\n"
+        "Includes:\n"
+        "- Sepia toning\n"
+        "- Reduced contrast\n"
+        "- Vignette effect\n"
+        "Use case: Create nostalgic, old-photo appearance");
 }

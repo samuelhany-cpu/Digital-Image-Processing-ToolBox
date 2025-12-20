@@ -1,39 +1,14 @@
 ﻿# Digital Image Processing Toolbox
 
-Professional desktop application for image processing with modern Qt6 GUI and OpenCV.
+A professional desktop image processing application with modern Qt6 GUI.
 
 ## Features
-
-- 7 Complete Processing Labs
-- Real-time Processing with Live Preview
-- Multi-level Undo Support
-- Intelligent Auto Enhancement
-- Interactive Histogram Visualization
-- Modern Dark Theme UI
-
-## Installation
-
-Prerequisites: C++17, Qt 6.7.3, OpenCV 4.3.0+, CMake 3.16+
-
-## Quick Build
-
-git clone https://github.com/samuelhany-cpu/Digital-Image-Processing-ToolBox.git
-cd Digital-Image-Processing-ToolBox/ImageProcessorApp
-mkdir build && cd build
-cmake ..
-cmake --build . --config Release
-
-## Usage
-
-1. Launch ImageProcessorApp.exe
-2. Load image (Ctrl+O)
-3. Apply operations from right panel
-4. Save result (Ctrl+S)
+- 7 Complete Labs
+- Real-time Processing
+- Undo Support
+- Auto Enhancement
 
 ## License
-
 MIT License
 
-## Author
-
-Samuel Hany - https://github.com/samuelhany-cpu
+Made by Samuel Hany

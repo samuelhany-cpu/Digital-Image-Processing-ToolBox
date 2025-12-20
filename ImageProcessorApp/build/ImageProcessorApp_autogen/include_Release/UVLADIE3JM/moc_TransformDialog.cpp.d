@@ -1,4 +1,4 @@
-C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/build/ImageProcessorApp_autogen/include_Release/UVLADIE3JM/moc_TransformDialog.cpp: C:/Users/Samuel/source/repos/Project1/ImageProcessorApp/src/TransformDialog.h \
+F:/Project1/ImageProcessorApp/build/ImageProcessorApp_autogen/include_Release/UVLADIE3JM/moc_TransformDialog.cpp: F:/Project1/ImageProcessorApp/src/TransformDialog.h \
   C:/Qt/6.7.3/msvc2019_64/include/QtCore/q20functional.h \
   C:/Qt/6.7.3/msvc2019_64/include/QtCore/q20memory.h \
   C:/Qt/6.7.3/msvc2019_64/include/QtCore/q20type_traits.h \

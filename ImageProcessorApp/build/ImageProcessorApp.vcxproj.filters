@@ -1,72 +1,108 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\build\ImageProcessorApp_autogen\mocs_compilation_Debug.cpp">
+    <ClCompile Include="F:\Project1\ImageProcessorApp\build\ImageProcessorApp_autogen\mocs_compilation_Debug.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\src\main.cpp">
+    <ClCompile Include="F:\Project1\ImageProcessorApp\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\src\MainWindow.cpp">
+    <ClCompile Include="F:\Project1\ImageProcessorApp\src\MainWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\src\ImageCanvas.cpp">
+    <ClCompile Include="F:\Project1\ImageProcessorApp\src\ImageCanvas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\src\TransformDialog.cpp">
+    <ClCompile Include="F:\Project1\ImageProcessorApp\src\HistogramWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\src\HistogramWidget.cpp">
+    <ClCompile Include="F:\Project1\ImageProcessorApp\src\TransformDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\build\ImageProcessorApp_autogen\3YJK5W5UP7\qrc_resources.cpp">
+    <ClCompile Include="F:\Project1\ImageProcessorApp\src\dialogs\ColorAdjustDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\build\ImageProcessorApp_autogen\mocs_compilation_Release.cpp">
+    <ClCompile Include="F:\Project1\ImageProcessorApp\src\filters\ImageFilters.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\build\ImageProcessorApp_autogen\mocs_compilation_MinSizeRel.cpp">
+    <ClCompile Include="F:\Project1\ImageProcessorApp\src\processing\ImageProcessingLib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\build\ImageProcessorApp_autogen\mocs_compilation_RelWithDebInfo.cpp">
+    <ClCompile Include="F:\Project1\ImageProcessorApp\src\processing\TransformationsLib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="F:\Project1\ImageProcessorApp\src\processing\ColorProcessingLib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="F:\Project1\ImageProcessorApp\src\utils\ImageUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="F:\Project1\ImageProcessorApp\build\ImageProcessorApp_autogen\3YJK5W5UP7\qrc_resources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="F:\Project1\ImageProcessorApp\build\ImageProcessorApp_autogen\mocs_compilation_Release.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="F:\Project1\ImageProcessorApp\build\ImageProcessorApp_autogen\mocs_compilation_MinSizeRel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="F:\Project1\ImageProcessorApp\build\ImageProcessorApp_autogen\mocs_compilation_RelWithDebInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\src\MainWindow.h">
+    <ClInclude Include="F:\Project1\ImageProcessorApp\src\MainWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\src\ImageCanvas.h">
+    <ClInclude Include="F:\Project1\ImageProcessorApp\src\ImageCanvas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\src\TransformDialog.h">
+    <ClInclude Include="F:\Project1\ImageProcessorApp\src\TransformDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\src\HistogramWidget.h">
+    <ClInclude Include="F:\Project1\ImageProcessorApp\src\HistogramWidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\include\ImageProcessor.h">
+    <ClInclude Include="F:\Project1\ImageProcessorApp\src\filters\ImageFilters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="F:\Project1\ImageProcessorApp\src\processing\ImageProcessingLib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="F:\Project1\ImageProcessorApp\src\processing\TransformationsLib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="F:\Project1\ImageProcessorApp\src\processing\ColorProcessingLib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="F:\Project1\ImageProcessorApp\src\dialogs\ColorAdjustDialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="F:\Project1\ImageProcessorApp\src\utils\ImageUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="F:\Project1\ImageProcessorApp\include\ImageProcessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\build\CMakeFiles\7d7c7cc14261c43b5c11d74ce3cfc4f0\qrc_resources.cpp.rule">
+    <CustomBuild Include="F:\Project1\ImageProcessorApp\build\CMakeFiles\bf5d86228399005d3fa56b3cee768f3e\qrc_resources.cpp.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
-    <CustomBuild Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\CMakeLists.txt" />
+    <CustomBuild Include="F:\Project1\ImageProcessorApp\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\Users\Samuel\source\repos\Project1\ImageProcessorApp\resources\resources.qrc" />
+    <None Include="F:\Project1\ImageProcessorApp\resources\resources.qrc" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
-      <UniqueIdentifier>{617FE2E1-9976-33A0-BA9B-1BFA4091B5B0}</UniqueIdentifier>
+      <UniqueIdentifier>{0B975FA8-1101-3778-8390-EF9122C7507C}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{8A9B356F-98ED-38D5-BE1A-0B6830B3DACF}</UniqueIdentifier>
+      <UniqueIdentifier>{2E67794D-EDD1-3103-BB71-F042159539B5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{194C5FE5-A25A-3C49-AF45-12ADDEFA9E0C}</UniqueIdentifier>
+      <UniqueIdentifier>{F9E6551F-ACF6-3685-B6EE-0AFE8D1FC5CD}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

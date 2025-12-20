@@ -3,3 +3,4 @@
 #include <UVLADIE3JM/moc_ImageCanvas.cpp>
 #include <UVLADIE3JM/moc_MainWindow.cpp>
 #include <UVLADIE3JM/moc_TransformDialog.cpp>
+#include <RGRURCYE3Z/moc_ColorAdjustDialog.cpp>
