@@ -24,6 +24,7 @@
 class ImageCanvas;
 class HistogramWidget;
 class ColorAdjustDialog;
+class FilterDialog;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -76,6 +77,23 @@ private slots:
     void applyLaplacianFilter();
     void applySobelFilter();
     
+    // Lab 7 - Phase 1: Advanced Filters & Noise
+    void addGaussianNoise();
+    void addSaltPepperNoise();
+    void addPoissonNoise();
+    void addSpeckleNoise();
+    void applyMedianFilter();
+    void applyBilateralFilter();
+    void applyNonLocalMeansFilter();
+    void applyMorphologicalOpening();
+    void applyMorphologicalClosing();
+    void applyMorphologicalGradient();
+    void applyTopHat();
+    void applyBlackHat();
+    void applyUnsharpMask();
+    void applyHighPassFilter();
+    void applyCustomSharpen();
+    
     // Lab 8: Color Space Operations
     void convertToColorSpace();
     void splitRGBChannels();
@@ -85,6 +103,25 @@ private slots:
     void applyCoolFilter();
     void applyWarmFilter();
     void applyVintageEffect();
+    
+    // Lab 9: Morphology & Segmentation (Phase 3)
+    void applyErosion();
+    void applyDilation();
+    void applyMorphOpening();
+    void applyMorphClosing();
+    void applyMorphGradient();
+    void applyTopHatTransform();
+    void applyBlackHatTransform();
+    void applyPrewittEdge();
+    void applyRobertsEdge();
+    void applyLoGEdge();
+    void applyDoGEdge();
+    void applyZeroCrossingEdge();
+    void applyAdaptiveThreshold();
+    void applyMultiLevelThreshold();
+    void applyWatershedSegmentation();
+    void applyGrabCutSegmentation();
+    void detectAndAnalyzeContours();
 
 private:
     void setupUI();
@@ -136,6 +173,7 @@ private:
     QGroupBox *processingGroup;
     QGroupBox *filtersGroup;
     QGroupBox *colorGroup;
+    QGroupBox *morphologyGroup;
     
     // Image data
     cv::Mat originalImage;

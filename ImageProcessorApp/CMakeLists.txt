@@ -52,6 +52,7 @@ set(WIDGETS_SOURCES
 set(DIALOGS_SOURCES
     src/TransformDialog.cpp
     src/dialogs/ColorAdjustDialog.cpp
+    src/dialogs/FilterDialog.cpp
 )
 
 set(FILTERS_SOURCES
@@ -62,6 +63,8 @@ set(PROCESSING_SOURCES
     src/processing/ImageProcessingLib.cpp
     src/processing/TransformationsLib.cpp
     src/processing/ColorProcessingLib.cpp
+    src/processing/MorphologyLib.cpp
+    src/processing/SegmentationLib.cpp
 )
 
 set(UTILS_SOURCES
@@ -78,7 +81,10 @@ set(HEADERS
     src/processing/ImageProcessingLib.h
     src/processing/TransformationsLib.h
     src/processing/ColorProcessingLib.h
+    src/processing/MorphologyLib.h
+    src/processing/SegmentationLib.h
     src/dialogs/ColorAdjustDialog.h
+    src/dialogs/FilterDialog.h
     src/utils/ImageUtils.h
     include/ImageProcessor.h
 )

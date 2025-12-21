@@ -22,6 +22,9 @@
     <ClCompile Include="F:\Project1\ImageProcessorApp\src\dialogs\ColorAdjustDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="F:\Project1\ImageProcessorApp\src\dialogs\FilterDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="F:\Project1\ImageProcessorApp\src\filters\ImageFilters.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -32,6 +35,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="F:\Project1\ImageProcessorApp\src\processing\ColorProcessingLib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="F:\Project1\ImageProcessorApp\src\processing\MorphologyLib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="F:\Project1\ImageProcessorApp\src\processing\SegmentationLib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="F:\Project1\ImageProcessorApp\src\utils\ImageUtils.cpp">
@@ -75,7 +84,16 @@
     <ClInclude Include="F:\Project1\ImageProcessorApp\src\processing\ColorProcessingLib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="F:\Project1\ImageProcessorApp\src\processing\MorphologyLib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="F:\Project1\ImageProcessorApp\src\processing\SegmentationLib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="F:\Project1\ImageProcessorApp\src\dialogs\ColorAdjustDialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="F:\Project1\ImageProcessorApp\src\dialogs\FilterDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="F:\Project1\ImageProcessorApp\src\utils\ImageUtils.h">

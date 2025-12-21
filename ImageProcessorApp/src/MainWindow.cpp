@@ -3,10 +3,13 @@
 #include "TransformDialog.h"
 #include "HistogramWidget.h"
 #include "dialogs/ColorAdjustDialog.h"
+#include "dialogs/FilterDialog.h"
 #include "filters/ImageFilters.h"
 #include "processing/ImageProcessingLib.h"
 #include "processing/TransformationsLib.h"
 #include "processing/ColorProcessingLib.h"
+#include "processing/MorphologyLib.h"
+#include "processing/SegmentationLib.h"
 #include "utils/ImageUtils.h"
 #include <QApplication>
 #include <QSplitter>
@@ -301,16 +304,20 @@ void MainWindow::createCentralWidget() {
     processingLayout->addWidget(edgeBtn, 1, 1);
     processingLayout->addWidget(invertBtn, 2, 0, 1, 2);
     
-    // Filters Group
-    filtersGroup = new QGroupBox("Lab 7: Custom Filters");
-    QGridLayout *filtersLayout = new QGridLayout(filtersGroup);
+    // Filters Group (Lab 7: Basic + Advanced Filters)
+    filtersGroup = new QGroupBox("Lab 7: Filters & Noise");
+    QVBoxLayout *filtersMainLayout = new QVBoxLayout(filtersGroup);
     
-    QPushButton *traditionalBtn = new QPushButton("Traditional Filter");
-    QPushButton *pyramidalBtn = new QPushButton("Pyramidal Filter");
-    QPushButton *circularBtn = new QPushButton("Circular Filter");
-    QPushButton *coneBtn = new QPushButton("Cone Filter");
-    QPushButton *laplacianBtn = new QPushButton("Laplacian Filter");
-    QPushButton *sobelBtn = new QPushButton("Sobel Filter");
+    // Basic Filters Subgroup
+    QGroupBox *basicFiltersGroup = new QGroupBox("Basic Filters");
+    QGridLayout *basicFiltersLayout = new QGridLayout(basicFiltersGroup);
+    
+    QPushButton *traditionalBtn = new QPushButton("Traditional");
+    QPushButton *pyramidalBtn = new QPushButton("Pyramidal");
+    QPushButton *circularBtn = new QPushButton("Circular");
+    QPushButton *coneBtn = new QPushButton("Cone");
+    QPushButton *laplacianBtn = new QPushButton("Laplacian");
+    QPushButton *sobelBtn = new QPushButton("Sobel");
     
     addTooltip(traditionalBtn, "Apply traditional averaging filter (mean filter)");
     addTooltip(pyramidalBtn, "Apply pyramidal weighted filter");
@@ -326,12 +333,114 @@ void MainWindow::createCentralWidget() {
     connect(laplacianBtn, &QPushButton::clicked, this, &MainWindow::applyLaplacianFilter);
     connect(sobelBtn, &QPushButton::clicked, this, &MainWindow::applySobelFilter);
     
-    filtersLayout->addWidget(traditionalBtn, 0, 0);
-    filtersLayout->addWidget(pyramidalBtn, 0, 1);
-    filtersLayout->addWidget(circularBtn, 1, 0);
-    filtersLayout->addWidget(coneBtn, 1, 1);
-    filtersLayout->addWidget(laplacianBtn, 2, 0);
-    filtersLayout->addWidget(sobelBtn, 2, 1);
+    basicFiltersLayout->addWidget(traditionalBtn, 0, 0);
+    basicFiltersLayout->addWidget(pyramidalBtn, 0, 1);
+    basicFiltersLayout->addWidget(circularBtn, 1, 0);
+    basicFiltersLayout->addWidget(coneBtn, 1, 1);
+    basicFiltersLayout->addWidget(laplacianBtn, 2, 0);
+    basicFiltersLayout->addWidget(sobelBtn, 2, 1);
+    
+    filtersMainLayout->addWidget(basicFiltersGroup);
+    
+    // Noise Addition Subgroup
+    QGroupBox *noiseGroup = new QGroupBox("Add Noise");
+    QGridLayout *noiseLayout = new QGridLayout(noiseGroup);
+    
+    QPushButton *gaussNoiseBtn = new QPushButton("Gaussian");
+    QPushButton *saltPepperBtn = new QPushButton("Salt & Pepper");
+    QPushButton *poissonBtn = new QPushButton("Poisson");
+    QPushButton *speckleBtn = new QPushButton("Speckle");
+    
+    addTooltip(gaussNoiseBtn, "Add Gaussian noise (normal distribution)");
+    addTooltip(saltPepperBtn, "Add salt & pepper noise (random black/white pixels)");
+    addTooltip(poissonBtn, "Add Poisson noise (shot noise)");
+    addTooltip(speckleBtn, "Add speckle noise (multiplicative)");
+    
+    connect(gaussNoiseBtn, &QPushButton::clicked, this, &MainWindow::addGaussianNoise);
+    connect(saltPepperBtn, &QPushButton::clicked, this, &MainWindow::addSaltPepperNoise);
+    connect(poissonBtn, &QPushButton::clicked, this, &MainWindow::addPoissonNoise);
+    connect(speckleBtn, &QPushButton::clicked, this, &MainWindow::addSpeckleNoise);
+    
+    noiseLayout->addWidget(gaussNoiseBtn, 0, 0);
+    noiseLayout->addWidget(saltPepperBtn, 0, 1);
+    noiseLayout->addWidget(poissonBtn, 1, 0);
+    noiseLayout->addWidget(speckleBtn, 1, 1);
+    
+    filtersMainLayout->addWidget(noiseGroup);
+    
+    // Denoising Subgroup
+    QGroupBox *denoisingGroup = new QGroupBox("Denoising");
+    QGridLayout *denoisingLayout = new QGridLayout(denoisingGroup);
+    
+    QPushButton *medianBtn = new QPushButton("Median");
+    QPushButton *bilateralBtn = new QPushButton("Bilateral");
+    QPushButton *nlmBtn = new QPushButton("NLM");
+    
+    addTooltip(medianBtn, "Median filter for removing salt & pepper noise");
+    addTooltip(bilateralBtn, "Bilateral filter - edge-preserving smoothing");
+    addTooltip(nlmBtn, "Non-Local Means denoising - advanced noise reduction");
+    
+    connect(medianBtn, &QPushButton::clicked, this, &MainWindow::applyMedianFilter);
+    connect(bilateralBtn, &QPushButton::clicked, this, &MainWindow::applyBilateralFilter);
+    connect(nlmBtn, &QPushButton::clicked, this, &MainWindow::applyNonLocalMeansFilter);
+    
+    denoisingLayout->addWidget(medianBtn, 0, 0);
+    denoisingLayout->addWidget(bilateralBtn, 0, 1);
+    denoisingLayout->addWidget(nlmBtn, 0, 2);
+    
+    filtersMainLayout->addWidget(denoisingGroup);
+    
+    // Morphological Subgroup
+    QGroupBox *morphGroup = new QGroupBox("Morphological");
+    QGridLayout *morphLayout = new QGridLayout(morphGroup);
+    
+    QPushButton *openingBtn = new QPushButton("Opening");
+    QPushButton *closingBtn = new QPushButton("Closing");
+    QPushButton *gradientBtn = new QPushButton("Gradient");
+    QPushButton *topHatBtn = new QPushButton("Top-Hat");
+    QPushButton *blackHatBtn = new QPushButton("Black-Hat");
+    
+    addTooltip(openingBtn, "Morphological opening - remove small objects");
+    addTooltip(closingBtn, "Morphological closing - fill small holes");
+    addTooltip(gradientBtn, "Morphological gradient - edge detection");
+    addTooltip(topHatBtn, "Top-hat transform - detect bright details");
+    addTooltip(blackHatBtn, "Black-hat transform - detect dark details");
+    
+    connect(openingBtn, &QPushButton::clicked, this, &MainWindow::applyMorphologicalOpening);
+    connect(closingBtn, &QPushButton::clicked, this, &MainWindow::applyMorphologicalClosing);
+    connect(gradientBtn, &QPushButton::clicked, this, &MainWindow::applyMorphologicalGradient);
+    connect(topHatBtn, &QPushButton::clicked, this, &MainWindow::applyTopHat);
+    connect(blackHatBtn, &QPushButton::clicked, this, &MainWindow::applyBlackHat);
+    
+    morphLayout->addWidget(openingBtn, 0, 0);
+    morphLayout->addWidget(closingBtn, 0, 1);
+    morphLayout->addWidget(gradientBtn, 1, 0);
+    morphLayout->addWidget(topHatBtn, 1, 1);
+    morphLayout->addWidget(blackHatBtn, 2, 0, 1, 2);
+    
+    filtersMainLayout->addWidget(morphGroup);
+    
+    // Sharpening Subgroup
+    QGroupBox *sharpenGroup = new QGroupBox("Sharpening");
+    QGridLayout *sharpenLayout = new QGridLayout(sharpenGroup);
+    
+    QPushButton *unsharpBtn = new QPushButton("Unsharp Mask");
+    QPushButton *highPassBtn = new QPushButton("High-Pass");
+    QPushButton *customSharpenBtn = new QPushButton("Custom");
+    
+    addTooltip(unsharpBtn, "Unsharp masking - enhance edges with blur subtraction");
+    addTooltip(highPassBtn, "High-pass filter - preserve high-frequency details");
+    addTooltip(customSharpenBtn, "Custom sharpening kernel");
+    
+    connect(unsharpBtn, &QPushButton::clicked, this, &MainWindow::applyUnsharpMask);
+    connect(highPassBtn, &QPushButton::clicked, this, &MainWindow::applyHighPassFilter);
+    connect(customSharpenBtn, &QPushButton::clicked, this, &MainWindow::applyCustomSharpen);
+    
+    sharpenLayout->addWidget(unsharpBtn, 0, 0);
+    sharpenLayout->addWidget(highPassBtn, 0, 1);
+    sharpenLayout->addWidget(customSharpenBtn, 0, 2);
+    
+    filtersMainLayout->addWidget(sharpenGroup);
     
     // Color Processing Group (Lab 8)
     colorGroup = new QGroupBox("Lab 8: Color Processing");
@@ -381,6 +490,110 @@ void MainWindow::createCentralWidget() {
     controlLayout->addWidget(processingGroup);
     controlLayout->addWidget(filtersGroup);
     controlLayout->addWidget(colorGroup);
+    
+    // Morphology & Segmentation Group (Lab 9 - Phase 3)
+    morphologyGroup = new QGroupBox("Lab 9: Morphology & Segmentation");
+    QVBoxLayout *morphMainLayout = new QVBoxLayout(morphologyGroup);
+    
+    // Basic Morphology Subgroup
+    QGroupBox *basicMorphGroup = new QGroupBox("Basic Morphology");
+    QGridLayout *basicMorphLayout = new QGridLayout(basicMorphGroup);
+    
+    QPushButton *erosionBtn = new QPushButton("Erosion");
+    QPushButton *dilationBtn = new QPushButton("Dilation");
+    QPushButton *openingBtn2 = new QPushButton("Opening");
+    QPushButton *closingBtn2 = new QPushButton("Closing");
+    QPushButton *gradientBtn2 = new QPushButton("Gradient");
+    QPushButton *topHat2Btn = new QPushButton("Top-Hat");
+    QPushButton *blackHat2Btn = new QPushButton("Black-Hat");
+    
+    addTooltip(erosionBtn, "Erode - shrink bright regions");
+    addTooltip(dilationBtn, "Dilate - expand bright regions");
+    addTooltip(openingBtn2, "Opening - remove small bright spots");
+    addTooltip(closingBtn2, "Closing - fill small dark holes");
+    addTooltip(gradientBtn2, "Morphological gradient - edge detection");
+    addTooltip(topHat2Btn, "Top-hat - detect bright spots on dark background");
+    addTooltip(blackHat2Btn, "Black-hat - detect dark spots on bright background");
+    
+    connect(erosionBtn, &QPushButton::clicked, this, &MainWindow::applyErosion);
+    connect(dilationBtn, &QPushButton::clicked, this, &MainWindow::applyDilation);
+    connect(openingBtn2, &QPushButton::clicked, this, &MainWindow::applyMorphOpening);
+    connect(closingBtn2, &QPushButton::clicked, this, &MainWindow::applyMorphClosing);
+    connect(gradientBtn2, &QPushButton::clicked, this, &MainWindow::applyMorphGradient);
+    connect(topHat2Btn, &QPushButton::clicked, this, &MainWindow::applyTopHatTransform);
+    connect(blackHat2Btn, &QPushButton::clicked, this, &MainWindow::applyBlackHatTransform);
+    
+    basicMorphLayout->addWidget(erosionBtn, 0, 0);
+    basicMorphLayout->addWidget(dilationBtn, 0, 1);
+    basicMorphLayout->addWidget(openingBtn2, 1, 0);
+    basicMorphLayout->addWidget(closingBtn2, 1, 1);
+    basicMorphLayout->addWidget(gradientBtn2, 2, 0);
+    basicMorphLayout->addWidget(topHat2Btn, 2, 1);
+    basicMorphLayout->addWidget(blackHat2Btn, 3, 0, 1, 2);
+    
+    morphMainLayout->addWidget(basicMorphGroup);
+    
+    // Edge Detection Subgroup
+    QGroupBox *edgeGroup = new QGroupBox("Edge Detection");
+    QGridLayout *edgeLayout = new QGridLayout(edgeGroup);
+    
+    QPushButton *prewittBtn = new QPushButton("Prewitt");
+    QPushButton *robertsBtn = new QPushButton("Roberts");
+    QPushButton *logBtn = new QPushButton("LoG");
+    QPushButton *dogBtn = new QPushButton("DoG");
+    QPushButton *zeroCrossBtn = new QPushButton("Zero-Crossing");
+    
+    addTooltip(prewittBtn, "Prewitt operator - edge detection");
+    addTooltip(robertsBtn, "Roberts Cross - edge detection");
+    addTooltip(logBtn, "Laplacian of Gaussian - edge detection");
+    addTooltip(dogBtn, "Difference of Gaussians - edge detection");
+    addTooltip(zeroCrossBtn, "Zero-crossing edge detection");
+    
+    connect(prewittBtn, &QPushButton::clicked, this, &MainWindow::applyPrewittEdge);
+    connect(robertsBtn, &QPushButton::clicked, this, &MainWindow::applyRobertsEdge);
+    connect(logBtn, &QPushButton::clicked, this, &MainWindow::applyLoGEdge);
+    connect(dogBtn, &QPushButton::clicked, this, &MainWindow::applyDoGEdge);
+    connect(zeroCrossBtn, &QPushButton::clicked, this, &MainWindow::applyZeroCrossingEdge);
+    
+    edgeLayout->addWidget(prewittBtn, 0, 0);
+    edgeLayout->addWidget(robertsBtn, 0, 1);
+    edgeLayout->addWidget(logBtn, 1, 0);
+    edgeLayout->addWidget(dogBtn, 1, 1);
+    edgeLayout->addWidget(zeroCrossBtn, 2, 0, 1, 2);
+    
+    morphMainLayout->addWidget(edgeGroup);
+    
+    // Segmentation Subgroup
+    QGroupBox *segmentGroup = new QGroupBox("Segmentation");
+    QGridLayout *segmentLayout = new QGridLayout(segmentGroup);
+    
+    QPushButton *adaptiveThreshBtn = new QPushButton("Adaptive Threshold");
+    QPushButton *multiLevelBtn = new QPushButton("Multi-Level");
+    QPushButton *watershedBtn = new QPushButton("Watershed");
+    QPushButton *grabCutBtn = new QPushButton("GrabCut");
+    QPushButton *contoursBtn = new QPushButton("Contours");
+    
+    addTooltip(adaptiveThreshBtn, "Adaptive thresholding - local threshold calculation");
+    addTooltip(multiLevelBtn, "Multi-level thresholding");
+    addTooltip(watershedBtn, "Watershed segmentation");
+    addTooltip(grabCutBtn, "GrabCut segmentation - foreground extraction");
+    addTooltip(contoursBtn, "Detect and analyze contours");
+    
+    connect(adaptiveThreshBtn, &QPushButton::clicked, this, &MainWindow::applyAdaptiveThreshold);
+    connect(multiLevelBtn, &QPushButton::clicked, this, &MainWindow::applyMultiLevelThreshold);
+    connect(watershedBtn, &QPushButton::clicked, this, &MainWindow::applyWatershedSegmentation);
+    connect(grabCutBtn, &QPushButton::clicked, this, &MainWindow::applyGrabCutSegmentation);
+    connect(contoursBtn, &QPushButton::clicked, this, &MainWindow::detectAndAnalyzeContours);
+    
+    segmentLayout->addWidget(adaptiveThreshBtn, 0, 0);
+    segmentLayout->addWidget(multiLevelBtn, 0, 1);
+    segmentLayout->addWidget(watershedBtn, 1, 0);
+    segmentLayout->addWidget(grabCutBtn, 1, 1);
+    segmentLayout->addWidget(contoursBtn, 2, 0, 1, 2);
+    
+    morphMainLayout->addWidget(segmentGroup);
+    
+    controlLayout->addWidget(morphologyGroup);
     controlLayout->addStretch();
     
     // Add scroll area to splitter
@@ -1518,6 +1731,321 @@ QString MainWindow::getQualityMetrics() {
 }
 
 // =============================================================================
+// Lab 7 - Phase 1: Advanced Filtering & Noise Handling
+// =============================================================================
+
+// Noise Addition Functions
+void MainWindow::addGaussianNoise() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    bool ok;
+    double mean = QInputDialog::getDouble(this, "Gaussian Noise", 
+                                          "Enter mean value:", 
+                                          0.0, -100.0, 100.0, 2, &ok);
+    if (!ok) return;
+    
+    double stddev = QInputDialog::getDouble(this, "Gaussian Noise", 
+                                            "Enter standard deviation:", 
+                                            25.0, 0.0, 100.0, 2, &ok);
+    if (!ok) return;
+    
+    saveProcessingState();
+    updateStatus("Adding Gaussian noise...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    ImageFilters::addGaussianNoise(sourceImage, processedImage, mean, stddev);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("Gaussian noise added", "success");
+}
+
+void MainWindow::addSaltPepperNoise() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    bool ok;
+    double density = QInputDialog::getDouble(this, "Salt & Pepper Noise", 
+                                             "Enter noise density (0-1):", 
+                                             0.05, 0.0, 1.0, 3, &ok);
+    if (!ok) return;
+    
+    saveProcessingState();
+    updateStatus("Adding salt & pepper noise...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    ImageFilters::addSaltPepperNoise(sourceImage, processedImage, density);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("Salt & pepper noise added", "success");
+}
+
+void MainWindow::addPoissonNoise() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    saveProcessingState();
+    updateStatus("Adding Poisson noise...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    ImageFilters::addPoissonNoise(sourceImage, processedImage);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("Poisson noise added", "success");
+    
+    QMessageBox::information(this, "Poisson Noise", 
+        "Poisson (shot) noise applied!\n\n"
+        "Characteristics:\n"
+        "- Signal-dependent noise\n"
+        "- Common in low-light photography\n"
+        "- Models photon counting statistics");
+}
+
+void MainWindow::addSpeckleNoise() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    bool ok;
+    double variance = QInputDialog::getDouble(this, "Speckle Noise", 
+                                              "Enter variance (0-1):", 
+                                              0.1, 0.0, 1.0, 3, &ok);
+    if (!ok) return;
+    
+    saveProcessingState();
+    updateStatus("Adding speckle noise...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    ImageFilters::addSpeckleNoise(sourceImage, processedImage, variance);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("Speckle noise added", "success");
+}
+
+// Advanced Denoising Functions
+void MainWindow::applyMedianFilter() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    saveProcessingState();
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    FilterDialog dialog(sourceImage, FilterDialog::MEDIAN, this);
+    
+    if (dialog.exec() == QDialog::Accepted) {
+        processedImage = dialog.getFilteredImage();
+        recentlyProcessed = true;
+        updateDisplay();
+        updateStatus("Median filter applied", "success");
+    }
+}
+
+void MainWindow::applyBilateralFilter() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    saveProcessingState();
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    FilterDialog dialog(sourceImage, FilterDialog::BILATERAL, this);
+    
+    if (dialog.exec() == QDialog::Accepted) {
+        processedImage = dialog.getFilteredImage();
+        recentlyProcessed = true;
+        updateDisplay();
+        updateStatus("Bilateral filter applied", "success");
+    }
+}
+
+void MainWindow::applyNonLocalMeansFilter() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    saveProcessingState();
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    FilterDialog dialog(sourceImage, FilterDialog::NON_LOCAL_MEANS, this);
+    
+    if (dialog.exec() == QDialog::Accepted) {
+        processedImage = dialog.getFilteredImage();
+        recentlyProcessed = true;
+        updateDisplay();
+        updateStatus("Non-Local Means denoising applied", "success");
+    }
+}
+
+// Morphological Operations
+void MainWindow::applyMorphologicalOpening() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    saveProcessingState();
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    FilterDialog dialog(sourceImage, FilterDialog::MORPHOLOGICAL_OPENING, this);
+    
+    if (dialog.exec() == QDialog::Accepted) {
+        processedImage = dialog.getFilteredImage();
+        recentlyProcessed = true;
+        updateDisplay();
+        updateStatus("Morphological opening applied", "success");
+    }
+}
+
+void MainWindow::applyMorphologicalClosing() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    saveProcessingState();
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    FilterDialog dialog(sourceImage, FilterDialog::MORPHOLOGICAL_CLOSING, this);
+    
+    if (dialog.exec() == QDialog::Accepted) {
+        processedImage = dialog.getFilteredImage();
+        recentlyProcessed = true;
+        updateDisplay();
+        updateStatus("Morphological closing applied", "success");
+    }
+}
+
+void MainWindow::applyMorphologicalGradient() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    saveProcessingState();
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    FilterDialog dialog(sourceImage, FilterDialog::MORPHOLOGICAL_GRADIENT, this);
+    
+    if (dialog.exec() == QDialog::Accepted) {
+        processedImage = dialog.getFilteredImage();
+        recentlyProcessed = true;
+        updateDisplay();
+        updateStatus("Morphological gradient applied", "success");
+    }
+}
+
+void MainWindow::applyTopHat() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    saveProcessingState();
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    FilterDialog dialog(sourceImage, FilterDialog::TOP_HAT, this);
+    
+    if (dialog.exec() == QDialog::Accepted) {
+        processedImage = dialog.getFilteredImage();
+        recentlyProcessed = true;
+        updateDisplay();
+        updateStatus("Top-hat transform applied", "success");
+    }
+}
+
+void MainWindow::applyBlackHat() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    saveProcessingState();
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    FilterDialog dialog(sourceImage, FilterDialog::BLACK_HAT, this);
+    
+    if (dialog.exec() == QDialog::Accepted) {
+        processedImage = dialog.getFilteredImage();
+        recentlyProcessed = true;
+        updateDisplay();
+        updateStatus("Black-hat transform applied", "success");
+    }
+}
+
+// Sharpening Functions
+void MainWindow::applyUnsharpMask() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    saveProcessingState();
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    FilterDialog dialog(sourceImage, FilterDialog::UNSHARP_MASK, this);
+    
+    if (dialog.exec() == QDialog::Accepted) {
+        processedImage = dialog.getFilteredImage();
+        recentlyProcessed = true;
+        updateDisplay();
+        updateStatus("Unsharp mask applied", "success");
+    }
+}
+
+void MainWindow::applyHighPassFilter() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    saveProcessingState();
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    FilterDialog dialog(sourceImage, FilterDialog::HIGH_PASS, this);
+    
+    if (dialog.exec() == QDialog::Accepted) {
+        processedImage = dialog.getFilteredImage();
+        recentlyProcessed = true;
+        updateDisplay();
+        updateStatus("High-pass filter applied", "success");
+    }
+}
+
+void MainWindow::applyCustomSharpen() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    saveProcessingState();
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    FilterDialog dialog(sourceImage, FilterDialog::CUSTOM_SHARPEN, this);
+    
+    if (dialog.exec() == QDialog::Accepted) {
+        processedImage = dialog.getFilteredImage();
+        recentlyProcessed = true;
+        updateDisplay();
+        updateStatus("Custom sharpening applied", "success");
+    }
+}
+
+// =============================================================================
 // Lab 8: Color Space Operations & Channel Manipulation
 // =============================================================================
 
@@ -1846,4 +2374,429 @@ void MainWindow::applyVintageEffect() {
         "- Reduced contrast\n"
         "- Vignette effect\n"
         "Use case: Create nostalgic, old-photo appearance");
+}
+
+// =============================================================================
+// Lab 9: Morphological Operations & Segmentation (Phase 3)
+// =============================================================================
+
+// Basic Morphological Operations
+void MainWindow::applyErosion() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    bool ok;
+    int kernelSize = QInputDialog::getInt(this, "Erosion", 
+                                          "Enter kernel size (odd number):",
+                                          5, 3, 21, 2, &ok);
+    if (!ok) return;
+    
+    saveProcessingState();
+    updateStatus("Applying erosion...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    MorphologyLib::applyErosion(sourceImage, processedImage, kernelSize);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("Erosion applied", "success");
+}
+
+void MainWindow::applyDilation() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    bool ok;
+    int kernelSize = QInputDialog::getInt(this, "Dilation", 
+                                          "Enter kernel size (odd number):",
+                                          5, 3, 21, 2, &ok);
+    if (!ok) return;
+    
+    saveProcessingState();
+    updateStatus("Applying dilation...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    MorphologyLib::applyDilation(sourceImage, processedImage, kernelSize);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("Dilation applied", "success");
+}
+
+void MainWindow::applyMorphOpening() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    bool ok;
+    int kernelSize = QInputDialog::getInt(this, "Opening", 
+                                          "Enter kernel size (odd number):",
+                                          5, 3, 21, 2, &ok);
+    if (!ok) return;
+    
+    saveProcessingState();
+    updateStatus("Applying morphological opening...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    MorphologyLib::applyOpening(sourceImage, processedImage, kernelSize);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("Opening applied - small bright spots removed", "success");
+}
+
+void MainWindow::applyMorphClosing() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    bool ok;
+    int kernelSize = QInputDialog::getInt(this, "Closing", 
+                                          "Enter kernel size (odd number):",
+                                          5, 3, 21, 2, &ok);
+    if (!ok) return;
+    
+    saveProcessingState();
+    updateStatus("Applying morphological closing...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    MorphologyLib::applyClosing(sourceImage, processedImage, kernelSize);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("Closing applied - small dark holes filled", "success");
+}
+
+void MainWindow::applyMorphGradient() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    bool ok;
+    int kernelSize = QInputDialog::getInt(this, "Morphological Gradient", 
+                                          "Enter kernel size (odd number):",
+                                          5, 3, 21, 2, &ok);
+    if (!ok) return;
+    
+    saveProcessingState();
+    updateStatus("Applying morphological gradient...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    MorphologyLib::applyMorphGradient(sourceImage, processedImage, kernelSize);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("Morphological gradient applied - edges detected", "success");
+}
+
+void MainWindow::applyTopHatTransform() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    bool ok;
+    int kernelSize = QInputDialog::getInt(this, "Top-Hat Transform", 
+                                          "Enter kernel size (odd number):",
+                                          9, 3, 21, 2, &ok);
+    if (!ok) return;
+    
+    saveProcessingState();
+    updateStatus("Applying top-hat transform...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    MorphologyLib::applyTopHatTransform(sourceImage, processedImage, kernelSize);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("Top-hat transform applied - bright spots detected", "success");
+}
+
+void MainWindow::applyBlackHatTransform() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    bool ok;
+    int kernelSize = QInputDialog::getInt(this, "Black-Hat Transform", 
+                                          "Enter kernel size (odd number):",
+                                          9, 3, 21, 2, &ok);
+    if (!ok) return;
+    
+    saveProcessingState();
+    updateStatus("Applying black-hat transform...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    MorphologyLib::applyBlackHatTransform(sourceImage, processedImage, kernelSize);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("Black-hat transform applied - dark spots detected", "success");
+}
+
+// Edge Detection Suite
+void MainWindow::applyPrewittEdge() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    saveProcessingState();
+    updateStatus("Applying Prewitt edge detection...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    MorphologyLib::applyPrewittOperator(sourceImage, processedImage);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("Prewitt edge detection applied", "success");
+}
+
+void MainWindow::applyRobertsEdge() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    saveProcessingState();
+    updateStatus("Applying Roberts Cross edge detection...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    MorphologyLib::applyRobertsCross(sourceImage, processedImage);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("Roberts Cross edge detection applied", "success");
+}
+
+void MainWindow::applyLoGEdge() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    saveProcessingState();
+    updateStatus("Applying Laplacian of Gaussian edge detection...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    MorphologyLib::applyLoG(sourceImage, processedImage, 5, 1.0);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("LoG edge detection applied", "success");
+}
+
+void MainWindow::applyDoGEdge() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    saveProcessingState();
+    updateStatus("Applying Difference of Gaussians edge detection...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    MorphologyLib::applyDoG(sourceImage, processedImage, 5, 1.0, 9, 2.0);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("DoG edge detection applied", "success");
+}
+
+void MainWindow::applyZeroCrossingEdge() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    saveProcessingState();
+    updateStatus("Applying zero-crossing edge detection...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    MorphologyLib::applyZeroCrossing(sourceImage, processedImage, 5);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("Zero-crossing edge detection applied", "success");
+}
+
+// Segmentation Algorithms
+void MainWindow::applyAdaptiveThreshold() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    bool ok;
+    int blockSize = QInputDialog::getInt(this, "Adaptive Threshold", 
+                                         "Enter block size (odd number):",
+                                         11, 3, 99, 2, &ok);
+    if (!ok) return;
+    
+    saveProcessingState();
+    updateStatus("Applying adaptive thresholding...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    SegmentationLib::applyAdaptiveThreshold(sourceImage, processedImage, 255, 
+                                           cv::ADAPTIVE_THRESH_GAUSSIAN_C, blockSize, 2);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("Adaptive thresholding applied", "success");
+}
+
+void MainWindow::applyMultiLevelThreshold() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    bool ok;
+    int levels = QInputDialog::getInt(this, "Multi-Level Threshold", 
+                                      "Enter number of levels:",
+                                      3, 2, 5, 1, &ok);
+    if (!ok) return;
+    
+    saveProcessingState();
+    updateStatus("Applying multi-level thresholding...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    SegmentationLib::applyMultiLevelThreshold(sourceImage, processedImage, levels);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus(QString("Multi-level thresholding applied (%1 levels)").arg(levels), "success");
+}
+
+void MainWindow::applyWatershedSegmentation() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    if (currentImage.channels() != 3) {
+        QMessageBox::warning(this, "Warning", "Watershed requires a color image!");
+        return;
+    }
+    
+    bool ok;
+    int threshold = QInputDialog::getInt(this, "Watershed Segmentation", 
+                                         "Enter distance threshold (0-100):",
+                                         50, 0, 100, 10, &ok);
+    if (!ok) return;
+    
+    saveProcessingState();
+    updateStatus("Applying watershed segmentation...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    SegmentationLib::applyWatershedAuto(sourceImage, processedImage, threshold / 100.0);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("Watershed segmentation applied", "success");
+}
+
+void MainWindow::applyGrabCutSegmentation() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    if (currentImage.channels() != 3) {
+        QMessageBox::warning(this, "Warning", "GrabCut requires a color image!");
+        return;
+    }
+    
+    QMessageBox::information(this, "GrabCut Segmentation",
+        "GrabCut will use a rectangle in the center covering 80% of the image.\n\n"
+        "For best results:\n"
+        "- Ensure the main object is centered\n"
+        "- Background should be visible on edges");
+    
+    saveProcessingState();
+    updateStatus("Applying GrabCut segmentation...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    
+    // Create rectangle covering center 80% of image
+    int w = sourceImage.cols;
+    int h = sourceImage.rows;
+    cv::Rect rect(w * 0.1, h * 0.1, w * 0.8, h * 0.8);
+    
+    SegmentationLib::applyGrabCut(sourceImage, processedImage, rect, 5);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus("GrabCut segmentation applied", "success");
+}
+
+void MainWindow::detectAndAnalyzeContours() {
+    if (!imageLoaded) {
+        QMessageBox::critical(this, "Error", "Please load an image first!");
+        return;
+    }
+    
+    saveProcessingState();
+    updateStatus("Detecting and analyzing contours...", "info", 50);
+    
+    cv::Mat sourceImage = processedImage.empty() ? currentImage : processedImage;
+    
+    // Convert to grayscale and threshold
+    cv::Mat gray, binary;
+    SegmentationLib::convertToGrayscale(sourceImage, gray);
+    cv::threshold(gray, binary, 0, 255, cv::THRESH_BINARY | cv::THRESH_OTSU);
+    
+    // Find contours
+    std::vector<std::vector<cv::Point>> contours;
+    std::vector<cv::Vec4i> hierarchy;
+    SegmentationLib::findAllContours(binary, contours, hierarchy);
+    
+    // Filter by area (remove very small contours)
+    std::vector<std::vector<cv::Point>> filteredContours;
+    SegmentationLib::filterContoursByArea(contours, filteredContours, 100);
+    
+    // Calculate properties
+    auto properties = SegmentationLib::calculateAllContourProperties(filteredContours);
+    
+    // Draw contours on result image
+    if (sourceImage.channels() == 1) {
+        cv::cvtColor(sourceImage, processedImage, cv::COLOR_GRAY2BGR);
+    } else {
+        processedImage = sourceImage.clone();
+    }
+    
+    SegmentationLib::drawContoursWithInfo(processedImage, filteredContours, 
+                                         cv::Scalar(0, 255, 0), 2, true, true);
+    
+    recentlyProcessed = true;
+    updateDisplay();
+    updateStatus(QString("Found %1 contours").arg(filteredContours.size()), "success");
+    
+    // Show contour statistics
+    if (!properties.empty()) {
+        QString stats = QString("Contour Analysis:\n\nTotal contours: %1\n\n").arg(properties.size());
+        
+        // Show stats for first few contours
+        int showCount = std::min(5, static_cast<int>(properties.size()));
+        for (int i = 0; i < showCount; ++i) {
+            stats += QString("Contour %1:\n").arg(i + 1);
+            stats += QString("  Area: %1\n").arg(properties[i].area, 0, 'f', 1);
+            stats += QString("  Perimeter: %1\n").arg(properties[i].perimeter, 0, 'f', 1);
+            stats += QString("  Circularity: %1\n\n").arg(properties[i].circularity, 0, 'f', 3);
+        }
+        
+        if (properties.size() > showCount) {
+            stats += QString("... and %1 more contours").arg(properties.size() - showCount);
+        }
+        
+        QMessageBox::information(this, "Contour Analysis", stats);
+    }
 }
